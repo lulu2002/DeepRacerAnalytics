@@ -1,0 +1,6 @@
+<div class="w-100">
+  <div class="d-flex justify-content-center flex-wrap">
+    <button *ngFor="let c of getLabels()" id="{{c}}" class="m-2" (click)="updateChart(c)">{{c}}</button>
+  </div>
+  <canvas id="chart" class="w-100"></canvas>
+</div>

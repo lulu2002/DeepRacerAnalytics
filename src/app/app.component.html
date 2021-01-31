@@ -5,7 +5,9 @@
       <p>請在此上傳車子 log 中的 csv 檔案:</p>
     </div>
     <div class="col-6">
-      <input type="file" accept=".csv">
+      <input type="file" accept=".csv" (change)="onFileChange($event)">
     </div>
+
+    <app-chart></app-chart>
   </div>
 </div>
