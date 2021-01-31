@@ -2,6 +2,7 @@ import {Component, Injectable} from '@angular/core';
 import {FileService} from '../service/file.service';
 import * as Chart from 'chart.js';
 import {ChartService} from '../service/chart.service';
+import {ChartType} from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -13,8 +14,14 @@ import {ChartService} from '../service/chart.service';
 })
 export class ChartComponent {
 
+  private showingChart: Chart;
+
   constructor(private fileService: FileService,
               private chartService: ChartService) {
+  }
+
+  public isDataExist(): boolean {
+    return this.fileService.getJson() != null;
   }
 
   public getLabels(): string[] {
@@ -25,9 +32,22 @@ export class ChartComponent {
     return [];
   }
 
-  public updateChart(label: string): void {
+  public updateChart(label: string, chartType: ChartType): void {
+    this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
-    const chart = new Chart(ctx, this.chartService.getLineChart(label));
+    this.showingChart = new Chart(ctx, this.chartService.getLineChart(label));
+  }
+
+  public updateXYChart(): void {
+    this.destroyToPreventJumpingChart();
+    const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
+    this.showingChart = new Chart(ctx, this.chartService.getXYChart());
+  }
+
+  private destroyToPreventJumpingChart(): void {
+    if (this.showingChart) {
+      this.showingChart.destroy();
+    }
   }
 
 }

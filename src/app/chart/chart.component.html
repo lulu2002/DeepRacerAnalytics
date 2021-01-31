@@ -1,6 +1,7 @@
 <div class="w-100">
-  <div class="d-flex justify-content-center flex-wrap">
-    <button *ngFor="let c of getLabels()" id="{{c}}" class="m-2" (click)="updateChart(c)">{{c}}</button>
+  <div class="d-flex justify-content-center flex-wrap" *ngIf="isDataExist()">
+    <button *ngFor="let c of getLabels()" id="{{c}}" class="m-2" (click)="updateChart(c,'line')">{{c}}</button>
+    <button class="m-2" (click)="updateXYChart()">XY</button>
   </div>
-  <canvas id="chart" class="w-100"></canvas>
+  <canvas id="chart" class="w-100" style="background: "></canvas>
 </div>
