@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,13 @@ export class FileService {
   private csvString: string;
   private json: string[];
 
-  constructor() {
+  constructor(private dataService: DataService) {
   }
 
   public updateFileContents(csvString: string): void {
     this.csvString = csvString;
     this.json = this.convertCsvToJson(csvString);
+    this.dataService.getAllData().forEach(data => data.handleData(this.json));
   }
 
   public getJson(): string[] {

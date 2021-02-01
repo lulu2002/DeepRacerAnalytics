@@ -17,7 +17,7 @@ export abstract class Chart {
       data: setsData,
       fill: false,
       borderWidth: 0.8,
-      borderColor: ' rgb(255, 145, 65)'
+      borderColor: 'rgb(255, 145, 65)'
     };
   }
 
