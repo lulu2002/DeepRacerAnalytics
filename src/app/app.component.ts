@@ -20,6 +20,7 @@ export class AppComponent {
 
     file.text().then(value => {
       this.fileService.updateFileContents(value);
+      this.chartComponent.updateXYChart();
     });
 
   }

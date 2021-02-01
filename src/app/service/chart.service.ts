@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FileService} from './file.service';
-import {ChartColor, ChartConfiguration, ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {Color} from 'ng2-charts';
+import {ChartConfiguration, ChartDataSets, ChartOptions} from 'chart.js';
 
 @Injectable({
   providedIn: 'root'

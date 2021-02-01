@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +27,10 @@ export class FileService {
 
     for (let i = 1; i < lines.length; i++) {
       const obj = {};
-      const currentline = lines[i].split(',');
+      const currentLine = lines[i].split(',');
 
       for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
+        obj[headers[j]] = currentLine[j];
       }
 
       result.push(obj);
