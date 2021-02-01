@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {ChartsModule} from 'ng2-charts';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ChartComponent} from './chart/chart.component';
+import {ChartComponent} from './component/chart/chart.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,11 @@
+<div class="w-100">
+  <div class="d-flex justify-content-center flex-wrap" *ngIf="getData()">
+    <button
+      *ngFor="let c of chartService.getCharts()"
+      class="m-2"
+      (click)="updateChart(c)">
+      {{c.label}}
+    </button>
+  </div>
+  <canvas id="chart"></canvas>
+</div>

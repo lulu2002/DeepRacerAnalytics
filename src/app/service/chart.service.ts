@@ -1,69 +1,48 @@
 import {Injectable} from '@angular/core';
 import {FileService} from './file.service';
-import {ChartConfiguration, ChartDataSets, ChartOptions} from 'chart.js';
+import {LineChart} from '../charts/line-chart';
+import {Chart} from '../charts/chart';
+import {XYChart} from '../charts/xychart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChartService {
+  private displayOptions: Chart[] = [];
 
   constructor(private fileService: FileService) {
+    this.addChart(new XYChart());
+
+    this.addLineCharts([
+      'steps',
+      'yaw',
+      'steer',
+      'throttle',
+      'action',
+      'reward',
+      'progress',
+    ]);
+
   }
 
-  public getLineChart(value: string): ChartConfiguration {
-
-    const json = this.fileService.getJson();
-
-    let count = 1;
-    const y = json.map(e => Number((e as any)[value]));
-    const x = y.map(e => count++);
-
-    return {
-      type: 'line',
-      data: {
-        labels: x,
-        datasets: [
-          this.getDataSets(value, y)
-        ]
-      },
-      options: this.getChartOptions()
-    };
+  public getCharts(): Chart[] {
+    return this.displayOptions;
   }
 
-  public getXYChart(): ChartConfiguration {
-    const json = this.fileService.getJson();
-
-    const xy = json.map(e => {
-      return {x: Number((e as any).X), y: Number((e as any).Y)};
-    });
-
-    return {
-      type: 'scatter',
-      data: {
-        datasets: [
-          this.getDataSets('XY', xy)
-        ]
-      }
-    };
+  public getChart(label: string): Chart {
+    const charts = this.displayOptions.filter(value => value.label === label);
+    if (charts.length <= 0) {
+      return null;
+    }
+    return charts[0];
   }
 
-  private getDataSets(setsLabel: any, setsData: any[]): ChartDataSets {
-    return {
-      label: setsLabel,
-      data: setsData,
-      fill: false,
-      borderWidth: 0.8,
-      borderColor: ' rgb(255, 145, 65)'
-    };
+  private addLineCharts(labels: string[]): void {
+    labels.forEach(value => this.addChart(new LineChart(value)));
   }
 
-  private getChartOptions(): ChartOptions {
-    return {
-      elements: {
-        point: {
-          radius: 0
-        }
-      }
-    };
+  private addChart(chart: Chart): void {
+    this.displayOptions.push(chart);
   }
+
 }

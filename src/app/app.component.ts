@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FileService} from './service/file.service';
-import {ChartComponent} from './chart/chart.component';
+import {ChartComponent} from './component/chart/chart.component';
+import {ChartService} from './service/chart.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   title = 'DeepRacerAnalytics';
 
   constructor(private fileService: FileService,
+              private chartService: ChartService,
               private chartComponent: ChartComponent) {
   }
 
@@ -20,7 +22,7 @@ export class AppComponent {
 
     file.text().then(value => {
       this.fileService.updateFileContents(value);
-      this.chartComponent.updateXYChart();
+      this.chartComponent.updateChart(this.chartService.getChart('XY'));
     });
 
   }
