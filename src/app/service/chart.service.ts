@@ -17,7 +17,6 @@ export class ChartService {
       'steps',
       'yaw',
       'steer',
-      'throttle',
       'action',
       'reward',
       'progress',
