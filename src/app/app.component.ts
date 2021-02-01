@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {FileService} from './service/file.service';
 import {ChartComponent} from './component/chart/chart.component';
 import {ChartService} from './service/chart.service';
