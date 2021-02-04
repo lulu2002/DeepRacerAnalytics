@@ -1,4 +1,5 @@
 import {Chart} from '../charts/chart';
+import {Step} from '../step';
 
 export class AnalyticData {
   public label: string;
@@ -11,7 +12,7 @@ export class AnalyticData {
     this.chart = chart;
   }
 
-  public handleData(json: string[]): string[] {
-    return json;
+  public handleData(steps: Step[]): Step[] {
+    return steps;
   }
 }

@@ -3,6 +3,7 @@ import {FileService} from '../../service/file.service';
 import * as ChartJsChart from 'chart.js';
 import {DataService} from '../../service/data.service';
 import {AnalyticData} from '../../objects/data/analytic-data';
+import {Step} from '../../objects/step';
 
 @Component({
   selector: 'app-chart',
@@ -20,8 +21,8 @@ export class ChartComponent {
               public chartService: DataService) {
   }
 
-  public getData(): string[] {
-    return this.fileService.getJson();
+  public getData(): Step[] {
+    return this.fileService.getSteps();
   }
 
   public updateChart(data: AnalyticData): void {
@@ -35,7 +36,6 @@ export class ChartComponent {
   private destroyToPreventJumpingChart(): void {
     if (this.showingChart) {
       this.showingChart.destroy();
-      console.log('destroyed');
     }
   }
 }

@@ -1,5 +1,6 @@
 import {Chart} from './chart';
 import {ChartConfiguration} from 'chart.js';
+import {Step} from '../step';
 
 export class LineChart extends Chart {
 
@@ -7,9 +8,9 @@ export class LineChart extends Chart {
     super(label, 'line');
   }
 
-  getChart(json: string[]): ChartConfiguration {
+  getChart(steps: Step[]): ChartConfiguration {
     let count = 1;
-    const y = json.map(e => Number((e as any)[this.label]));
+    const y = steps.map(e => e[this.label]);
     const x = y.map(e => count++);
 
     return {

@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'DeepRacerAnalytics';
 
   constructor(private fileService: FileService,
-              private chartService: DataService,
+              private dataService: DataService,
               private chartComponent: ChartComponent) {
   }
 
@@ -22,7 +22,7 @@ export class AppComponent {
 
     file.text().then(value => {
       this.fileService.updateFileContents(value);
-      this.chartComponent.updateChart(this.chartService.getData('XY'));
+      this.chartComponent.updateChart(this.dataService.getData('xy'));
     });
 
   }

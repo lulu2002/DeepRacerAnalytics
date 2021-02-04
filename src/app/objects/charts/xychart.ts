@@ -1,5 +1,6 @@
 import {ScatterChart} from './scatter-chart';
 import {ChartConfiguration} from 'chart.js';
+import {Step} from '../step';
 
 
 export class XYChart extends ScatterChart {
@@ -8,10 +9,8 @@ export class XYChart extends ScatterChart {
     super('XY');
   }
 
-  getChart(json: string[]): ChartConfiguration {
-    const xy = json.map(e => {
-      return {x: Number((e as any).X), y: Number((e as any).Y)};
-    });
+  getChart(steps: Step[]): ChartConfiguration {
+    const xy = steps.map(e => ({x: e.X, y: e.Y}));
 
     return {
       type: this.chartType,

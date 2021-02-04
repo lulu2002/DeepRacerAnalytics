@@ -1,4 +1,5 @@
 import {ChartConfiguration, ChartDataSets, ChartOptions, ChartType} from 'chart.js';
+import {Step} from '../step';
 
 export abstract class Chart {
   public label: string;
@@ -9,7 +10,7 @@ export abstract class Chart {
     this.chartType = chartType;
   }
 
-  public abstract getChart(json: string[]): ChartConfiguration;
+  public abstract getChart(steps: Step[]): ChartConfiguration;
 
   protected getDataSets(setsData: any[]): ChartDataSets {
     return {

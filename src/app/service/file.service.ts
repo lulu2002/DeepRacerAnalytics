@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DataService} from './data.service';
+import {Step} from '../objects/step';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,22 +9,22 @@ import {DataService} from './data.service';
 export class FileService {
 
   private csvString: string;
-  private json: string[];
+  private steps: Step[];
 
   constructor(private dataService: DataService) {
   }
 
   public updateFileContents(csvString: string): void {
     this.csvString = csvString;
-    this.json = this.convertCsvToJson(csvString);
-    this.dataService.getAllData().forEach(data => data.handleData(this.json));
+    this.steps = this.convertCsvToSteps(csvString);
+    this.dataService.getAllData().forEach(data => data.handleData(this.steps));
   }
 
-  public getJson(): string[] {
-    return this.json;
+  public getSteps(): Step[] {
+    return this.steps;
   }
 
-  private convertCsvToJson(csv: string): string[] {
+  private convertCsvToSteps(csv: string): Step[] {
     const lines = csv.split('\n');
     const result = [];
     const headers = lines[0].split(',');

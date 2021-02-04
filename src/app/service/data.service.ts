@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {FileService} from './file.service';
 import {AnalyticData} from '../objects/data/analytic-data';
 import {LineData} from '../objects/data/line-data';
 import {XyData} from '../objects/data/xy-data';
