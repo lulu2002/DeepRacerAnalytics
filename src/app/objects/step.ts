@@ -10,7 +10,8 @@ export interface Step {
   reward: number;
   done: boolean;
   all_wheels_on_track: boolean;
-  progress: 'prepare' | 'in_progress';
+  progress: number;
+  episode_status: 'prepare' | 'in_progress';
   closest_waypoint: number;
   track_len: number;
   tstamp: number;

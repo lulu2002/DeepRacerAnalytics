@@ -6,4 +6,5 @@ export class XyData extends AnalyticData {
   constructor(label: string, displayName: string) {
     super(label, displayName, new XYChart());
   }
+
 }
