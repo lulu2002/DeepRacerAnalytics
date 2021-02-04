@@ -12,10 +12,8 @@ export class DataService {
 
   constructor() {
     this.addData(new XyData('xy', 'XY 分析圖'));
-    this.addData(new LineData('steps', 'steps'));
     this.addData(new YawData('yaw', 'yaw'));
     this.addData(new LineData('steer', 'steer'));
-    this.addData(new LineData('action', 'action'));
     this.addData(new LineData('reward', 'reward'));
     this.addData(new LineData('progress', 'progress'));
   }
