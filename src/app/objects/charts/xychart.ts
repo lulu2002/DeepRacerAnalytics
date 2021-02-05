@@ -95,7 +95,6 @@ export class XYChart extends ScatterChart {
     sets.pointRadius = 0;
     sets.showLine = true;
     sets.borderWidth = 2;
-    sets.pointStyle = 'circle';
     sets.borderColor = 'rgb(142,144,144,0.25)';
     sets.pointBackgroundColor = 'rgb(142,144,144,0.25)';
 
