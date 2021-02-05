@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FileService} from './service/file.service';
 import {ChartComponent} from './component/chart/chart.component';
 import {DataService} from './service/data.service';
@@ -11,9 +11,10 @@ import {DataService} from './service/data.service';
 export class AppComponent {
   title = 'DeepRacerAnalytics';
 
+  @ViewChild('chartComponent') private cC: ChartComponent;
+
   constructor(private fileService: FileService,
-              private dataService: DataService,
-              private chartComponent: ChartComponent) {
+              private dataService: DataService) {
   }
 
   public onFileChange(e: Event): void {
@@ -22,7 +23,7 @@ export class AppComponent {
 
     file.text().then(value => {
       this.fileService.updateFileContents(value);
-      this.chartComponent.updateChart(this.dataService.getData('xy'));
+      this.cC.updateChart(this.dataService.getData('xy'));
     });
 
   }

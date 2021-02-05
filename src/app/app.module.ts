@@ -5,11 +5,13 @@ import {AppComponent} from './app.component';
 import {ChartsModule} from 'ng2-charts';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartComponent} from './component/chart/chart.component';
+import { RunComponent } from './objects/run/run.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
+    RunComponent
   ],
   imports: [
     BrowserModule,

@@ -1,27 +1,37 @@
 import {Injectable} from '@angular/core';
 import {DataService} from './data.service';
 import {Step} from '../objects/step';
-import {HttpClient} from '@angular/common/http';
 import {BestRun} from '../utils/best-run';
+import {Run} from '../objects/run';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
 
-  private steps: Step[];
+  private showingRun: Run;
+  private allRuns: Run[];
 
   constructor(private dataService: DataService) {
   }
 
   public updateFileContents(csvString: string): void {
-    const allRuns = this.convertCsvToSteps(csvString);
-    this.steps = BestRun.getBestRun(allRuns);
-    this.dataService.getAllData().forEach(data => data.handleData(this.steps));
+    const csv = this.convertCsvToSteps(csvString);
+    this.allRuns = BestRun.getRunsSorted(csv);
+    this.showingRun = this.allRuns[0];
+    this.dataService.getAllData().forEach(data => data.handleData(this.showingRun.getSteps()));
   }
 
-  public getSteps(): Step[] {
-    return this.steps;
+  public switchRun(run: Run): void {
+    this.showingRun = run;
+  }
+
+  public getShowingRun(): Run {
+    return this.showingRun;
+  }
+
+  public getAllRuns(): Run[] {
+    return this.allRuns;
   }
 
   private convertCsvToSteps(csv: string): Step[] {

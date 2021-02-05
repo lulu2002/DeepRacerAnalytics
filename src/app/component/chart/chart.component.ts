@@ -16,18 +16,20 @@ import {Step} from '../../objects/step';
 export class ChartComponent {
 
   private showingChart: ChartJsChart;
+  showingData: AnalyticData;
 
   constructor(private fileService: FileService,
-              public chartService: DataService) {
+              public dataService: DataService) {
   }
 
   public getData(): Step[] {
-    return this.fileService.getSteps();
+    return this.fileService.getShowingRun();
   }
 
   public updateChart(data: AnalyticData): void {
     const chart = data.chart;
 
+    this.showingData = data;
     this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
     this.showingChart = new ChartJsChart(ctx, chart.getChart(this.getData()));

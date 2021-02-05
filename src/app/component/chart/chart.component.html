@@ -1,11 +1,21 @@
 <div class="w-100">
   <div class="d-flex justify-content-center flex-wrap" *ngIf="getData()">
-    <button
-      *ngFor="let c of chartService.getAllData()"
-      class="m-3"
-      (click)="updateChart(c)">
-      {{c.displayName}}
-    </button>
+    <div>
+      <button
+        *ngFor="let c of dataService.getAllData()"
+        class="m-3"
+        (click)="updateChart(c)">
+        {{c.displayName}}
+      </button>
+    </div>
+    <div>
+      <button
+        *ngFor="let run of fileService.getAllRuns()"
+        class="m-3"
+        (click)="fileService.switchRun(run); updateChart(showingData)">
+        hi
+      </button>
+    </div>
   </div>
   <canvas id="chart"></canvas>
 </div>
