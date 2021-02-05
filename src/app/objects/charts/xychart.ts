@@ -24,6 +24,28 @@ export class XYChart extends ScatterChart {
       type: this.chartType,
       data: {
         datasets: this.getSets()
+      },
+      options: {
+        scales: {
+          xAxes: [
+            {
+              display: true,
+              ticks: {
+                suggestedMax: 8.0,
+                suggestedMin: 0.0
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                suggestedMax: 6.0,
+                suggestedMin: 0.0
+              }
+            }
+          ]
+        }
       }
     };
   }

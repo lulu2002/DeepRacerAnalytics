@@ -15,7 +15,7 @@ export class DataService {
     this.addData(new AnalyticData('xy', 'XY 分析圖', new XYChart()));
     this.addData(new YawData('yaw', 'yaw'));
     this.addData(new LineData('steer', 'steer'));
-    this.addData(new AnalyticData('reward', 'reward', new RewardChart('reward')));
+    this.addData(new LineData('reward', 'reward'));
     this.addData(new LineData('progress', 'progress'));
   }
 
