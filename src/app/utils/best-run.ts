@@ -6,7 +6,7 @@ export class BestRun {
   public static getRunsSorted(steps: Step[]): Run[] {
     const runs: Run[] = BestRun.splitRuns(steps);
 
-    runs.sort(a => -this.calcScore(a));
+    runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));
 
     return runs;
   }
@@ -15,11 +15,11 @@ export class BestRun {
     let sum = 0;
 
     const lastStep = run.getLastStep();
-    
+
     sum += lastStep.progress;
 
-    if (lastStep.done) {
-      sum += (lastStep.tstamp - run.getFirstStep().tstamp);
+    if (run.isDone()) {
+      sum += ((1 / run.getTimeCost()) * 100);
     }
 
     return sum;
