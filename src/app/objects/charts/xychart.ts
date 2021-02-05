@@ -93,7 +93,7 @@ export class XYChart extends ScatterChart {
     sets.pointStyle = 'circle';
     sets.pointBackgroundColor = color;
     sets.borderColor = color;
-    sets.label = key + ' [' + data.length + ']';
+    sets.label = parseFloat(key.toString()).toFixed(1) + ' [' + data.length + ']';
 
     return sets;
   }
