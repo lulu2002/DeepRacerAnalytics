@@ -16,7 +16,6 @@ export class DataService {
     this.addData(new YawData('yaw', 'yaw'));
     this.addData(new LineData('steer', 'steer'));
     this.addData(new LineData('reward', 'reward'));
-    this.addData(new LineData('progress', 'progress'));
   }
 
   public getAllData(): AnalyticData[] {
