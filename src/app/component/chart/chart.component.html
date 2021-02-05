@@ -1,26 +1,28 @@
-<div class="w-100">
-  <div class="d-flex flex-column align-items-center text-center" *ngIf="getData()">
-    <div class="my-2">
-      <p>顯示數據</p>
-      <button
-        *ngFor="let c of dataService.getAllData()"
-        class="mr-3"
-        (click)="updateChart(c)">
-        {{c.displayName}}
-      </button>
+<div class="w-100 p-5">
+  <div class="row px-5">
+    <div class="col-5" *ngIf="getData()">
+      <div class="my-2">
+        <p>顯示數據</p>
+        <button
+          *ngFor="let c of dataService.getAllData()"
+          class="mr-3"
+          (click)="updateChart(c)">
+          {{c.displayName}}
+        </button>
+      </div>
+      <div class="my-2">
+        <p>圈數</p>
+        <button
+          *ngFor="let run of fileService.getAllRuns()"
+          class="mr-3"
+          (click)="fileService.switchRun(run); updateChart(showingData)">
+          {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
+        </button>
+      </div>
     </div>
-  </div>
-  <canvas id="chart"></canvas>
 
-  <div class="d-flex flex-column align-items-center text-center" *ngIf="getData()">
-    <div class="my-2">
-      <p>圈數</p>
-      <button
-        *ngFor="let run of fileService.getAllRuns()"
-        class="mr-3"
-        (click)="fileService.switchRun(run); updateChart(showingData)">
-        {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
-      </button>
+    <div class="col-7">
+      <canvas id="chart"></canvas>
     </div>
   </div>
 </div>

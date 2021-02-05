@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AnalyticData} from '../objects/data/analytic-data';
 import {LineData} from '../objects/data/line-data';
-import {XyData} from '../objects/data/xy-data';
 import {YawData} from '../objects/data/yaw-data';
+import {XYChart} from '../objects/charts/xychart';
+import {RewardChart} from '../objects/charts/reward-chart';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class DataService {
   private allData: AnalyticData[] = [];
 
   constructor() {
-    this.addData(new XyData('xy', 'XY 分析圖'));
+    this.addData(new AnalyticData('xy', 'XY 分析圖', new XYChart()));
     this.addData(new YawData('yaw', 'yaw'));
     this.addData(new LineData('steer', 'steer'));
-    this.addData(new LineData('reward', 'reward'));
+    this.addData(new AnalyticData('reward', 'reward', new RewardChart('reward')));
     this.addData(new LineData('progress', 'progress'));
   }
 

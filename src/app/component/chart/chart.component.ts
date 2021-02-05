@@ -19,7 +19,7 @@ export class ChartComponent {
   private showingChart: ChartJsChart;
   showingData: AnalyticData;
 
-  constructor(private fileService: FileService,
+  constructor(public fileService: FileService,
               public dataService: DataService) {
   }
 
