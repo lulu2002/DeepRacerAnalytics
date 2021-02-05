@@ -3,7 +3,6 @@ import {FileService} from '../../service/file.service';
 import * as ChartJsChart from 'chart.js';
 import {DataService} from '../../service/data.service';
 import {AnalyticData} from '../../objects/data/analytic-data';
-import {Step} from '../../objects/step';
 import {Run} from '../../objects/run';
 
 @Component({
@@ -34,6 +33,7 @@ export class ChartComponent {
     this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
     this.showingChart = new ChartJsChart(ctx, chart.getChart(this.getData().getSteps()));
+    this.showingData.chart.afterChartDisplayed(this.showingChart);
   }
 
   // todo 在 hover 時還是會一直亂跳圖表，看網路上的資料好像是要完全移除 html element 重新創一個

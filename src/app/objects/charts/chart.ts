@@ -1,5 +1,6 @@
 import {ChartConfiguration, ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Step} from '../step';
+import * as ChartJsChart from 'chart.js';
 
 export abstract class Chart {
   public label: string;
@@ -11,6 +12,11 @@ export abstract class Chart {
   }
 
   public abstract getChart(steps: Step[]): ChartConfiguration;
+
+
+  public afterChartDisplayed(chart: ChartJsChart): void {
+
+  }
 
   protected getDataSets(setsData: any[]): ChartDataSets {
     return {

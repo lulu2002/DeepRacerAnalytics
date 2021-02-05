@@ -5,11 +5,18 @@ import {Coords} from '../coords';
 
 
 export class XYChart extends ScatterChart {
+  private static maxXTicks: number;
+  private static maxYTicks: number;
+
   private speedMaps: Map<number, Coords[]>;
 
 
   constructor() {
     super('XY');
+  }
+
+  afterChartDisplayed(chart: Chart): void {
+    chart.aspectRatio = XYChart.maxXTicks / XYChart.maxYTicks;
   }
 
   getChart(steps: Step[]): ChartConfiguration {
@@ -31,8 +38,12 @@ export class XYChart extends ScatterChart {
             {
               display: true,
               ticks: {
-                suggestedMax: 8.0,
-                suggestedMin: 0.0
+                beginAtZero: true,
+                stepSize: 0.5,
+                callback(value: number | string, index: number, values: number[]): string | number | null | undefined {
+                  XYChart.maxXTicks = values[values.length - 1];
+                  return value;
+                }
               }
             }
           ],
@@ -40,8 +51,12 @@ export class XYChart extends ScatterChart {
             {
               display: true,
               ticks: {
-                suggestedMax: 6.0,
-                suggestedMin: 0.0
+                beginAtZero: true,
+                stepSize: 0.5,
+                callback(value: number | string, index: number, values: number[]): string | number | null | undefined {
+                  XYChart.maxYTicks = values[0];
+                  return value;
+                }
               }
             }
           ]
