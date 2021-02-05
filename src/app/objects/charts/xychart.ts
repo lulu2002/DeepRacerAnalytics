@@ -2,6 +2,7 @@ import {ScatterChart} from './scatter-chart';
 import {ChartColor, ChartConfiguration} from 'chart.js';
 import {Step} from '../step';
 import {Coords} from '../coords';
+import {ReInvent2018} from '../tracks/re-invent2018';
 
 
 export class XYChart extends ScatterChart {
@@ -80,6 +81,23 @@ export class XYChart extends ScatterChart {
     this.speedMaps.forEach((value, key) => {
       sets.push(this.getCoordsDataSet(key));
     });
+
+    const track = new ReInvent2018();
+    sets.push(this.getTrackBorderSets(track.insideBorder));
+    sets.push(this.getTrackBorderSets(track.outsideBorder));
+
+    return sets;
+  }
+
+  protected getTrackBorderSets(coords: Coords[]): Chart.ChartDataSets {
+    const sets = super.getDataSets(coords);
+
+    sets.pointRadius = 0;
+    sets.showLine = true;
+    sets.borderWidth = 2;
+    sets.pointStyle = 'circle';
+    sets.borderColor = 'rgb(142,144,144,0.25)';
+    sets.pointBackgroundColor = 'rgb(142,144,144,0.25)';
 
     return sets;
   }
