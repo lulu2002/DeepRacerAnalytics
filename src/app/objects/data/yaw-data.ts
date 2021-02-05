@@ -16,6 +16,7 @@ export class YawData extends LineData {
       if (this.isOverflow(this.getYaw(data[i]), this.getYaw(data[i + 1]))) {
         const d = data[i + 1] as any;
         d.yaw = -Math.abs(d.yaw) + 360;
+        console.log(d.yaw);
       }
     }
 

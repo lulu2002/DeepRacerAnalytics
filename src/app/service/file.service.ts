@@ -16,10 +16,13 @@ export class FileService {
   }
 
   public updateFileContents(csvString: string): void {
-    const csv = this.convertCsvToSteps(csvString);
-    this.allRuns = BestRun.getRunsSorted(csv);
+    const allSteps: Step[] = this.convertCsvToSteps(csvString);
+    this.allRuns = BestRun.getRunsSorted(allSteps);
+
+    this.allRuns.forEach(run => {
+      this.dataService.getAllData().forEach(data => data.handleData(run.getSteps()));
+    });
     this.showingRun = this.allRuns[0];
-    this.dataService.getAllData().forEach(data => data.handleData(this.showingRun.getSteps()));
   }
 
   public switchRun(run: Run): void {

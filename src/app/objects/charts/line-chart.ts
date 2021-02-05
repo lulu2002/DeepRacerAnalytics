@@ -9,9 +9,8 @@ export class LineChart extends Chart {
   }
 
   getChart(steps: Step[]): ChartConfiguration {
-    let count = 1;
     const y = steps.map(e => e[this.label]);
-    const x = y.map(e => count++);
+    const x = steps.map(e => e.closest_waypoint);
 
     return {
       type: this.chartType,
