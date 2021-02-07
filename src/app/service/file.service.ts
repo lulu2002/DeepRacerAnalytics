@@ -4,6 +4,9 @@ import {Step} from '../objects/step';
 import {BestRun} from '../utils/best-run';
 import {Run} from '../objects/run';
 
+import * as pako from 'pako/index.js';
+import * as untar from 'js-untar';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +18,30 @@ export class FileService {
   constructor(private dataService: DataService) {
   }
 
-  public updateFileContents(csvString: string): void {
-    const allSteps: Step[] = this.convertCsvToSteps(csvString);
+  public dealWithTarFile(tarGzFile: File): Promise<void> {
+    return tarGzFile.arrayBuffer() // Download gzipped tar file and get ArrayBuffer
+      .then(pako.inflate)             // Decompress gzip using pako
+      .then(arr => (arr as Uint8Array).buffer)        // Get ArrayBuffer from the Uint8Array pako returns
+      .then(untar)
+      .then(value => value as unknown as any[])
+      .then(files => {
+        const allCsvFiles = this.getAllCsvFiles(files);
+        const steps: Step[] = [];
+        allCsvFiles.forEach(value => {
+          this.convertCsvToSteps(value.readAsString()).forEach(step => steps.push(step));
+        });
+        this.updateFileContents(steps);
+      });
+  }
+
+  public getAllCsvFiles(files: any[]): any[] {
+    return files.filter(value => {
+      const name: string = value.name;
+      return name.endsWith('iteration.csv');
+    });
+  }
+
+  public updateFileContents(allSteps: Step[]): void {
     this.allRuns = BestRun.getRunsSorted(allSteps);
 
     this.allRuns.forEach(run => {

@@ -3,7 +3,6 @@ import {AnalyticData} from '../objects/data/analytic-data';
 import {LineData} from '../objects/data/line-data';
 import {YawData} from '../objects/data/yaw-data';
 import {XYChart} from '../objects/charts/xychart';
-import {RewardChart} from '../objects/charts/reward-chart';
 
 @Injectable({
   providedIn: 'root'
