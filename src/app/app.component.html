@@ -2,10 +2,10 @@
   <h1 class="text-center">AWS DeepRacer 線上分析器</h1>
   <div class="row justify-content-start">
     <div class="col-6 my-auto text-right">
-      <p>請在此上傳車子 log 中的 csv 檔案:</p>
+      <p>請在此上傳車子的 tar.gz 或者 csv 檔案:</p>
     </div>
     <div class="col-6">
-      <input type="file" accept=".tar.gz" id="hello" (change)="onFileChange($event)">
+      <input type="file" accept=".tar.gz, .csv" id="hello" (change)="onFileChange($event)">
     </div>
   </div>
   <app-chart #chartComponent></app-chart>
