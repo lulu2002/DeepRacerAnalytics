@@ -1,29 +1,37 @@
-<div class="w-100 p-5">
+<div class="w-100 px-5 pt-4">
   <div class="row">
-    <div class="col-5" *ngIf="getData()">
-      <div class="my-2">
-        <p>顯示數據</p>
-        <button
-          *ngFor="let c of dataService.getAllData()"
-          class="mr-3"
-          (click)="updateChart(c)">
-          {{c.displayName}}
-        </button>
+    <div class="col-5">
+      <div *ngIf="getData()">
+        <div>
+          <p>顯示數據</p>
+          <button
+            *ngFor="let c of dataService.getAllData()"
+            class="mr-3"
+            (click)="updateChart(c)">
+            {{c.displayName}}
+          </button>
+        </div>
+        <div class="mt-3 w-100">
+          <p>圈數</p>
+          <div class="overflow-auto" style="max-height: 250px">
+            <button
+              *ngFor="let run of fileService.getAllRuns()"
+              class="mr-3 "
+              [ngStyle]="{'color': run.isDone() ? '':'darkgray'}"
+              (click)="fileService.switchRun(run); updateChart(showingData)">
+              {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="my-2">
-        <p>圈數</p>
-        <button
-          *ngFor="let run of fileService.getAllRuns()"
-          class="mr-3"
-          [ngStyle]="{'color': run.isDone() ? '':'darkgray'}"
-          (click)="fileService.switchRun(run); updateChart(showingData)">
-          {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
-        </button>
+
+      <div class="mt-3 overflow-auto" style="max-height: 200px">
+        <app-logs></app-logs>
       </div>
     </div>
 
-    <div class="col-7">
-      <canvas id="chart"></canvas>
+    <div class="col-7 h-100">
+      <canvas id="chart" class="my-auto"></canvas>
     </div>
   </div>
 </div>

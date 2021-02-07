@@ -4,8 +4,9 @@ import {Run} from '../objects/run';
 export class BestRun {
 
   public static getRunsSorted(steps: Step[]): Run[] {
-    const runs: Run[] = BestRun.splitRuns(steps);
+    let runs: Run[] = BestRun.splitRuns(steps);
 
+    runs = runs.filter(value => value.getLastStep().progress !== undefined);
     runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));
 
     return runs;

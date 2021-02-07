@@ -2,6 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {FileService} from './service/file.service';
 import {ChartComponent} from './component/chart/chart.component';
 import {DataService} from './service/data.service';
+import {LogService} from './service/log.service';
+import {FileUtils} from './utils/file-utils';
 
 
 @Component({
@@ -16,19 +18,44 @@ export class AppComponent {
   @ViewChild('chartComponent') private cC: ChartComponent;
 
   constructor(private fileService: FileService,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private logService: LogService) {
   }
 
   public onFileChange(e: Event): void {
     const uploader: HTMLInputElement = e.target as HTMLInputElement;
     const file = this.getFile(uploader);
-    this.fileService.dealWithTarFile(file).then(() => {
+
+    let promise: Promise<void>;
+    const name = file.name;
+
+    this.logService.log(`文件已上傳！檔名: ${name}`);
+    this.logService.log('文件載入中...');
+
+    this.checkFileSize(file);
+
+    if (name.endsWith('tar.gz')) {
+      promise = this.fileService.dealWithTarFile(file);
+    } else if (name.endsWith('csv')) {
+      promise = this.fileService.dealWithCszFile(file);
+    }
+
+    promise.then(() => {
       this.cC.updateChart(this.dataService.getData('xy'));
+      this.logService.log('文件載入完成！', '');
     });
+  }
+
+  private checkFileSize(file: File): void {
+    const mBs = FileUtils.getMBs(file);
+    if (mBs >= 10) {
+      this.logService.log(`文件大小為: ${mBs}MB，可能會需要花費較長的時間進行分析...`);
+    }
   }
 
   private getFile(uploader: HTMLInputElement): File {
     const files = uploader.files;
     return files[0];
   }
+
 }

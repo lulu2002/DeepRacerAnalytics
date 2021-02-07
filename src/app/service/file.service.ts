@@ -3,9 +3,8 @@ import {DataService} from './data.service';
 import {Step} from '../objects/step';
 import {BestRun} from '../utils/best-run';
 import {Run} from '../objects/run';
-
-import * as pako from 'pako/index.js';
-import * as untar from 'js-untar';
+import {GzExtract} from '../utils/gz-extract';
+import {LogService} from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,20 +17,22 @@ export class FileService {
   constructor(private dataService: DataService) {
   }
 
+  public dealWithCszFile(csvFile: File): Promise<void> {
+    return csvFile.text().then(value => {
+      const steps = this.convertCsvToSteps(value);
+      this.updateFileContents(steps);
+    });
+  }
+
   public dealWithTarFile(tarGzFile: File): Promise<void> {
-    return tarGzFile.arrayBuffer() // Download gzipped tar file and get ArrayBuffer
-      .then(pako.inflate)             // Decompress gzip using pako
-      .then(arr => (arr as Uint8Array).buffer)        // Get ArrayBuffer from the Uint8Array pako returns
-      .then(untar)
-      .then(value => value as unknown as any[])
-      .then(files => {
-        const allCsvFiles = this.getAllCsvFiles(files);
-        const steps: Step[] = [];
-        allCsvFiles.forEach(value => {
-          this.convertCsvToSteps(value.readAsString()).forEach(step => steps.push(step));
-        });
-        this.updateFileContents(steps);
+    return GzExtract.extract(tarGzFile).then(files => {
+      const allCsvFiles = this.getAllCsvFiles(files);
+      const steps: Step[] = [];
+      allCsvFiles.forEach(value => {
+        this.convertCsvToSteps(value.readAsString()).forEach(step => steps.push(step));
       });
+      this.updateFileContents(steps);
+    });
   }
 
   public getAllCsvFiles(files: any[]): any[] {
