@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileService} from './service/file.service';
 import {ChartComponent} from './component/chart/chart.component';
 import {DataService} from './service/data.service';
@@ -12,7 +12,7 @@ import {FileUtils} from './utils/file-utils';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'DeepRacerAnalytics';
 
   @ViewChild('chartComponent') private cC: ChartComponent;
@@ -20,6 +20,15 @@ export class AppComponent {
   constructor(private fileService: FileService,
               private dataService: DataService,
               private logService: LogService) {
+  }
+
+  ngOnInit(): void {
+    this.logService.log(
+      '日誌紀錄區',
+      '這裡會將你的一些動作記錄下來 (例如上傳文件、載入...等)',
+      '方便你查詢相關資料！',
+      ' '
+    );
   }
 
   public onFileChange(e: Event): void {
