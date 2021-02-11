@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.logService.log(
       '日誌紀錄區',
       '這裡會將你的一些動作記錄下來 (例如上傳文件、載入...等)',

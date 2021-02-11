@@ -4,7 +4,6 @@ import {Step} from '../objects/step';
 import {BestRun} from '../utils/best-run';
 import {Run} from '../objects/run';
 import {GzExtract} from '../utils/gz-extract';
-import {LogService} from './log.service';
 
 @Injectable({
   providedIn: 'root'

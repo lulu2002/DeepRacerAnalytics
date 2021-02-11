@@ -5,7 +5,7 @@
       <p>請在此上傳車子的 tar.gz 或者 csv 檔案:</p>
     </div>
     <div class="col-6">
-      <input type="file" accept=".tar.gz, .csv" id="hello" (change)="onFileChange($event)">
+      <input type="file" (change)="onFileChange($event)">
     </div>
   </div>
   <app-chart #chartComponent></app-chart>
