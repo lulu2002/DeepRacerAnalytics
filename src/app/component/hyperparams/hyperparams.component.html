@@ -1,6 +1,6 @@
 <div *ngIf="getParams()" class="row w-100 h-100">
 
-  <div class="col-6 h-100">
+  <div class="col-lg-6 h-100">
     <div class="p-2 gray-div">
       <p *ngFor="let paramName of getParamsName()">
         {{paramName}}: {{getParams()[paramName]}}
@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <div class="col-6 h-100">
+  <div class="col-lg-6 h-100">
     <div class="p-2 gray-div">
       <p>Speed:</p>
       <p class="ml-2">&#123; {{sortSpeeds().join(', ')}} &#125; m/s</p>
