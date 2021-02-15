@@ -83,6 +83,7 @@ export class XYChart extends ScatterChart {
     });
 
     const track = new ReInvent2018();
+
     sets.push(this.getTrackBorderSets(track.insideBorder));
     sets.push(this.getTrackBorderSets(track.outsideBorder));
 

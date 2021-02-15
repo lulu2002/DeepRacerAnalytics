@@ -13,7 +13,7 @@ import {ActionSpace} from '../objects/action-space';
 })
 export class FileService {
 
-  private showingRun: Run;
+  public showingRun: Run;
   private allRuns: Run[];
   private hyperParams: HyperParameters;
   private actionSpaces: ActionSpace[];
