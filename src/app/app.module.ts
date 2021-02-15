@@ -6,12 +6,14 @@ import {ChartsModule} from 'ng2-charts';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartComponent} from './component/chart/chart.component';
 import { LogsComponent } from './component/logs/logs.component';
+import { HyperparamsComponent } from './component/hyperparams/hyperparams.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
-    LogsComponent
+    LogsComponent,
+    HyperparamsComponent
   ],
   imports: [
     BrowserModule,

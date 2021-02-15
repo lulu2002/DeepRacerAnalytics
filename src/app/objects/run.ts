@@ -11,7 +11,6 @@ export class Run {
     return this.steps;
   }
 
-
   public getLastStep(): Step {
     return this.steps[this.steps.length - 1];
   }

@@ -16,13 +16,17 @@
           <div class="overflow-auto" style="max-height: 250px">
             <button
               *ngFor="let run of fileService.getAllRuns()"
-              class="mr-3 "
+              class="mr-3"
               [ngStyle]="{'color': run.isDone() ? '':'darkgray'}"
               (click)="fileService.switchRun(run); updateChart(showingData)">
               {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
             </button>
           </div>
         </div>
+      </div>
+
+      <div class="mt-3">
+        <app-hyperparams></app-hyperparams>
       </div>
 
       <div class="mt-3 overflow-auto" style="max-height: 200px">
