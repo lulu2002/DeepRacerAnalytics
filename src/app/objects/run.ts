@@ -8,7 +8,7 @@ export class Run {
   }
 
   public getSteps(): Step[] {
-    return this.steps;
+    return [].concat(this.steps);
   }
 
   public getLastStep(): Step {

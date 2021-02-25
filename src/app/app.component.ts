@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
     const uploader: HTMLInputElement = e.target as HTMLInputElement;
     const file = this.getFile(uploader);
 
-    let promise: Promise<void>;
     const name = file.name;
 
     this.logService.log(`文件已上傳！檔名: ${name}`);
@@ -44,11 +43,8 @@ export class AppComponent implements OnInit {
 
     this.checkFileSize(file);
 
-    if (name.endsWith('tar.gz')) {
-      promise = this.fileService.dealWithTarFile(file);
-    } else if (name.endsWith('csv')) {
-      promise = this.fileService.dealWithCszFile(file);
-    }
+
+    const promise = this.fileService.analysisFile(file);
 
     promise.then(() => {
       this.cC.updateChart(this.dataService.getData('xy'));
