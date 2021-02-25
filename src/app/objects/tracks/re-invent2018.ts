@@ -78,7 +78,8 @@ export class ReInvent2018 extends Track {
       [1.63223282, 1.08571869],
       [1.64459173, 1.07881414],
       [2.03991248, 0.9838196],
-      [2.74991242, 0.98403109]].map(value => new Coords(value[0], value[1]));
+      [2.74991242, 0.98403109],
+      [2.90990644, 0.98407875]].map(value => new Coords(value[0], value[1]));
   }
 
   protected registerOutsideBorders(): Coords[] {
@@ -151,6 +152,7 @@ export class ReInvent2018 extends Track {
       [1.31141414, 0.58408893],
       [1.35467117, 0.55991775],
       [2.0401285, 0.38194331],
-      [2.75012838, 0.38223947]].map(value => new Coords(value[0], value[1]));
+      [2.75012838, 0.38223947],
+      [2.91012001, 0.38230621]].map(value => new Coords(value[0], value[1]));
   }
 }
