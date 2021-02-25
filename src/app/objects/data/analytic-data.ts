@@ -15,4 +15,12 @@ export class AnalyticData {
   public handleData(steps: Step[]): Step[] {
     return steps;
   }
+
+  protected setChart(chart: Chart): void {
+    this.chart = chart;
+  }
+
+  protected getChart(): Chart {
+    return this.chart;
+  }
 }

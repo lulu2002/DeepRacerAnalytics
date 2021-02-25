@@ -1,6 +1,6 @@
 import {FileAnalysis} from '../file-analysis';
 import {RacerData} from '../racer-data';
-import {Converters} from '../coverters/converters';
+import {Converters} from '../../../utils/converters';
 
 export class CsvFileAnalysis implements FileAnalysis {
 

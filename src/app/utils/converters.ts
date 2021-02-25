@@ -1,6 +1,16 @@
-import {Step} from '../../step';
+import {Step} from '../objects/step';
 
 export class Converters {
+
+  public static convertBlobToFile(blob: Blob, fileName: string): File {
+
+    const file = blob as any;
+    file.name = fileName;
+    file.lastModifiedDate = new Date();
+
+    return file as File;
+  }
+
   public static convertCsvToSteps(csv: string): Step[] {
     const lines = csv.split('\n');
     const result = [];

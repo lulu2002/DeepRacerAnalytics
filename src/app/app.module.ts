@@ -5,8 +5,9 @@ import {AppComponent} from './app.component';
 import {ChartsModule} from 'ng2-charts';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartComponent} from './component/chart/chart.component';
-import { LogsComponent } from './component/logs/logs.component';
-import { HyperparamsComponent } from './component/hyperparams/hyperparams.component';
+import {LogsComponent} from './component/logs/logs.component';
+import {HyperparamsComponent} from './component/hyperparams/hyperparams.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HyperparamsComponent } from './component/hyperparams/hyperparams.compon
   imports: [
     BrowserModule,
     NgbModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

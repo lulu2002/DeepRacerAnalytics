@@ -1,5 +1,7 @@
 import {LineData} from './line-data';
 import {Step} from '../step';
+import {ChartBuilder} from '../charts/chart-builder';
+import {ChartFromOneDecorator} from '../charts/decorator/chart-from-one-decorator';
 
 export class YawData extends LineData {
 
@@ -7,6 +9,8 @@ export class YawData extends LineData {
 
   constructor(label: string, displayName: string) {
     super(label, displayName);
+
+    this.setChart(new ChartFromOneDecorator(this.getChart()));
   }
 
   handleData(steps: Step[]): Step[] {
