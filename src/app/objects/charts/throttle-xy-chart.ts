@@ -1,10 +1,10 @@
 import {DataBasedXyChart} from './dataBasedXyChart';
 import {Step} from '../step';
 
-export class RewardChart extends DataBasedXyChart {
+export class ThrottleXyChart extends DataBasedXyChart {
 
   constructor() {
-    super('Reward', null, 0.0);
+    super('XY', null, 1.0);
   }
 
   protected getStepValue(step: Step): number {
@@ -21,4 +21,7 @@ export class RewardChart extends DataBasedXyChart {
     return value;
   }
 
+  protected getColor(key: number): Chart.ChartColor {
+    return super.getColor(key);
+  }
 }
