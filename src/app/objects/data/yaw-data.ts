@@ -10,7 +10,7 @@ export class YawData extends LineData {
   constructor(label: string, displayName: string) {
     super(label, displayName);
 
-    this.setChart(new ChartFromOneDecorator(this.getChart()));
+    // this.setChart(new ChartFromOneDecorator(this.getChart()));
   }
 
   handleData(steps: Step[]): Step[] {

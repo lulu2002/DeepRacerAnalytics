@@ -32,7 +32,7 @@ export class ChartComponent {
     this.showingData = data;
     this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
-    this.showingChart = new ChartJsChart(ctx, chart.getChart(this.getData().getSteps()));
+    this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().getSteps())));
     this.showingData.chart.afterChartDisplayed(this.showingChart);
   }
 
