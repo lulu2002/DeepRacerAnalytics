@@ -29,8 +29,6 @@ export class TarGzFileAnalysis implements FileAnalysis {
   }
 
   private getHyperParamsFromFile(s: string): HyperParameters {
-    const toSearch = '\\{\\n  \\"batch_size\\"\\: .{0,}\\,\\n  \\"beta_entropy\\"\\: .{0,},\\n  \\"discount_factor\\"\\: .{0,}\\,\\n  \\"e_greedy_value\\"\\: .{0,},\\n  \\"epsilon_steps\\"\\: .{0,},\\n  \\"exploration_type\\"\\: .{0,}\\,\\n  \\"loss_type\\"\\: .{0,}\\,\\n  \\"lr\\"\\: .{0,}\\,\\n  \\"num_episodes_between_training\\"\\: .{0,}\\,\\n  \\"num_epochs\\"\\: .{0,}\\,\\n  \\"stack_size\\"\\: .{0,}\\,\\n  \\"term_cond_avg_score\\"\\: .{0,}\\,\\n  \\"term_cond_max_episodes\\"\\: .{0,}\\n\\}';
-
     const search = 'Using the following hyper\\-parameters\\n\\{[\\s\\S]*\\"term_cond_max_episodes\\"\\: .{0,}\\n\\}';
 
     const matchArray = s.match(search);

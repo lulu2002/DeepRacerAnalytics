@@ -6,6 +6,7 @@ import {ActionSpace} from '../objects/action-space';
 import {SimpleFileAnalysisFactory} from '../objects/fileanalysis/simple-file-analysis-factory';
 import {RacerData} from '../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
+import {LogService} from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,22 @@ export class FileService {
 
   showingRun: Run;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+              private logService: LogService) {
   }
 
   analysisFile(file: File): Promise<void> {
-    const fileAnalysis = this.fileAnalysisFactory.getFileAnalysis(file);
+    try {
+      const fileAnalysis = this.fileAnalysisFactory.getFileAnalysis(file);
+      const promise = fileAnalysis.analysis(file);
 
-    return fileAnalysis.analysis(file).then(racerData => {
-      this.racerData = racerData;
-      this.showingRun = this.getAllRuns()[0];
-    });
+      return promise.then(racerData => {
+        this.racerData = racerData;
+        this.showingRun = this.getAllRuns()[0];
+      });
+    } catch (e) {
+      this.logService.logError(e);
+    }
   }
 
   public getHyperParameters(): HyperParameters {

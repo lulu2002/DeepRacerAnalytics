@@ -12,6 +12,8 @@ export class SimpleFileAnalysisFactory {
     } else if (name.endsWith('.csv')) {
       return new CsvFileAnalysis();
     }
+
+    throw new Error('無效的檔案類型');
   }
 
 }
