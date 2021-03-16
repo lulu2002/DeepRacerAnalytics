@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "depoly": "ng build --prod=true --outputPath=docs --base-href \"DeepRacerAnalytics\" && cp dist/DeepRacerAnalytics/index.html dist/DeepRacerAnalytics/404.html"
+    "depoly": "ng build --prod --base-href \"DeepRacerAnalytics\" && npx angular-cli-ghpages --dir=dist/DeepRacerAnalytics"
   },
   "private": true,
   "dependencies": {
