@@ -18,8 +18,7 @@ export class FileService {
 
   showingRun: Run;
 
-  constructor(private dataService: DataService,
-              private logService: LogService) {
+  constructor(private logService: LogService) {
   }
 
   analysisFile(file: File): Promise<void> {
@@ -55,5 +54,9 @@ export class FileService {
 
   public getAllRuns(): Run[] {
     return this.racerData.runs;
+  }
+
+  public getAllRunsNoSort(): Run[] {
+    return this.racerData.runsNoSort;
   }
 }

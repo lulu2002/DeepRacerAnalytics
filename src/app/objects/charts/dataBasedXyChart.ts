@@ -3,6 +3,7 @@ import {Coords} from '../coords';
 import {BasicXyChart} from './basic-xy-chart';
 import {Step} from '../step';
 import * as d3 from 'd3';
+import {NumberFormats} from '../../utils/number-formats';
 
 
 export abstract class DataBasedXyChart extends BasicXyChart {
@@ -64,7 +65,7 @@ export abstract class DataBasedXyChart extends BasicXyChart {
     sets.pointStyle = 'circle';
     sets.pointBackgroundColor = color;
     sets.borderColor = color;
-    sets.label = parseFloat(key.toString()).toFixed(1) + ' [' + data.length + ']';
+    sets.label = NumberFormats.toDigs(key, 1) + ' [' + data.length + ']';
 
     return sets;
   }

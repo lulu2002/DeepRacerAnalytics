@@ -12,6 +12,14 @@ export class BestRun {
     return runs;
   }
 
+  public static sortRuns(runs: Run[]): Run[] {
+
+    runs = runs.filter(value => value.getLastStep().progress !== undefined);
+    runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));
+
+    return runs;
+  }
+
   private static calcScore(run: Run): number {
     let sum = 0;
 
@@ -26,7 +34,7 @@ export class BestRun {
     return sum;
   }
 
-  private static splitRuns(steps: Step[]): Run[] {
+  public static splitRuns(steps: Step[]): Run[] {
     const runs: Run[] = [];
     let temp: Step[] = [];
 

@@ -1,5 +1,6 @@
 import {DataBasedXyChart} from './dataBasedXyChart';
 import {Step} from '../step';
+import {NumberFormats} from '../../utils/number-formats';
 
 export class ThrottleXyChart extends DataBasedXyChart {
 
@@ -8,7 +9,7 @@ export class ThrottleXyChart extends DataBasedXyChart {
   }
 
   protected getStepValue(step: Step): number {
-    const value = parseFloat(parseFloat((step.throttle + '')).toFixed(1));
+    const value = NumberFormats.toDigs(step.throttle, 1);
 
     if (value > this.maxKeyValue) {
       this.maxKeyValue = value;

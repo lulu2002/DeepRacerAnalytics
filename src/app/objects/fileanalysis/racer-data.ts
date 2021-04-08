@@ -11,10 +11,12 @@ export class RacerData {
     this.hyperParams = hyperParams;
     this.actionSpaces = actionSpaces;
 
-    this.runs = BestRun.getRunsSorted(steps);
+    this.runsNoSort = BestRun.splitRuns(steps);
+    this.runs = BestRun.sortRuns(this.runsNoSort);
   }
 
   steps: Step[];
+  runsNoSort: Run[];
   runs: Run[];
   hyperParams: HyperParameters;
   actionSpaces: ActionSpace[];

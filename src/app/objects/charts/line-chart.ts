@@ -25,4 +25,8 @@ export abstract class LineChart extends Chart {
   protected abstract mapX(steps: Step[]): number[];
 
   protected abstract mapY(steps: Step[]): number[];
+
+  protected getChartOptions(): Chart.ChartOptions {
+    return super.getChartOptions();
+  }
 }
