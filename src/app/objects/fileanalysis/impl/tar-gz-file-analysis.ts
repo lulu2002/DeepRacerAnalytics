@@ -18,13 +18,14 @@ export class TarGzFileAnalysis implements FileAnalysis {
         Converters.convertCsvToSteps(value.readAsString()).forEach(step => steps.push(step));
       });
 
-      const trainingLogFile = this.getTrainingFile(files);
-      const trainingFileStr = trainingLogFile.readAsString();
+      const trainingLogFiles = this.getTrainingFiles(files);
+      const trainingFileStr = trainingLogFiles[0].readAsString();
 
       const hyperParams = this.getHyperParamsFromFile(trainingFileStr);
       const actionSpaces = this.getActionSpacesFromFile(trainingFileStr);
+      const track = this.getTrackNameFromFile(trainingLogFiles);
 
-      return new RacerData(steps, hyperParams, actionSpaces);
+      return new RacerData(steps, hyperParams, actionSpaces, track);
     });
   }
 
@@ -54,7 +55,23 @@ export class TarGzFileAnalysis implements FileAnalysis {
     });
   }
 
-  private getTrainingFile(files: UnZippedFile[]): UnZippedFile {
-    return files.find(value => value.name.endsWith('.log'));
+  private getTrainingFiles(files: UnZippedFile[]): UnZippedFile[] {
+    return files.filter(value => value.name.endsWith('.log'));
+  }
+
+  private getTrackNameFromFile(s: UnZippedFile[]): string {
+
+    let name = '';
+
+    for (const f of s) {
+      const matchArray = f.readAsString().match('WORLD_NAME: .{0,}');
+
+      if (matchArray != null) {
+        name = matchArray[0];
+        console.log(name);
+      }
+    }
+
+    return name.replace('WORLD_NAME: ', '');
   }
 }

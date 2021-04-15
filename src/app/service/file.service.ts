@@ -13,13 +13,14 @@ import {LogService} from './log.service';
 })
 export class FileService {
 
-  private fileAnalysisFactory = new SimpleFileAnalysisFactory();
-  private racerData: RacerData = new EmptyRacerData();
-
-  showingRun: Run;
-
   constructor(private logService: LogService) {
   }
+
+  public static racerData: RacerData = new EmptyRacerData();
+
+  private fileAnalysisFactory = new SimpleFileAnalysisFactory();
+
+  showingRun: Run;
 
   analysisFile(file: File): Promise<void> {
     try {
@@ -27,7 +28,7 @@ export class FileService {
       const promise = fileAnalysis.analysis(file);
 
       return promise.then(racerData => {
-        this.racerData = racerData;
+        FileService.racerData = racerData;
         this.showingRun = this.getAllRuns()[0];
       });
     } catch (e) {
@@ -36,11 +37,11 @@ export class FileService {
   }
 
   public getHyperParameters(): HyperParameters {
-    return this.racerData.hyperParams;
+    return FileService.racerData.hyperParams;
   }
 
   public getActionSpaces(): ActionSpace[] {
-    return this.racerData.actionSpaces;
+    return FileService.racerData.actionSpaces;
   }
 
 
@@ -53,10 +54,10 @@ export class FileService {
   }
 
   public getAllRuns(): Run[] {
-    return this.racerData.runs;
+    return FileService.racerData.runs;
   }
 
   public getAllRunsNoSort(): Run[] {
-    return this.racerData.runsNoSort;
+    return FileService.racerData.runsNoSort;
   }
 }

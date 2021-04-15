@@ -1,7 +1,8 @@
 import {ScatterChart} from './scatter-chart';
 import {Step} from '../step';
 import {Coords} from '../coords';
-import {ReInvent2018} from '../tracks/re-invent2018';
+import {FileService} from '../../service/file.service';
+import {TrackFactory} from '../tracks/track-factory';
 
 export class BasicXyChart extends ScatterChart {
   private static maxXTicks: number;
@@ -53,7 +54,7 @@ export class BasicXyChart extends ScatterChart {
   protected getSets(): Chart.ChartDataSets[] {
     const sets: Chart.ChartDataSets[] = [];
 
-    const track = new ReInvent2018();
+    const track = TrackFactory.findTrack(FileService.racerData.track);
 
     sets.push(this.getTrackBorderSets(track.insideBorder));
     sets.push(this.getTrackBorderSets(track.outsideBorder));
