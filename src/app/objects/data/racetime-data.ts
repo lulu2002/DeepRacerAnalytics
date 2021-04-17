@@ -9,6 +9,10 @@ export class RacetimeData extends AnalyticData {
   constructor(label: string, displayName: string, private fileService: FileService) {
     super(label, displayName, new RacetimeChart('rancetime', fileService));
   }
+
+  handleData(steps: Step[]): Step[] {
+    return steps.filter(value => FileService.getMetric(value.episode).phase === 'evaluation');
+  }
 }
 
 class RacetimeChart extends Chart {

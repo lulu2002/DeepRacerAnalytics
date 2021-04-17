@@ -7,13 +7,11 @@ import {FileUtils} from './utils/file-utils';
 import {ExampleFilesService} from './service/example-files.service';
 import {Converters} from './utils/converters';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent implements OnInit {
   title = 'DeepRacerAnalytics';
 

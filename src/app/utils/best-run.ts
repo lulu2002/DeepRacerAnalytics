@@ -1,5 +1,6 @@
 import {Step} from '../objects/step';
 import {Run} from '../objects/run';
+import {generalSort, RunSort} from '../objects/sorts/sorts';
 
 export class BestRun {
 
@@ -12,7 +13,7 @@ export class BestRun {
     return runs;
   }
 
-  public static sortRuns(runs: Run[]): Run[] {
+  public static sortRuns(runs: Run[], sortType: RunSort = generalSort): Run[] {
 
     runs = runs.filter(value => value.getLastStep().progress !== undefined);
     runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));

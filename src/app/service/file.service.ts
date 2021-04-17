@@ -7,6 +7,7 @@ import {SimpleFileAnalysisFactory} from '../objects/fileanalysis/simple-file-ana
 import {RacerData} from '../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
 import {LogService} from './log.service';
+import {Metric} from '../objects/metric';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,12 @@ export class FileService {
 
   private fileAnalysisFactory = new SimpleFileAnalysisFactory();
 
+
   showingRun: Run;
+
+  public static getMetric(index: number): Metric {
+    return this.racerData.metrics[index];
+  }
 
   analysisFile(file: File): Promise<void> {
     try {
@@ -55,6 +61,10 @@ export class FileService {
 
   public getAllRuns(): Run[] {
     return FileService.racerData.runs;
+  }
+
+  public getAllRunsIsEvaluation(): Run[] {
+    return this.getAllRuns().filter(value => FileService.getMetric(value.getFirstStep().episode).phase === 'evaluation');
   }
 
   public getAllRunsNoSort(): Run[] {

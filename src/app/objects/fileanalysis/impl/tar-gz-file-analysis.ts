@@ -6,6 +6,7 @@ import {HyperParameters} from '../../hyper-parameters';
 import {ActionSpace} from '../../action-space';
 import {UnZippedFile} from '../../../utils/un-zipped-file';
 import {Converters} from '../../../utils/converters';
+import {Metric} from '../../metric';
 
 export class TarGzFileAnalysis implements FileAnalysis {
 
@@ -20,12 +21,16 @@ export class TarGzFileAnalysis implements FileAnalysis {
 
       const trainingLogFiles = this.getTrainingFiles(files);
       const trainingFileStr = trainingLogFiles[0].readAsString();
+      const metricFile = files.find(value => value.name.endsWith('.json'));
 
       const hyperParams = this.getHyperParamsFromFile(trainingFileStr);
       const actionSpaces = this.getActionSpacesFromFile(trainingFileStr);
       const track = this.getTrackNameFromFile(trainingLogFiles);
+      const metrics = this.getMetrics(metricFile);
 
-      return new RacerData(steps, hyperParams, actionSpaces, track);
+      console.log(metrics);
+
+      return new RacerData(steps, hyperParams, actionSpaces, metrics, track);
     });
   }
 
@@ -73,5 +78,9 @@ export class TarGzFileAnalysis implements FileAnalysis {
     }
 
     return name.replace('WORLD_NAME: ', '');
+  }
+
+  private getMetrics(metricFile: UnZippedFile): Metric[] {
+    return JSON.parse(metricFile.readAsString()).metrics;
   }
 }
