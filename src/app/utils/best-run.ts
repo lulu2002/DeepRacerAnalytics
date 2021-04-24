@@ -1,38 +1,14 @@
 import {Step} from '../objects/step';
 import {Run} from '../objects/run';
-import {generalSort, RunSort} from '../objects/sorts/sorts';
+import {SortType} from '../objects/sorts/sort-type';
 
 export class BestRun {
-
-  public static getRunsSorted(steps: Step[]): Run[] {
-    let runs: Run[] = BestRun.splitRuns(steps);
+  public static sortRuns(runs: Run[], sortType: SortType): Run[] {
 
     runs = runs.filter(value => value.getLastStep().progress !== undefined);
-    runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));
+    runs = sortType.sort(runs);
 
     return runs;
-  }
-
-  public static sortRuns(runs: Run[], sortType: RunSort = generalSort): Run[] {
-
-    runs = runs.filter(value => value.getLastStep().progress !== undefined);
-    runs.sort((a, b) => this.calcScore(b) - this.calcScore(a));
-
-    return runs;
-  }
-
-  private static calcScore(run: Run): number {
-    let sum = 0;
-
-    const lastStep = run.getLastStep();
-
-    sum += lastStep.progress;
-
-    if (run.isDone()) {
-      sum += ((1 / run.getTimeCost()) * 100);
-    }
-
-    return sum;
   }
 
   public static splitRuns(steps: Step[]): Run[] {

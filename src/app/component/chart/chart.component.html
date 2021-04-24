@@ -16,7 +16,8 @@
         </div>
         <div class="mt-3 w-100">
           <p>圈數</p>
-
+          <button (click)="updateGeneralSort()">依照時間排序</button>
+          <button (click)="updateRewardSort()">依照 Reward 排序</button>
           <div class="overflow-auto" style="max-height: 250px">
             <button
               *ngFor="let run of fileService.getAllRunsIsEvaluation()"
@@ -26,7 +27,7 @@
               'background-color': (fileService.showingRun === run ? '#040e24' : '#255db0')
               }"
               (click)="fileService.switchRun(run); updateChart(showingData)">
-              {{run.getTimeCost().toFixed(2) + 's - ' + (run.isDone() ? '完成' : '未完成')}}
+              {{fileService.sortType.getButtonLabel(run)}}
             </button>
           </div>
         </div>

@@ -17,17 +17,31 @@ export class RacerData {
     this.hyperParams = hyperParams;
     this.actionSpaces = actionSpaces;
     this.track = track;
-    this.metrics = mertics;
 
-    this.runsNoSort = BestRun.splitRuns(steps);
-    this.runs = BestRun.sortRuns(this.runsNoSort);
+    this.allRuns = BestRun.splitRuns(steps);
+    this.metrics = groupBy(mertics);
   }
 
   steps: Step[];
-  runsNoSort: Run[];
-  metrics: Metric[];
-  runs: Run[];
+  allRuns: Run[];
+  metrics: Map<number, Metric[]>;
   hyperParams: HyperParameters;
   actionSpaces: ActionSpace[];
   track: string;
+
+}
+
+function groupBy(list: Metric[]): Map<number, Metric[]> {
+  const map: Map<number, Metric[]> = new Map<number, Metric[]>();
+  list.forEach((item) => {
+    const key = item.episode;
+    const collection = map.get(key);
+    if (!collection) {
+      map.set(key, [item]);
+    } else {
+      collection.push(item);
+    }
+  });
+
+  return map;
 }

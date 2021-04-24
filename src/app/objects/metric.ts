@@ -6,6 +6,6 @@ export interface Metric {
   episode: number;
   trial: number;
   phase: 'training' | 'evaluation';
-  completion_percentage: 7;
+  completion_percentage: number;
   episode_status: string;
 }

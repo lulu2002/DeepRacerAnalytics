@@ -4,6 +4,9 @@ import * as ChartJsChart from 'chart.js';
 import {DataService} from '../../service/data.service';
 import {AnalyticData} from '../../objects/data/analytic-data';
 import {Run} from '../../objects/run';
+import {GeneralSort, RewardSort} from '../../objects/sorts/sorts';
+import {SortType} from '../../objects/sorts/sort-type';
+import {BestRun} from '../../utils/best-run';
 
 @Component({
   selector: 'app-chart',
@@ -34,6 +37,19 @@ export class ChartComponent {
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
     this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().getSteps())));
     this.showingData.chart.afterChartDisplayed(this.showingChart);
+  }
+
+  updateSortType(sortType: SortType): void {
+    this.fileService.sortType = sortType;
+    this.fileService.runCache = BestRun.sortRuns(FileService.racerData.allRuns, sortType);
+  }
+
+  updateGeneralSort(): void {
+    this.updateSortType(new GeneralSort());
+  }
+
+  updateRewardSort(): void {
+    this.updateSortType(new RewardSort());
   }
 
   private destroyToPreventJumpingChart(): void {

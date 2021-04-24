@@ -11,7 +11,7 @@ export class RacetimeData extends AnalyticData {
   }
 
   handleData(steps: Step[]): Step[] {
-    return steps.filter(value => FileService.getMetric(value.episode).phase === 'evaluation');
+    return steps;
   }
 }
 

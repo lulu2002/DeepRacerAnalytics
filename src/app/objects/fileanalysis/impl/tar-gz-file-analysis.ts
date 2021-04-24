@@ -28,8 +28,6 @@ export class TarGzFileAnalysis implements FileAnalysis {
       const track = this.getTrackNameFromFile(trainingLogFiles);
       const metrics = this.getMetrics(metricFile);
 
-      console.log(metrics);
-
       return new RacerData(steps, hyperParams, actionSpaces, metrics, track);
     });
   }
@@ -73,7 +71,6 @@ export class TarGzFileAnalysis implements FileAnalysis {
 
       if (matchArray != null) {
         name = matchArray[0];
-        console.log(name);
       }
     }
 
