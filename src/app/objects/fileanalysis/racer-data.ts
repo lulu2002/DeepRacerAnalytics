@@ -32,9 +32,10 @@ export class RacerData {
 }
 
 function groupBy(list: Metric[]): Map<number, Metric[]> {
+
   const map: Map<number, Metric[]> = new Map<number, Metric[]>();
   list.forEach((item) => {
-    const key = item.episode;
+    const key = item.episode.valueOf();
     const collection = map.get(key);
     if (!collection) {
       map.set(key, [item]);

@@ -8,7 +8,7 @@ import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
 import {LogService} from './log.service';
 import {Metric} from '../objects/metric';
 import {BestRun} from '../utils/best-run';
-import {RunSort, SortType} from '../objects/sorts/sort-type';
+import {SortType} from '../objects/sorts/sort-type';
 import {GeneralSort} from '../objects/sorts/sorts';
 import {Step} from '../objects/step';
 
@@ -28,11 +28,14 @@ export class FileService {
   showingRun: Run;
   sortType: SortType = new GeneralSort();
 
-  public static getMetric(step: Step): Metric {
+  public static getMetrics(step: Step): Metric[] {
+    console.log(this.racerData.metrics);
+    const metrics = this.racerData.metrics.get(+step.episode + 1);
+    return metrics;
+  }
 
-    // 明明有些 length 為 8，怎麼輸出是 1
-    const metrics = this.racerData.metrics.get(+step.episode + +1);
-    console.log(metrics.length);
+  public static getMetric(step: Step): Metric {
+    const metrics = this.getMetrics(step);
     return metrics[metrics.length - 1];
   }
 
@@ -73,7 +76,9 @@ export class FileService {
   }
 
   public getAllRunsIsEvaluation(): Run[] {
-    return this.getRunsSorted().filter(value => FileService.getMetric(value.getFirstStep()).phase === 'evaluation');
+    return this.getRunsSorted().filter(value => {
+      return FileService.getMetrics(value.getFirstStep()).filter(value1 => value1.phase === 'evaluation').length >= 1;
+    });
   }
 
   public getAllRunsNoSort(): Run[] {

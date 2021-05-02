@@ -4,7 +4,6 @@ import {SortType} from '../objects/sorts/sort-type';
 
 export class BestRun {
   public static sortRuns(runs: Run[], sortType: SortType): Run[] {
-
     runs = runs.filter(value => value.getLastStep().progress !== undefined);
     runs = sortType.sort(runs);
 
