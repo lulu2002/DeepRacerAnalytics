@@ -5,6 +5,8 @@ import {Run} from '../run';
 import {BestRun} from '../../utils/best-run';
 import {Metric} from '../metric';
 
+type MetricsMap = Metric[][];
+
 export class RacerData {
 
   constructor(steps: Step[],
@@ -18,31 +20,41 @@ export class RacerData {
     this.actionSpaces = actionSpaces;
     this.track = track;
 
-    this.allRuns = BestRun.splitRuns(steps);
     this.metrics = groupBy(mertics);
+    this._allRuns = BestRun.splitRuns(steps, mertics);
   }
 
   steps: Step[];
-  allRuns: Run[];
-  metrics: Map<number, Metric[]>;
+  private readonly _allRuns: Run[];
+  metrics: MetricsMap;
   hyperParams: HyperParameters;
   actionSpaces: ActionSpace[];
   track: string;
 
+
+  get allRuns(): Run[] {
+    return [...this._allRuns];
+  }
 }
 
-function groupBy(list: Metric[]): Map<number, Metric[]> {
+function groupBy(list: Metric[]): MetricsMap {
+  const map: MetricsMap = [];
 
-  const map: Map<number, Metric[]> = new Map<number, Metric[]>();
+  // tslint:disable-next-line:prefer-for-of
+  for (let i = 0; i < list.length; i++) {
+    map.push([][0]);
+  }
+
   list.forEach((item) => {
-    const key = item.episode.valueOf();
-    const collection = map.get(key);
-    if (!collection) {
-      map.set(key, [item]);
-    } else {
-      collection.push(item);
+    const key = item.episode;
+    const coll = map[key];
+
+    if (coll == null) {
+      map[key] = [];
     }
+
+    map[key].push(item);
   });
 
-  return map;
+  return map.filter(value => value !== undefined);
 }

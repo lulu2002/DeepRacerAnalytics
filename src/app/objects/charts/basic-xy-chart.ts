@@ -1,17 +1,30 @@
 import {ScatterChart} from './scatter-chart';
 import {Step} from '../step';
 import {Coords} from '../coords';
-import {FileService} from '../../service/file.service';
 import {TrackFactory} from '../tracks/track-factory';
+import {fileAnalyseObserver} from '../observer/observers';
+import {RacerData} from '../fileanalysis/racer-data';
+import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
 
 export class BasicXyChart extends ScatterChart {
   private static maxXTicks: number;
   private static maxYTicks: number;
 
+  private racerData: RacerData = new EmptyRacerData();
+
+  constructor(label: string) {
+    super(label);
+
+    fileAnalyseObserver.subscribe(racerData => {
+      this.racerData = racerData;
+    });
+  }
+
   afterChartDisplayed(chart: Chart): void {
     chart.aspectRatio = BasicXyChart.maxXTicks / BasicXyChart.maxYTicks;
   }
 
+  // todo 使用 observer 或是 event system 來將 code 分開 (FIleAnylysiedEvent、ChatDisplayEVent...等)
   getChart(steps: Step[]): Chart.ChartConfiguration {
     return {
       type: this.chartType,
@@ -54,7 +67,7 @@ export class BasicXyChart extends ScatterChart {
   protected getSets(): Chart.ChartDataSets[] {
     const sets: Chart.ChartDataSets[] = [];
 
-    const track = TrackFactory.findTrack(FileService.racerData.track);
+    const track = TrackFactory.findTrack(this.racerData.track);
 
     sets.push(this.getTrackBorderSets(track.insideBorder));
     sets.push(this.getTrackBorderSets(track.outsideBorder));

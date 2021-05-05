@@ -1,6 +1,5 @@
 import {RunSort, SortType} from './sort-type';
 import {Run} from '../run';
-import {FileService} from '../../service/file.service';
 
 export class GeneralSort extends SortType {
   sortAlgorithm: RunSort = (a, b) => this.calcScore(b) - this.calcScore(a);
@@ -33,6 +32,15 @@ export class RewardSort extends SortType {
   }
 
   calcAllScore(run: Run): number {
-    return FileService.getMetric(run.getFirstStep()).reward_score;
+    return run.getMetric().reward_score;
   }
+}
+
+export class EpisodeSort extends SortType {
+  sortAlgorithm: RunSort = (a, b) => a.getLastStep().episode - b.getLastStep().episode;
+
+  getButtonLabel(run: Run): string {
+    return `第 ${run.getLastStep().episode} 次嘗試`;
+  }
+
 }

@@ -1,6 +1,6 @@
+import * as ChartJsChart from 'chart.js';
 import {ChartConfiguration, ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Step} from '../step';
-import * as ChartJsChart from 'chart.js';
 
 export abstract class Chart {
   public label: string;

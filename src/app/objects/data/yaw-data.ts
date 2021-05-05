@@ -1,7 +1,5 @@
 import {LineData} from './line-data';
 import {Step} from '../step';
-import {ChartBuilder} from '../charts/chart-builder';
-import {ChartFromOneDecorator} from '../charts/decorator/chart-from-one-decorator';
 
 export class YawData extends LineData {
 

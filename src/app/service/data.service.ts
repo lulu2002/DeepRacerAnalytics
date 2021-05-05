@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {AnalyticData} from '../objects/data/analytic-data';
 import {LineData} from '../objects/data/line-data';
 import {YawData} from '../objects/data/yaw-data';
-import {DataBasedXyChart} from '../objects/charts/dataBasedXyChart';
 import {RewardChart} from '../objects/charts/reward-chart';
 import {ThrottleXyChart} from '../objects/charts/throttle-xy-chart';
 import {RacetimeData} from '../objects/data/racetime-data';
-import {FileService} from './file.service';
+import {AnalysisService} from './analysis.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class DataService {
   private allData: AnalyticData[] = [];
 
 
-  constructor(private fileService: FileService) {
+  constructor(private fileService: AnalysisService) {
     this.addData(new AnalyticData('xy', 'XY 分析圖', new ThrottleXyChart()));
     this.addData(new YawData('yaw', 'yaw'));
     this.addData(new LineData('steer', 'steer'));

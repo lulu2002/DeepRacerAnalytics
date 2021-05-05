@@ -1,10 +1,17 @@
 import {Step} from './step';
+import {Metric} from './metric';
 
 export class Run {
   private readonly steps: Step[];
+  private metric: Metric;
 
-  constructor(steps: Step[]) {
+  constructor(steps: Step[], metric: Metric) {
     this.steps = steps;
+    this.metric = metric;
+  }
+
+  public getMetric(): Metric {
+    return this.metric;
   }
 
   public getSteps(): Step[] {

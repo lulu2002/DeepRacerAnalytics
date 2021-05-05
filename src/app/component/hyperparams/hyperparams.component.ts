@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FileService} from '../../service/file.service';
+import {AnalysisService} from '../../service/analysis.service';
 import {HyperParameters} from '../../objects/hyper-parameters';
 
 @Component({
@@ -9,7 +9,7 @@ import {HyperParameters} from '../../objects/hyper-parameters';
 })
 export class HyperparamsComponent implements OnInit {
 
-  constructor(public fileService: FileService) {
+  constructor(public fileService: AnalysisService) {
   }
 
   ngOnInit(): void {

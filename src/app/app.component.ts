@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FileService} from './service/file.service';
+import {AnalysisService} from './service/analysis.service';
 import {ChartComponent} from './component/chart/chart.component';
 import {DataService} from './service/data.service';
 import {LogService} from './service/log.service';
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('chartComponent') private cC: ChartComponent;
 
-  constructor(private fileService: FileService,
+  constructor(private fileService: AnalysisService,
               private dataService: DataService,
               private logService: LogService,
               public exampleFilesService: ExampleFilesService) {

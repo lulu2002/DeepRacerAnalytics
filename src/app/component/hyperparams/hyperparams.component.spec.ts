@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HyperparamsComponent } from './hyperparams.component';
+import {HyperparamsComponent} from './hyperparams.component';
 
 describe('HyperparamsComponent', () => {
   let component: HyperparamsComponent;
