@@ -5,7 +5,7 @@
         <div>
           <p>顯示數據</p>
           <button
-            *ngFor="let data of dataService.getAllData()"
+            *ngFor="let data of getAllData()"
             class="mr-3"
             [ngStyle]="{
             'background-color': data == showingData ? '#040e24' : '#255db0'
@@ -15,25 +15,27 @@
           </button>
         </div>
         <div class="mt-3 w-100">
-          <p>圈數</p>
+          <p>排序方式</p>
           <div class="mb-2">
             <button class="mr-3" (click)="updateGeneralSort()">依照時間排序</button>
             <button class="mr-3" (click)="updateRewardSort()">依照 Reward 排序</button>
             <button class="mr-3" (click)="updateEpisodeSort()">依照 Episode 排序</button>
           </div>
+          <p>檢視工具</p>
           <div class="mb-4">
-            <button class="mr-3" (click)="toggleOnlyShowFromStartFilter()">只顯示從頭開始跑的圈數</button>
+            <button class="mr-3" (click)="toggleFromStartFilter()">只顯示從頭開始跑的圈數</button>
           </div>
+          <p>圈數</p>
           <div class="overflow-auto" style="max-height: 250px">
             <button
-              *ngFor="let run of getRunsSorted()"
+              *ngFor="let run of displayService.runsCache"
               class="mr-3"
               [ngStyle]="{
               'color': run.isDone() ? '':'darkgray',
-              'background-color': (fileService.showingRun === run ? '#040e24' : '#255db0')
+              'background-color': (displayService.showingRun === run ? '#040e24' : '#255db0')
               }"
-              (click)="fileService.switchRun(run); updateChart(showingData)">
-              {{fileService.sortType.getButtonLabel(run)}}
+              (click)="switchRun(run)">
+              {{displayService.sortType.getButtonLabel(run)}}
             </button>
           </div>
         </div>

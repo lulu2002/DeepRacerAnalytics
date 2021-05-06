@@ -6,12 +6,16 @@ import {LogService} from './service/log.service';
 import {FileUtils} from './utils/file-utils';
 import {ExampleFilesService} from './service/example-files.service';
 import {Converters} from './utils/converters';
+import {fileAnalyseObserver} from './objects/observer/observers';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+/***todo
+ *   Async 分析，在分析的過程，其他 component 顯示 loading animation
+ */
 export class AppComponent implements OnInit {
   title = 'DeepRacerAnalytics';
 
@@ -55,8 +59,9 @@ export class AppComponent implements OnInit {
 
     const promise = this.fileService.analysisFile(file);
 
-    promise.then(() => {
-      this.cC.updateChart(this.dataService.getData('xy'));
+    promise.then((racerData) => {
+      this.logService.log('更新面板中...');
+      fileAnalyseObserver.next(racerData);
       this.logService.log('文件載入完成！', '');
     });
   }

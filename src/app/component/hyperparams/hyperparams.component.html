@@ -11,9 +11,17 @@
   <div class="col-lg-6 h-100">
     <div class="p-2 gray-div">
       <p>Speed:</p>
-      <p class="ml-2">&#123; {{sortSpeeds().join(', ')}} &#125; m/s</p>
+      <p class="ml-2">&#123; {{speeds.join(', ')}} &#125; m/s</p>
       <p>Steering angle:</p>
-      <p class="ml-2">&#123; {{sortSteerAngles().join(', ')}} &#125; °</p>
+      <p class="ml-2">&#123; {{steerAngles.join(', ')}} &#125; °</p>
+    </div>
+
+    <div class="p-2 gray-div mt-4">
+      <p>平均完成百分率:</p>
+      <p class="ml-2">{{averageCompletePercent}}%</p>
+      <p>完成率中位數</p>
+      <p class="ml-2">{{medianCompletePercent}}%</p>
     </div>
   </div>
+
 </div>

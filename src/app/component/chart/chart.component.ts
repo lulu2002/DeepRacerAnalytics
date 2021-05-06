@@ -1,15 +1,14 @@
 import {Component, Injectable} from '@angular/core';
-import {AnalysisService} from '../../service/analysis.service';
 import * as ChartJsChart from 'chart.js';
-import {DataService} from '../../service/data.service';
 import {AnalyticData} from '../../objects/data/analytic-data';
 import {Run} from '../../objects/run';
 import {EpisodeSort, GeneralSort, RewardSort} from '../../objects/sorts/sorts';
-import {SortType} from '../../objects/sorts/sort-type';
-import {FilterOption} from '../../objects/filters/filter-option';
-import {fileAnalyseObserver} from '../../objects/observer/observers';
-import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
+import {ChartDisplayService} from '../../service/chart-display.service';
+import {DataService} from '../../service/data.service';
+import {FromStartFilter} from '../../objects/filters/filters';
 import {RacerData} from '../../objects/fileanalysis/racer-data';
+import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
+import {chartDisplayObserver} from '../../objects/observer/observers';
 
 @Component({
   selector: 'app-chart',
@@ -21,68 +20,61 @@ import {RacerData} from '../../objects/fileanalysis/racer-data';
 })
 export class ChartComponent {
 
+  private racerData: RacerData = new EmptyRacerData();
   private showingChart: ChartJsChart;
   showingData: AnalyticData;
-  private racerData: RacerData = new EmptyRacerData();
 
-  constructor(public fileService: AnalysisService,
-              public dataService: DataService) {
+  constructor(private displayService: ChartDisplayService,
+              private dataService: DataService) {
 
-    fileAnalyseObserver.subscribe(racerData => {
-      this.racerData = racerData;
+    chartDisplayObserver.subscribe(value => {
+      this.racerData = value;
+      this.updateChart(dataService.getData('xy'));
     });
   }
 
   public getData(): Run {
-    return this.racerData.allRuns[0];
+    return this.displayService.showingRun;
   }
 
   public updateChart(data: AnalyticData): void {
-    const chart = data.chart;
-
     this.showingData = data;
+    this.reRenderChart();
+  }
+
+  public switchRun(run: Run): void {
+    this.displayService.showingRun = run;
+    this.reRenderChart();
+  }
+
+  private reRenderChart(): void {
+    const chart = this.showingData.chart;
+
     this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
+
     this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().getSteps())));
     this.showingData.chart.afterChartDisplayed(this.showingChart);
   }
 
-  toggleOnlyShowFromStartFilter(): void {
-    // this.fileService.runCache = this.fileService.runCache.filter(value =>
-    //   value.getFirstStep().episode
-    //   % this.fileService.getHyperParameters().num_episodes_between_training === 0);
-  }
-
-  toggleFilter(filter: FilterOption): void {
-    // const name = filter.constructor.name;
-    // const filterNames = this.fileService.filters.map(value => value.constructor.name);
-    //
-    // const index = filterNames.indexOf(name);
-    //
-    // if (index > -1) {
-    //   this.fileService.filters = this.fileService.filters.slice(index, 1);
-    // } else {
-    //   this.fileService.filters.push(filter);
-    // }
-
-
-  }
-
-  updateSortType(sortType: SortType): void {
-    // this.fileService.sortType = sortType;
-    // this.fileService.runCache = BestRun.sortRuns(this.fileService.racerData.allRuns, sortType);
-  }
-
   updateGeneralSort(): void {
-    this.updateSortType(new GeneralSort());
+    this.displayService.changeSortType(new GeneralSort());
   }
 
   updateRewardSort(): void {
-    this.updateSortType(new RewardSort());
+    this.displayService.changeSortType(new RewardSort());
   }
 
   updateEpisodeSort(): void {
-    this.updateSortType(new EpisodeSort());
+    this.displayService.changeSortType(new EpisodeSort());
+  }
+
+  toggleFromStartFilter(): void {
+    this.displayService.toggleFilter(new FromStartFilter(this.racerData));
+  }
+
+  getAllData(): AnalyticData[] {
+    return this.dataService.getAllData();
   }
 
   private destroyToPreventJumpingChart(): void {

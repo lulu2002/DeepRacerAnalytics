@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AnalyticData} from '../objects/data/analytic-data';
-import {LineData} from '../objects/data/line-data';
 import {YawData} from '../objects/data/yaw-data';
 import {RewardChart} from '../objects/charts/reward-chart';
 import {ThrottleXyChart} from '../objects/charts/throttle-xy-chart';
 import {RacetimeData} from '../objects/data/racetime-data';
 import {AnalysisService} from './analysis.service';
+import {SteerChart} from '../objects/charts/steer-chart';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,13 @@ export class DataService {
 
 
   constructor(private fileService: AnalysisService) {
-    this.addData(new AnalyticData('xy', 'XY 分析圖', new ThrottleXyChart()));
-    this.addData(new YawData('yaw', 'yaw'));
-    this.addData(new LineData('steer', 'steer'));
-    this.addData(new AnalyticData('reward', 'reward', new RewardChart()));
-    this.addData(new RacetimeData('racetime', '單圈完成時間', fileService));
+    this.addData(
+      new AnalyticData('xy', 'XY 分析圖', new ThrottleXyChart()),
+      new YawData('yaw', 'yaw'),
+      new AnalyticData('steer', 'steer', new SteerChart()),
+      new AnalyticData('reward', 'reward', new RewardChart()),
+      new RacetimeData('racetime', '單圈完成時間', fileService)
+    );
   }
 
   public getAllData(): AnalyticData[] {
@@ -34,8 +36,8 @@ export class DataService {
     return charts[0];
   }
 
-  private addData(data: AnalyticData): void {
-    this.allData.push(data);
+  private addData(...data: AnalyticData[]): void {
+    this.allData.push(...data);
   }
 
 }

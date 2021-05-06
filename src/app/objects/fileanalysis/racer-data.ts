@@ -15,25 +15,46 @@ export class RacerData {
               mertics: Metric[] = [],
               track: string = ''
   ) {
-    this.steps = steps;
-    this.hyperParams = hyperParams;
-    this.actionSpaces = actionSpaces;
-    this.track = track;
+    this._steps = steps;
+    this._hyperParams = hyperParams;
+    this._actionSpaces = actionSpaces;
+    this._track = track;
 
-    this.metrics = groupBy(mertics);
+    this._metrics = groupBy(mertics);
     this._allRuns = BestRun.splitRuns(steps, mertics);
   }
 
-  steps: Step[];
+  private readonly _steps: Step[];
   private readonly _allRuns: Run[];
-  metrics: MetricsMap;
-  hyperParams: HyperParameters;
-  actionSpaces: ActionSpace[];
-  track: string;
+  private readonly _metrics: MetricsMap;
+  private readonly _hyperParams: HyperParameters;
+  private readonly _actionSpaces: ActionSpace[];
+  private readonly _track: string;
 
 
   get allRuns(): Run[] {
     return [...this._allRuns];
+  }
+
+
+  get steps(): Step[] {
+    return [...this._steps];
+  }
+
+  get metrics(): MetricsMap {
+    return [...this._metrics];
+  }
+
+  get hyperParams(): HyperParameters {
+    return this._hyperParams;
+  }
+
+  get actionSpaces(): ActionSpace[] {
+    return [...this._actionSpaces];
+  }
+
+  get track(): string {
+    return this._track;
   }
 }
 
