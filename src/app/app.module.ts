@@ -8,13 +8,17 @@ import {ChartComponent} from './component/chart/chart.component';
 import {LogsComponent} from './component/logs/logs.component';
 import {HyperparamsComponent} from './component/hyperparams/hyperparams.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ColorButtonComponent } from './component/color-button/color-button.component';
+import { SortButtonComponent } from './component/sort-button/sort-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
     LogsComponent,
-    HyperparamsComponent
+    HyperparamsComponent,
+    ColorButtonComponent,
+    SortButtonComponent
   ],
   imports: [
     BrowserModule,

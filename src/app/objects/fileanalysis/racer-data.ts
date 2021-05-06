@@ -4,6 +4,8 @@ import {Step} from '../step';
 import {Run} from '../run';
 import {BestRun} from '../../utils/best-run';
 import {Metric} from '../metric';
+import {EnvironmentInfo} from '../environment-info';
+import {Environment} from '@angular/compiler-cli/src/ngtsc/typecheck/src/environment';
 
 type MetricsMap = Metric[][];
 
@@ -13,12 +15,11 @@ export class RacerData {
               hyperParams: HyperParameters = null,
               actionSpaces: ActionSpace[] = [],
               mertics: Metric[] = [],
-              track: string = ''
+              enviorientInfo: EnvironmentInfo = null
   ) {
     this._steps = steps;
     this._hyperParams = hyperParams;
     this._actionSpaces = actionSpaces;
-    this._track = track;
 
     this._metrics = groupBy(mertics);
     this._allRuns = BestRun.splitRuns(steps, mertics);
@@ -29,7 +30,7 @@ export class RacerData {
   private readonly _metrics: MetricsMap;
   private readonly _hyperParams: HyperParameters;
   private readonly _actionSpaces: ActionSpace[];
-  private readonly _track: string;
+  private readonly _environmentInfo: EnvironmentInfo;
 
 
   get allRuns(): Run[] {
@@ -54,7 +55,15 @@ export class RacerData {
   }
 
   get track(): string {
-    return this._track;
+    return this._environmentInfo.track;
+  }
+
+  get modelName(): string {
+    return this._environmentInfo.modelName;
+  }
+
+  get carName(): string {
+    return this._environmentInfo.carName;
   }
 }
 

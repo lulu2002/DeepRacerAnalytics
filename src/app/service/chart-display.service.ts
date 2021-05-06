@@ -4,7 +4,7 @@ import {chartDisplayObserver, fileAnalyseObserver} from '../objects/observer/obs
 import {Run} from '../objects/run';
 import {FilterOption} from '../objects/filters/filter-option';
 import {SortType} from '../objects/sorts/sort-type';
-import {GeneralSort} from '../objects/sorts/sorts';
+import {SortTypes} from '../objects/sorts/sorts';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ChartDisplayService {
   private _runsCache: Run[] = [];
   private _showingRun: Run;
   private filterOptions: FilterOption[] = [];
-  private _sortType: SortType = new GeneralSort();
+  private _sortType: SortType = SortTypes.GENERAL_SORT;
 
 
   constructor() {

@@ -2,7 +2,7 @@ import {Component, Injectable} from '@angular/core';
 import * as ChartJsChart from 'chart.js';
 import {AnalyticData} from '../../objects/data/analytic-data';
 import {Run} from '../../objects/run';
-import {EpisodeSort, GeneralSort, RewardSort} from '../../objects/sorts/sorts';
+import {SortTypes} from '../../objects/sorts/sorts';
 import {ChartDisplayService} from '../../service/chart-display.service';
 import {DataService} from '../../service/data.service';
 import {FromStartFilter} from '../../objects/filters/filters';
@@ -22,9 +22,10 @@ export class ChartComponent {
 
   private racerData: RacerData = new EmptyRacerData();
   private showingChart: ChartJsChart;
+  public sortTypes = SortTypes;
   showingData: AnalyticData;
 
-  constructor(private displayService: ChartDisplayService,
+  constructor(public displayService: ChartDisplayService,
               private dataService: DataService) {
 
     chartDisplayObserver.subscribe(value => {
@@ -58,15 +59,15 @@ export class ChartComponent {
   }
 
   updateGeneralSort(): void {
-    this.displayService.changeSortType(new GeneralSort());
+    this.displayService.changeSortType(SortTypes.GENERAL_SORT);
   }
 
   updateRewardSort(): void {
-    this.displayService.changeSortType(new RewardSort());
+    this.displayService.changeSortType(SortTypes.REWARD_SORT);
   }
 
   updateEpisodeSort(): void {
-    this.displayService.changeSortType(new EpisodeSort());
+    this.displayService.changeSortType(SortTypes.EPISODE_SORT);
   }
 
   toggleFromStartFilter(): void {

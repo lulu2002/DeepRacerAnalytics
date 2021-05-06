@@ -4,6 +4,7 @@ import {BasicXyChart} from './basic-xy-chart';
 import {Step} from '../step';
 import * as d3 from 'd3';
 import {NumberFormats} from '../../utils/number-formats';
+import {chartDisplayObserver, fileAnalyseObserver} from '../observer/observers';
 
 
 export abstract class DataBasedXyChart extends BasicXyChart {
@@ -20,6 +21,11 @@ export abstract class DataBasedXyChart extends BasicXyChart {
     super(label);
     this.minKeyValue = minKeyValue;
     this.maxKeyValue = maxKeyValue;
+
+    fileAnalyseObserver.subscribe(() => {
+      this.minKeyValue = minKeyValue;
+      this.maxKeyValue = maxKeyValue;
+    });
   }
 
   getChart(steps: Step[]): Chart.ChartConfiguration {

@@ -1,7 +1,7 @@
 import {RunSort, SortType} from './sort-type';
 import {Run} from '../run';
 
-export class GeneralSort extends SortType {
+class GeneralSort extends SortType {
   sortAlgorithm: RunSort = (a, b) => this.calcScore(b) - this.calcScore(a);
 
   getButtonLabel(run: Run): string {
@@ -24,7 +24,7 @@ export class GeneralSort extends SortType {
   }
 }
 
-export class RewardSort extends SortType {
+class RewardSort extends SortType {
   sortAlgorithm: RunSort = (a, b) => this.calcAllScore(b) - this.calcAllScore(a);
 
   getButtonLabel(run: Run): string {
@@ -36,11 +36,18 @@ export class RewardSort extends SortType {
   }
 }
 
-export class EpisodeSort extends SortType {
+class EpisodeSort extends SortType {
   sortAlgorithm: RunSort = (a, b) => a.getLastStep().episode - b.getLastStep().episode;
 
   getButtonLabel(run: Run): string {
     return `第 ${run.getLastStep().episode} 次嘗試`;
   }
 
+}
+
+
+export class SortTypes {
+  public static readonly GENERAL_SORT = new GeneralSort();
+  public static readonly REWARD_SORT = new RewardSort();
+  public static readonly EPISODE_SORT = new EpisodeSort();
 }
