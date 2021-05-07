@@ -20,6 +20,7 @@ export class RacerData {
     this._steps = steps;
     this._hyperParams = hyperParams;
     this._actionSpaces = actionSpaces;
+    this._environmentInfo = enviorientInfo;
 
     this._metrics = groupBy(mertics);
     this._allRuns = BestRun.splitRuns(steps, mertics);

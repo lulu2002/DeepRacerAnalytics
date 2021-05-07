@@ -7,6 +7,7 @@ import {FileUtils} from './utils/file-utils';
 import {ExampleFilesService} from './service/example-files.service';
 import {Converters} from './utils/converters';
 import {fileAnalyseObserver} from './objects/observer/observers';
+import {version} from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import {fileAnalyseObserver} from './objects/observer/observers';
  */
 export class AppComponent implements OnInit {
   title = 'DeepRacerAnalytics';
+  version = version;
 
   @ViewChild('chartComponent') private cC: ChartComponent;
 

@@ -7,6 +7,7 @@ import {ActionSpace} from '../../action-space';
 import {UnZippedFile} from '../../../utils/un-zipped-file';
 import {Converters} from '../../../utils/converters';
 import {Metric} from '../../metric';
+import {EnvironmentInfo} from '../../environment-info';
 
 export class TarGzFileAnalysis implements FileAnalysis {
 
@@ -16,7 +17,8 @@ export class TarGzFileAnalysis implements FileAnalysis {
       const steps: Step[] = [];
 
       allCsvFiles.forEach(value => {
-        Converters.convertCsvToSteps(value.readAsString()).forEach(step => steps.push(step));
+        const csv = value.readAsString();
+        Converters.convertCsvToSteps(csv).forEach(step => steps.push(step));
       });
 
       const trainingLogFiles = this.getTrainingFiles(files);
@@ -25,7 +27,7 @@ export class TarGzFileAnalysis implements FileAnalysis {
 
       const hyperParams = this.getHyperParamsFromFile(trainingFileStr);
       const actionSpaces = this.getActionSpacesFromFile(trainingFileStr);
-      const track = this.getTrackNameFromFile(trainingLogFiles);
+      const track = this.getEnviorent(trainingLogFiles);
       const metrics = this.getMetrics(metricFile);
 
       return new RacerData(steps, hyperParams, actionSpaces, metrics, track);
@@ -62,7 +64,7 @@ export class TarGzFileAnalysis implements FileAnalysis {
     return files.filter(value => value.name.endsWith('.log'));
   }
 
-  private getTrackNameFromFile(s: UnZippedFile[]): string {
+  private getEnviorent(s: UnZippedFile[]): EnvironmentInfo {
 
     let name = '';
 
@@ -74,7 +76,7 @@ export class TarGzFileAnalysis implements FileAnalysis {
       }
     }
 
-    return name.replace('WORLD_NAME: ', '');
+    return new EnvironmentInfo(name.replace('WORLD_NAME: ', ''));
   }
 
   private getMetrics(metricFile: UnZippedFile): Metric[] {
