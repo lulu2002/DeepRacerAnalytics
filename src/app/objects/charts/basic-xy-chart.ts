@@ -5,6 +5,7 @@ import {TrackFactory} from '../tracks/track-factory';
 import {fileAnalyseObserver} from '../observer/observers';
 import {RacerData} from '../fileanalysis/racer-data';
 import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
+import {ChartColor} from 'chart.js';
 
 export class BasicXyChart extends ScatterChart {
   private static maxXTicks: number;
@@ -68,19 +69,24 @@ export class BasicXyChart extends ScatterChart {
 
     const track = TrackFactory.findTrack(this.racerData.track);
 
-    sets.push(this.getTrackBorderSets(track.insideBorder));
-    sets.push(this.getTrackBorderSets(track.outsideBorder));
+    sets.push(this.getStyleSets(track.insideBorder));
+    sets.push(this.getStyleSets(track.outsideBorder));
+    sets.push(this.getStyleSets(track.humanBestRoute, '參考最佳路徑', 'rgba(13,154,102,0.25)'));
 
     return sets;
   }
 
-  protected getTrackBorderSets(coords: Coords[]): Chart.ChartDataSets {
+  protected getStyleSets(coords: Coords[],
+                         label: string = 'Border',
+                         color: ChartColor = 'rgb(142,144,144,0.25)'
+  ): Chart.ChartDataSets {
     const sets = super.getDataSets(coords);
 
+    sets.label = label;
     sets.pointRadius = 0;
     sets.showLine = true;
     sets.borderWidth = 2;
-    sets.borderColor = 'rgb(142,144,144,0.25)';
+    sets.borderColor = color;
     sets.pointBackgroundColor = 'rgb(142,144,144,0.25)';
 
     return sets;

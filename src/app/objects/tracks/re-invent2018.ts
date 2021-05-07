@@ -2,9 +2,12 @@ import {Track} from './track';
 import {Coords} from '../coords';
 
 export class ReInvent2018 extends Track {
-
   constructor() {
     super('Re:Invent2018');
+  }
+
+  protected registerHumanBestRoute(): Coords[] {
+    return [];
   }
 
   protected registerInsideBorders(): Coords[] {

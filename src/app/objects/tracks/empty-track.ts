@@ -14,4 +14,8 @@ export class EmptyTrack extends Track {
   protected registerOutsideBorders(): Coords[] {
     return [];
   }
+
+  protected registerHumanBestRoute(): Coords[] {
+    return [];
+  }
 }
