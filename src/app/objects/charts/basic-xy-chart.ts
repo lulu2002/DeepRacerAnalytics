@@ -24,7 +24,6 @@ export class BasicXyChart extends ScatterChart {
     chart.aspectRatio = BasicXyChart.maxXTicks / BasicXyChart.maxYTicks;
   }
 
-  // todo 使用 observer 或是 event system 來將 code 分開 (FIleAnylysiedEvent、ChatDisplayEVent...等)
   getChart(steps: Step[]): Chart.ChartConfiguration {
     return {
       type: this.chartType,
