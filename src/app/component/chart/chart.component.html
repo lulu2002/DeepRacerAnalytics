@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-5">
 
-      <div *ngIf="!isAnalysisDone()" class="h-100">
+      <div *ngIf="isLoading()" class="h-100">
         載入中... ({{getStateName()}})
       </div>
 
@@ -10,15 +10,12 @@
 
         <div>
           <p>顯示數據</p>
-          <button
+          <app-color-button
             *ngFor="let data of getAllData()"
-            class="mr-3"
-            [ngStyle]="{
-            'background-color': data == showingData ? '#040e24' : '#255db0'
-            }"
+            [current]="data == showingData"
             (click)="updateChart(data)">
             {{data.displayName}}
-          </button>
+          </app-color-button>
         </div>
 
         <div class="mt-1 w-100">
@@ -33,12 +30,20 @@
         <div class="mt-1">
           <p>檢視工具</p>
           <div>
-            <button class="mr-3" (click)="toggleFromStartFilter()">只顯示從頭開始跑的圈數</button>
+            <app-color-button
+              (click)="toggleFromStartFilter()"
+              [current]="containsFromStartFilter()">
+              只顯示從頭開始跑的圈數
+            </app-color-button>
           </div>
         </div>
 
         <div class="mt-2">
           <p>圈數</p>
+          <app-color-button *ngIf="isAnalysisDone() && isNoRunCanDisplay()"
+            [current]="true">在此篩選條件下，暫無任何訓練成果可以顯示。
+          </app-color-button>
+
           <div class="overflow-auto" style="max-height: 150px">
             <!--todo ng for 執行的次數超乎想像，導致分析數據越大，效能問題會加倍嚴重-->
             <app-color-button

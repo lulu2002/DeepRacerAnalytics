@@ -4,7 +4,6 @@ import {YawData} from '../objects/data/yaw-data';
 import {RewardChart} from '../objects/charts/reward-chart';
 import {ThrottleXyChart} from '../objects/charts/throttle-xy-chart';
 import {RacetimeData} from '../objects/data/racetime-data';
-import {AnalysisService} from './analysis.service';
 import {SteerChart} from '../objects/charts/steer-chart';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class DataService {
   private allData: AnalyticData[] = [];
 
 
-  constructor(private fileService: AnalysisService) {
+  constructor() {
     this.addData(
       new AnalyticData('xy', 'XY 分析圖', new ThrottleXyChart()),
       new YawData('yaw', 'yaw'),

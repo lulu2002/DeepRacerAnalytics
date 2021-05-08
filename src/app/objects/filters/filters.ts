@@ -2,15 +2,15 @@ import {FilterOption} from './filter-option';
 import {Run} from '../run';
 import {RacerData} from '../fileanalysis/racer-data';
 
-export class FromStartFilter extends FilterOption {
 
+class FromStartFilter extends FilterOption {
 
-  constructor(private racerData: RacerData) {
-    super();
+  filter(runs: Run[], racerData: RacerData): Run[] {
+    return runs.filter(value => value.getFirstStep().episode % racerData.hyperParams.num_episodes_between_training === 0);
   }
 
-  filter(runs: Run[]): Run[] {
-    return runs.filter(value => value.getFirstStep().episode % this.racerData.hyperParams.num_episodes_between_training === 0);
-  }
+}
 
+export class Filters {
+  public static readonly FROM_START_FILTER = new FromStartFilter();
 }

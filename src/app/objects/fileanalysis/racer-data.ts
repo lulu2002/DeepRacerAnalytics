@@ -5,17 +5,16 @@ import {Run} from '../run';
 import {BestRun} from '../../utils/best-run';
 import {Metric} from '../metric';
 import {EnvironmentInfo} from '../environment-info';
-import {Environment} from '@angular/compiler-cli/src/ngtsc/typecheck/src/environment';
 
 type MetricsMap = Metric[][];
 
 export class RacerData {
 
   constructor(steps: Step[],
-              hyperParams: HyperParameters = null,
+              hyperParams: HyperParameters = emptyHyper,
               actionSpaces: ActionSpace[] = [],
               mertics: Metric[] = [],
-              environmentInfo: EnvironmentInfo = null
+              environmentInfo: EnvironmentInfo = emptyEnvironment
   ) {
     this._steps = steps;
     this._hyperParams = hyperParams;
@@ -103,3 +102,20 @@ function groupBy(list: Metric[]): MetricsMap {
 
   return map.filter(value => value !== undefined);
 }
+
+const emptyEnvironment = new EnvironmentInfo('reinvent_base', 'Empty', 'Empty');
+const emptyHyper: HyperParameters = {
+  batch_size: -1,
+  beta_entropy: -1,
+  discount_factor: -1,
+  e_greedy_value: -1,
+  epsilon_steps: -1,
+  exploration_type: '',
+  loss_type: '',
+  lr: -1,
+  num_episodes_between_training: -1,
+  num_epochs: -1,
+  stack_size: -1,
+  term_cond_avg_score: -1,
+  term_cond_max_episodes: -1,
+};

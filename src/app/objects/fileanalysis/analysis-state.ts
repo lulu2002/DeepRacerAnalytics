@@ -1,4 +1,5 @@
 export enum AnalysisState {
+  WAITING,
   FILE_UPLOADED,
   EXTRACTING_FILE,
   MERGING_CSV_FILES,
