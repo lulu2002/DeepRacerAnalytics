@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-5">
 
-      <div *ngIf="getData()">
+      <div *ngIf="!isAnalysisDone()" class="h-100">
+        載入中... ({{getStateName()}})
+      </div>
+
+      <div *ngIf="getData() && isAnalysisDone()">
 
         <div>
           <p>顯示數據</p>

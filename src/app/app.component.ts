@@ -6,8 +6,9 @@ import {LogService} from './service/log.service';
 import {FileUtils} from './utils/file-utils';
 import {ExampleFilesService} from './service/example-files.service';
 import {Converters} from './utils/converters';
-import {fileAnalyseObserver} from './objects/observer/observers';
+import {analyseStateObserver, fileAnalyseObserver} from './objects/observer/observers';
 import {version} from '../../package.json';
+import {AnalysisState} from './objects/fileanalysis/analysis-state';
 
 @Component({
   selector: 'app-root',
@@ -59,11 +60,14 @@ export class AppComponent implements OnInit {
 
     this.checkFileSize(file);
 
+    analyseStateObserver.next(AnalysisState.FILE_UPLOADED);
     const promise = this.fileService.analysisFile(file);
 
     promise.then((racerData) => {
       this.logService.log('更新面板中...');
+      analyseStateObserver.next(AnalysisState.UPDATING_PANEL);
       fileAnalyseObserver.next(racerData);
+      analyseStateObserver.next(AnalysisState.DONE);
       this.logService.log('文件載入完成！', '');
     });
   }

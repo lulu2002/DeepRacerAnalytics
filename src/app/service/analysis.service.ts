@@ -18,7 +18,6 @@ export class AnalysisService {
     try {
       const fileAnalysis = this.fileAnalysisFactory.getFileAnalysis(file);
       const promise = fileAnalysis.analysis(file);
-
       return promise.then(value => {
         return value;
       });

@@ -8,7 +8,8 @@ import {DataService} from '../../service/data.service';
 import {FromStartFilter} from '../../objects/filters/filters';
 import {RacerData} from '../../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
-import {chartDisplayObserver} from '../../objects/observer/observers';
+import {analyseStateObserver, chartDisplayObserver} from '../../objects/observer/observers';
+import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 
 @Component({
   selector: 'app-chart',
@@ -24,6 +25,7 @@ export class ChartComponent {
   private showingChart: ChartJsChart;
   public sortTypes = SortTypes;
   showingData: AnalyticData;
+  analysisState = AnalysisState.DONE;
 
   constructor(public displayService: ChartDisplayService,
               private dataService: DataService) {
@@ -32,10 +34,26 @@ export class ChartComponent {
       this.racerData = value;
       this.updateChart(dataService.getData('xy'));
     });
+
+    analyseStateObserver.subscribe(value => {
+      this.analysisState = value;
+    });
+  }
+
+  private onStateUpdate(): void {
+
   }
 
   public getData(): Run {
     return this.displayService.showingRun;
+  }
+
+  public isAnalysisDone(): boolean {
+    return this.analysisState === AnalysisState.DONE;
+  }
+
+  public getStateName(): string {
+    return AnalysisState[this.analysisState];
   }
 
   public updateChart(data: AnalyticData): void {
