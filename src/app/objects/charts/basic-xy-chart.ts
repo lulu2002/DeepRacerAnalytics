@@ -58,11 +58,11 @@ export class BasicXyChart extends ScatterChart {
     let maxY = 0;
 
     steps.forEach(s => {
-      if (s.X > maxX) {
+      if (+s.X > +maxX) {
         maxX = s.X;
       }
 
-      if (s.Y > maxY) {
+      if (+s.Y > +maxY) {
         maxY = s.Y;
       }
     });
