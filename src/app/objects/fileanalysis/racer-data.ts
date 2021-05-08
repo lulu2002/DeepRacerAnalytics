@@ -43,6 +43,10 @@ export class RacerData {
     return [...this._steps];
   }
 
+  get stepsSource(): Step[] {
+    return this._steps;
+  }
+
   get metrics(): MetricsMap {
     return [...this._metrics];
   }
@@ -65,6 +69,10 @@ export class RacerData {
 
   get carName(): string {
     return this._environmentInfo.carName;
+  }
+
+  public clone(): RacerData {
+    return Object.assign({}, this);
   }
 }
 

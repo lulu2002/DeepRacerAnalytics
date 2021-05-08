@@ -6,6 +6,7 @@ import {ThrottleXyChart} from '../objects/charts/throttle-xy-chart';
 import {RacetimeData} from '../objects/data/racetime-data';
 import {AnalysisService} from './analysis.service';
 import {SteerChart} from '../objects/charts/steer-chart';
+import {RewardTrainingChart} from '../objects/charts/reward-training-chart';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,9 @@ export class DataService {
       new YawData('yaw', 'yaw'),
       new AnalyticData('steer', 'steer', new SteerChart()),
       new AnalyticData('reward', 'reward', new RewardChart()),
-      new RacetimeData('racetime', '單圈完成時間', fileService)
-    );
+      new RacetimeData('racetime', '單圈完成時間', fileService),
+      new AnalyticData('train', '完成率圖', new RewardTrainingChart()))
+    ;
   }
 
   public getAllData(): AnalyticData[] {

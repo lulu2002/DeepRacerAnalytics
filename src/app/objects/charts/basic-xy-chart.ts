@@ -5,7 +5,7 @@ import {TrackFactory} from '../tracks/track-factory';
 import {fileAnalyseObserver} from '../observer/observers';
 import {RacerData} from '../fileanalysis/racer-data';
 import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
-import {ChartColor} from 'chart.js';
+import {ChartColor, ChartConfiguration} from 'chart.js';
 
 export class BasicXyChart extends ScatterChart {
   private racerData: RacerData = new EmptyRacerData();
@@ -20,7 +20,7 @@ export class BasicXyChart extends ScatterChart {
     });
   }
 
-  getChart(steps: Step[]): Chart.ChartConfiguration {
+  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
     return {
       type: this.chartType,
       data: {

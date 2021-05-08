@@ -1,10 +1,11 @@
-import {ChartColor} from 'chart.js';
+import {ChartColor, ChartConfiguration} from 'chart.js';
 import {Coords} from '../coords';
 import {BasicXyChart} from './basic-xy-chart';
 import {Step} from '../step';
 import * as d3 from 'd3';
 import {NumberFormats} from '../../utils/number-formats';
 import {chartDisplayObserver, fileAnalyseObserver} from '../observer/observers';
+import {RacerData} from '../fileanalysis/racer-data';
 
 
 export abstract class DataBasedXyChart extends BasicXyChart {
@@ -28,7 +29,7 @@ export abstract class DataBasedXyChart extends BasicXyChart {
     });
   }
 
-  getChart(steps: Step[]): Chart.ChartConfiguration {
+  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
     this.map = new Map();
 
     steps.forEach(step => {
@@ -36,7 +37,7 @@ export abstract class DataBasedXyChart extends BasicXyChart {
       this.getCoordsArray(this.getStepValue(step)).push(coords);
     });
 
-    const chart = super.getChart(steps);
+    const chart = super.getChart(steps, racerData);
 
     return chart;
   }

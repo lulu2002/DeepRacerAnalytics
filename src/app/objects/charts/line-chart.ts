@@ -1,6 +1,7 @@
 import {Chart} from './chart';
 import {ChartConfiguration} from 'chart.js';
 import {Step} from '../step';
+import {RacerData} from '../fileanalysis/racer-data';
 
 export abstract class LineChart extends Chart {
 
@@ -8,7 +9,7 @@ export abstract class LineChart extends Chart {
     super(label, 'line');
   }
 
-  getChart(steps: Step[]): ChartConfiguration {
+  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
     const y = this.mapY(steps);
     const x = this.mapX(steps);
 

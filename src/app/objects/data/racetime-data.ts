@@ -30,7 +30,7 @@ class RacetimeChart extends Chart {
     });
   }
 
-  getChart(steps: Step[]): ChartConfiguration {
+  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
     const allRuns = this.racerData.allRuns;
 
     const y = this.mapY(allRuns);
