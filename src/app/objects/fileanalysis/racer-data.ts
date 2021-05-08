@@ -24,6 +24,12 @@ export class RacerData {
 
     this._metrics = groupBy(mertics);
     this._allRuns = BestRun.splitRuns(steps, mertics);
+
+    this.allRuns.forEach(value => {
+      if (isNaN(value.getTimeCost())) {
+        console.log(value);
+      }
+    });
   }
 
   private readonly _steps: Step[];
