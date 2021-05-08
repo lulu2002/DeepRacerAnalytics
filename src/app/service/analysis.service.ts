@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {SimpleFileAnalysisFactory} from '../objects/fileanalysis/simple-file-analysis-factory';
 import {RacerData} from '../objects/fileanalysis/racer-data';
 import {LogService} from './log.service';
+import {analyseStateObserver} from '../objects/observer/observers';
+import {AnalysisState} from '../objects/fileanalysis/analysis-state';
 
 
 @Injectable({
@@ -22,6 +24,7 @@ export class AnalysisService {
         return value;
       });
     } catch (e) {
+      analyseStateObserver.next(AnalysisState.ERROR);
       this.logService.logError(e);
     }
   }

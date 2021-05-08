@@ -10,4 +10,5 @@ export enum AnalysisState {
   READING_ENVIRONMENTS,
   UPDATING_PANEL,
   DONE,
+  ERROR
 }
