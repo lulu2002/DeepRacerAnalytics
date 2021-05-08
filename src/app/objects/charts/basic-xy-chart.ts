@@ -8,21 +8,16 @@ import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
 import {ChartColor} from 'chart.js';
 
 export class BasicXyChart extends ScatterChart {
-  private static maxXTicks: number;
-  private static maxYTicks: number;
-
   private racerData: RacerData = new EmptyRacerData();
+  private aspectRatio = 0;
 
   constructor(label: string) {
     super(label);
 
     fileAnalyseObserver.subscribe(racerData => {
       this.racerData = racerData;
+      this.aspectRatio = this.getAspectRatioByStepXy();
     });
-  }
-
-  afterChartDisplayed(chart: Chart): void {
-    chart.aspectRatio = BasicXyChart.maxXTicks / BasicXyChart.maxYTicks;
   }
 
   getChart(steps: Step[]): Chart.ChartConfiguration {
@@ -32,17 +27,14 @@ export class BasicXyChart extends ScatterChart {
         datasets: this.getSets()
       },
       options: {
+        aspectRatio: this.aspectRatio,
         scales: {
           xAxes: [
             {
               display: true,
               ticks: {
                 beginAtZero: true,
-                stepSize: 0.5,
-                callback(value: number | string, index: number, values: number[]): string | number | null | undefined {
-                  BasicXyChart.maxXTicks = values[values.length - 1];
-                  return value;
-                }
+                stepSize: 0.5
               }
             }
           ],
@@ -51,17 +43,31 @@ export class BasicXyChart extends ScatterChart {
               display: true,
               ticks: {
                 beginAtZero: true,
-                stepSize: 0.5,
-                callback(value: number | string, index: number, values: number[]): string | number | null | undefined {
-                  BasicXyChart.maxYTicks = values[0];
-                  return value;
-                }
+                stepSize: 0.5
               }
             }
           ]
         }
       }
     };
+  }
+
+  private getAspectRatioByStepXy(): number {
+    const steps = this.racerData.steps;
+    let maxX = 0;
+    let maxY = 0;
+
+    steps.forEach(s => {
+      if (s.X > maxX) {
+        maxX = s.X;
+      }
+
+      if (s.Y > maxY) {
+        maxY = s.Y;
+      }
+    });
+
+    return maxX / maxY;
   }
 
   protected getSets(): Chart.ChartDataSets[] {
