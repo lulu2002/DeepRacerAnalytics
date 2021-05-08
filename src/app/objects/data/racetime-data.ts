@@ -9,8 +9,8 @@ import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
 import {RacerData} from '../fileanalysis/racer-data';
 
 export class RacetimeData extends AnalyticData {
-  constructor(label: string, displayName: string, private fileService: AnalysisService) {
-    super(label, displayName, new RacetimeChart('rancetime', fileService));
+  constructor(label: string, displayName: string) {
+    super(label, displayName, new RacetimeChart('rancetime'));
   }
 
   handleData(steps: Step[]): Step[] {
@@ -22,7 +22,7 @@ class RacetimeChart extends Chart {
 
   private racerData: RacerData = new EmptyRacerData();
 
-  constructor(label: string, private fileService: AnalysisService) {
+  constructor(label: string) {
     super(label, 'line');
 
     fileAnalyseObserver.subscribe(value => {

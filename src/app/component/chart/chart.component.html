@@ -36,7 +36,7 @@
         <div class="mt-2">
           <p>圈數</p>
           <div class="overflow-auto" style="max-height: 150px">
-
+            <!--todo ng for 執行的次數超乎想像，導致分析數據越大，效能問題會加倍嚴重-->
             <app-color-button
               *ngFor="let run of displayService.runsCache"
               (click)="switchRun(run)"
