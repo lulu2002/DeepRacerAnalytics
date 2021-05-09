@@ -35,27 +35,52 @@
               [current]="containsFromStartFilter()">
               只顯示從頭開始跑的圈數
             </app-color-button>
+            <app-color-button
+              (click)="toggleOnlyCompleteFilter()"
+              [current]="containsOnlyCompleteFilter()">
+              只顯示已完成的圈數
+            </app-color-button>
           </div>
         </div>
 
+
         <div class="mt-2">
           <p>圈數</p>
+
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Episode</th>
+                <th scope="col">Reward</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let run of displayService.runsCache" (click)="switchRun(run)">
+                <th scope="row">{{run.getMetric().episode}}</th>
+                <td>{{run.getMetric().reward_score}}</td>
+                <td>{{run.getTimeCost()}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
           <app-color-button *ngIf="isAnalysisDone() && isNoRunCanDisplay()"
             [current]="true">在此篩選條件下，暫無任何訓練成果可以顯示。
           </app-color-button>
 
-          <div class="overflow-auto" style="max-height: 150px">
-            <!--todo ng for 執行的次數超乎想像，導致分析數據越大，效能問題會加倍嚴重-->
-            <app-color-button
-              *ngFor="let run of displayService.runsCache"
-              (click)="switchRun(run)"
-              [shouldChangeColor]="true"
-              [whenLight]="run.isDone()"
-              [current]="displayService.showingRun === run"
-            >
-              {{displayService.sortType.getButtonLabel(run)}}
-            </app-color-button>
-          </div>
+          <!--          <div class="overflow-auto" style="max-height: 150px">-->
+          <!--            &lt;!&ndash;todo ng for 執行的次數超乎想像，導致分析數據越大，效能問題會加倍嚴重&ndash;&gt;-->
+          <!--            <app-color-button-->
+          <!--              *ngFor="let run of displayService.runsCache"-->
+          <!--              (click)="switchRun(run)"-->
+          <!--              [shouldChangeColor]="true"-->
+          <!--              [whenLight]="run.isDone()"-->
+          <!--              [current]="displayService.showingRun === run"-->
+          <!--            >-->
+          <!--              {{displayService.sortType.getButtonLabel(run)}}-->
+          <!--            </app-color-button>-->
+          <!--          </div>-->
         </div>
 
       </div>

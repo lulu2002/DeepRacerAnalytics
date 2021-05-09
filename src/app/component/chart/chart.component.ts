@@ -97,11 +97,19 @@ export class ChartComponent implements OnInit {
   }
 
   toggleFromStartFilter(): void {
-    this.displayService.toggleFilter(Filters.FROM_START_FILTER);
+    this.displayService.toggleFilter(Filters.FROM_START);
+  }
+
+  toggleOnlyCompleteFilter(): void {
+    this.displayService.toggleFilter(Filters.ONLY_COMPLETE);
   }
 
   containsFromStartFilter(): boolean {
-    return this.displayService.filterOptions.includes(Filters.FROM_START_FILTER);
+    return this.displayService.filterOptions.includes(Filters.FROM_START);
+  }
+
+  containsOnlyCompleteFilter(): boolean {
+    return this.displayService.filterOptions.includes(Filters.ONLY_COMPLETE);
   }
 
   getAllData(): AnalyticData[] {

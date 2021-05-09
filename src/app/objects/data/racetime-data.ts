@@ -1,12 +1,10 @@
 import {AnalyticData} from './analytic-data';
 import {Step} from '../step';
-import {AnalysisService} from '../../service/analysis.service';
 import {Chart} from '../charts/chart';
-import {ChartConfiguration} from 'chart.js';
-import {Run} from '../run';
 import {fileAnalyseObserver} from '../observer/observers';
 import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
 import {RacerData} from '../fileanalysis/racer-data';
+import {Metric} from '../metric';
 
 export class RacetimeData extends AnalyticData {
   constructor(label: string, displayName: string) {
@@ -30,11 +28,30 @@ class RacetimeChart extends Chart {
     });
   }
 
+  // todo 只分析 metric 就好
   getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
-    const allRuns = this.racerData.allRuns;
+    const allRuns = this.racerData.metrics;
+    let allMetrics: Metric[] = [];
 
-    const y = this.mapY(allRuns);
-    const x = this.mapX(allRuns);
+    allRuns.forEach(value => {
+
+      const metric = Object.assign({}, value[0]);
+      metric.elapsed_time_in_milliseconds = 0;
+
+      value.forEach(value1 => {
+        metric.elapsed_time_in_milliseconds += +value1.elapsed_time_in_milliseconds;
+      });
+
+      metric.elapsed_time_in_milliseconds /= +value.length;
+
+      allMetrics.push(metric);
+    });
+
+    allMetrics = allMetrics.filter(value => value.phase === 'evaluation' && value.completion_percentage >= 100);
+
+
+    const y = this.mapY(allMetrics);
+    const x = this.mapX(allMetrics);
 
     return {
       type: this.chartType,
@@ -46,15 +63,13 @@ class RacetimeChart extends Chart {
     };
   }
 
-  private mapX(runs: Run[]): number[] {
+  private mapX(runs: Metric[]): number[] {
     return runs
-      .filter(value => value.isDone())
-      .map((value, index) => index);
+      .map((value, index) => value.episode);
   }
 
-  private mapY(runs: Run[]): number[] {
+  private mapY(runs: Metric[]): number[] {
     return runs
-      .filter(value => value.isDone())
-      .map(value => value.getTimeCost());
+      .map(value => value.elapsed_time_in_milliseconds);
   }
 }

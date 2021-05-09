@@ -42,7 +42,8 @@ export class ChartDisplayService {
   }
 
   private toggleDefaultOptions(): void {
-    this._filterOptions.push(Filters.FROM_START_FILTER);
+    this._filterOptions.push(Filters.FROM_START);
+    this._filterOptions.push(Filters.ONLY_COMPLETE);
   }
 
   public changeSortType(sortType: SortType): void {
