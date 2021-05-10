@@ -2,11 +2,11 @@ import {Step} from './step';
 import {Metric} from './metric';
 
 export class Run {
-  private readonly steps: Step[];
+  private readonly _steps: Step[];
   private metric: Metric;
 
   constructor(steps: Step[], metric: Metric) {
-    this.steps = steps;
+    this._steps = steps;
     this.metric = metric;
   }
 
@@ -14,23 +14,23 @@ export class Run {
     return this.metric;
   }
 
-  public getSteps(): Step[] {
-    return [].concat(this.steps);
-  }
-
   public getLastStep(): Step {
-    return this.steps[this.steps.length - 1];
+    return this._steps[this._steps.length - 1];
   }
 
   public getFirstStep(): Step {
-    return this.steps[0];
+    return this._steps[0];
   }
 
-  public getTimeCost(): number {
-    return this.getLastStep().tstamp - this.getFirstStep().tstamp;
-  }
-
-  public isDone(): boolean {
+  get isDone(): boolean {
     return this.getLastStep().progress >= 100;
+  }
+
+  get steps(): Step[] {
+    return [...this._steps];
+  }
+
+  get timeCost(): number {
+    return this.getLastStep().tstamp - this.getFirstStep().tstamp;
   }
 }

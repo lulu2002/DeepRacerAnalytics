@@ -18,14 +18,6 @@
           </app-color-button>
         </div>
 
-        <div class="mt-1 w-100">
-          <p>排序方式</p>
-          <div class="mb-2">
-            <app-sort-button [sortType]="sortTypes.GENERAL_SORT">依照時間排序</app-sort-button>
-            <app-sort-button [sortType]="sortTypes.REWARD_SORT">依照 Reward 排序</app-sort-button>
-            <app-sort-button [sortType]="sortTypes.EPISODE_SORT">依照 Episode 排序</app-sort-button>
-          </div>
-        </div>
 
         <div class="mt-1">
           <p>檢視工具</p>
@@ -47,40 +39,36 @@
         <div class="mt-2">
           <p>圈數</p>
 
-          <table class="table">
+          <table class="table overflow-auto">
             <thead class="thead-light">
               <tr>
-                <th scope="col">Episode</th>
-                <th scope="col">Reward</th>
-                <th scope="col">Time</th>
+                <th scope="col" (click)="updateEpisodeSort()">回合</th>
+                <th scope="col" (click)="updateRewardSort()">總獎勵</th>
+                <th scope="col" (click)="updateGeneralSort()">花費時間</th>
+                <th scope="col">是否有跑完一圈</th>
               </tr>
             </thead>
+            <tbody *ngIf="isAnalysisDone() && isNoRunCanDisplay()">
+              <th scope="row">---</th>
+              <td>---</td>
+              <td>---</td>
+              <td>---</td>
+            </tbody>
             <tbody>
-              <tr *ngFor="let run of displayService.runsCache" (click)="switchRun(run)">
+              <tr *ngFor="let run of displayService.runsCache"
+                (click)="switchRun(run)"
+                [ngStyle]="{
+                'border-style': (displayService.showingRun === run ? 'solid':'none'),
+                'border-color': (displayService.showingRun === run ? '#255db0':'')
+                }">
                 <th scope="row">{{run.getMetric().episode}}</th>
                 <td>{{run.getMetric().reward_score}}</td>
-                <td>{{run.getTimeCost()}}</td>
+                <td>{{run.timeCost}}</td>
+                <td>{{run.isDone}}</td>
               </tr>
             </tbody>
           </table>
 
-
-          <app-color-button *ngIf="isAnalysisDone() && isNoRunCanDisplay()"
-            [current]="true">在此篩選條件下，暫無任何訓練成果可以顯示。
-          </app-color-button>
-
-          <!--          <div class="overflow-auto" style="max-height: 150px">-->
-          <!--            &lt;!&ndash;todo ng for 執行的次數超乎想像，導致分析數據越大，效能問題會加倍嚴重&ndash;&gt;-->
-          <!--            <app-color-button-->
-          <!--              *ngFor="let run of displayService.runsCache"-->
-          <!--              (click)="switchRun(run)"-->
-          <!--              [shouldChangeColor]="true"-->
-          <!--              [whenLight]="run.isDone()"-->
-          <!--              [current]="displayService.showingRun === run"-->
-          <!--            >-->
-          <!--              {{displayService.sortType.getButtonLabel(run)}}-->
-          <!--            </app-color-button>-->
-          <!--          </div>-->
         </div>
 
       </div>

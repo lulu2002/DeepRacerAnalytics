@@ -13,7 +13,7 @@ class FromStartFilter extends FilterOption {
 
 class OnlyCompleteFilter extends FilterOption {
   filter(runs: Run[], racerData: RacerData): Run[] {
-    return runs.filter(value => value.isDone());
+    return runs.filter(value => value.isDone);
   }
 
 }

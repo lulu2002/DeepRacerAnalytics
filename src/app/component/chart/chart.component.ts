@@ -80,7 +80,7 @@ export class ChartComponent implements OnInit {
     this.destroyToPreventJumpingChart();
     const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
 
-    this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().getSteps()), this.racerData));
+    this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().steps), this.racerData));
     this.showingData.chart.afterChartDisplayed(this.showingChart);
   }
 

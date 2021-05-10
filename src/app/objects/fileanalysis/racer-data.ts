@@ -25,7 +25,7 @@ export class RacerData {
     this._allRuns = BestRun.splitRuns(steps, mertics);
 
     this.allRuns.forEach(value => {
-      if (isNaN(value.getTimeCost())) {
+      if (isNaN(value.timeCost)) {
         console.log(value);
       }
     });
