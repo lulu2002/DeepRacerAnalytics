@@ -10,6 +10,11 @@ import {HyperparamsComponent} from './component/hyperparams/hyperparams.componen
 import {HttpClientModule} from '@angular/common/http';
 import {ColorButtonComponent} from './component/color-button/color-button.component';
 import {SortButtonComponent} from './component/sort-button/sort-button.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {LoadingStateComponent} from './component/loading-state/loading-state.component';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -18,13 +23,18 @@ import {SortButtonComponent} from './component/sort-button/sort-button.component
     LogsComponent,
     HyperparamsComponent,
     ColorButtonComponent,
-    SortButtonComponent
+    SortButtonComponent,
+    LoadingStateComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

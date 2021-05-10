@@ -12,3 +12,5 @@ export enum AnalysisState {
   DONE,
   ERROR
 }
+
+export const defaultAnalysisState = AnalysisState.WAITING;

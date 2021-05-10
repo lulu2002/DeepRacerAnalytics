@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Injectable, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import * as ChartJsChart from 'chart.js';
 import {AnalyticData} from '../../objects/data/analytic-data';
 import {Run} from '../../objects/run';
@@ -10,6 +10,9 @@ import {RacerData} from '../../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
 import {analyseStateObserver, chartDisplayObserver} from '../../objects/observer/observers';
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort, Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-chart',
@@ -19,19 +22,28 @@ import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 @Injectable({
   providedIn: 'root'
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, AfterViewInit {
 
   private racerData: RacerData = new EmptyRacerData();
   private showingChart: ChartJsChart;
   public sortTypes = SortTypes;
   showingData: AnalyticData;
   analysisState = AnalysisState.WAITING;
+  dataSource: MatTableDataSource<Run> = new MatTableDataSource<Run>();
+
+  @ViewChildren(MatPaginator) paginators: QueryList<MatPaginator>;
+  paginator: MatPaginator;
+  @ViewChild(MatSort)
+  sort: MatSort;
+
+  columnsToDisplay = ['episode', 'reward', 'time'];
 
   constructor(public displayService: ChartDisplayService,
               private dataService: DataService) {
 
     chartDisplayObserver.subscribe(value => {
       this.racerData = value;
+      this.dataSource.data = value.allRuns;
       this.updateChart(dataService.getData('xy'));
     });
 
@@ -44,24 +56,39 @@ export class ChartComponent implements OnInit {
     this.updateChart(this.dataService.getData('xy'));
   }
 
+  ngAfterViewInit(): void {
+    this.initPaginator();
+    this.initSort();
+  }
+
+  private initPaginator(): void {
+    this.paginator = this.paginators.first;
+
+    if (this.paginators) {
+      this.dataSource.paginator = this.paginator;
+    }
+
+    this.paginators.changes.subscribe((values: QueryList<MatPaginator>) => {
+      this.paginator = values.first;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
   private onStateUpdate(): void {
 
+  }
+
+  private initSort(): void {
+    this.dataSource.sort = this.sort;
   }
 
   public getData(): Run {
     return this.displayService.showingRun;
   }
 
+
   public isAnalysisDone(): boolean {
     return this.analysisState === AnalysisState.DONE;
-  }
-
-  public isLoading(): boolean {
-    return this.analysisState !== AnalysisState.WAITING && this.analysisState !== AnalysisState.DONE;
-  }
-
-  public getStateName(): string {
-    return AnalysisState[this.analysisState];
   }
 
   public updateChart(data: AnalyticData): void {
@@ -125,4 +152,5 @@ export class ChartComponent implements OnInit {
   isNoRunCanDisplay(): boolean {
     return this.displayService.runsCache.length === 0;
   }
+
 }
