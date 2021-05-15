@@ -8,7 +8,7 @@ import {DataService} from '../../service/data.service';
 import {Filters} from '../../objects/filters/filters';
 import {RacerData} from '../../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
-import {analyseStateObserver, chartDisplayObserver} from '../../objects/observer/observers';
+import {analyseStateObserver, chartDisplayObserver, runCacheUpdateObserver} from '../../objects/observer/observers';
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -36,15 +36,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  columnsToDisplay = ['episode', 'reward', 'time'];
+  columnsToDisplay = ['episode', 'reward', 'timeCost'];
 
   constructor(public displayService: ChartDisplayService,
               private dataService: DataService) {
 
     chartDisplayObserver.subscribe(value => {
       this.racerData = value;
-      this.dataSource.data = value.allRuns;
       this.updateChart(dataService.getData('xy'));
+    });
+
+    runCacheUpdateObserver.subscribe(value => {
+      this.dataSource.data = value;
     });
 
     analyseStateObserver.subscribe(value => {

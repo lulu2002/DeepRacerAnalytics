@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
-import {chartDisplayObserver, fileAnalyseObserver} from '../objects/observer/observers';
+import {chartDisplayObserver, fileAnalyseObserver, runCacheUpdateObserver} from '../objects/observer/observers';
 import {Run} from '../objects/run';
 import {FilterOption} from '../objects/filters/filter-option';
 import {SortType} from '../objects/sorts/sort-type';
@@ -29,7 +29,7 @@ export class ChartDisplayService {
   }
 
   private onAnalysed(): void {
-    this._runsCache = this.racerData.allRuns;
+    this.runsCache = this.racerData.allRuns;
 
     this.toggleDefaultOptions();
 
@@ -53,7 +53,7 @@ export class ChartDisplayService {
   }
 
   public updateCacheSort(): void {
-    this._runsCache = this._sortType.sort(this.racerData.allRuns);
+    this.runsCache = this._sortType.sort(this.racerData.allRuns);
     this._runsCacheFilterBackup = [...this._runsCache];
   }
 
@@ -64,7 +64,7 @@ export class ChartDisplayService {
       all = filter.filter(all, this.racerData);
     });
 
-    this._runsCache = all;
+    this.runsCache = all;
   }
 
   public toggleFilter(filter: FilterOption): void {
@@ -89,6 +89,11 @@ export class ChartDisplayService {
 
   get sortType(): SortType {
     return this._sortType;
+  }
+
+  set runsCache(value: Run[]) {
+    this._runsCache = value;
+    runCacheUpdateObserver.next(this.runsCache);
   }
 
 

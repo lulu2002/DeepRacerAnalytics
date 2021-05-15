@@ -38,7 +38,7 @@ export class TarGzFileAnalysis implements FileAnalysis {
   private mergeCsvFiles(allCsvFiles: UnZippedFile[]): Step[] {
     analyseStateObserver.next(AnalysisState.MERGING_CSV_FILES);
 
-    const steps = [];
+    const steps: Step[] = [];
 
     allCsvFiles.forEach(value => {
       const csv = value.readAsString();

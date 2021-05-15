@@ -31,6 +31,14 @@ export class Run {
   }
 
   get timeCost(): number {
-    return this.getLastStep().tstamp - this.getFirstStep().tstamp;
+    return +this.getLastStep().tstamp - +this.getFirstStep().tstamp;
+  }
+
+  get episode(): number {
+    return this.metric.episode;
+  }
+
+  get reward(): number {
+    return this.metric.reward_score;
   }
 }

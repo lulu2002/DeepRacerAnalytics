@@ -1,4 +1,5 @@
 import {Step} from '../objects/step';
+import {isNumber} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 export class Converters {
 
@@ -21,10 +22,17 @@ export class Converters {
       const currentLine = lines[i].split(',');
 
       for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentLine[j];
+        const s = currentLine[j];
+        const sNum = +s;
+
+        if (!isNaN(sNum)) {
+          obj[headers[j]] = sNum;
+        } else {
+          obj[headers[j]] = s;
+        }
       }
 
-      result.push(obj);
+      result.push(obj as Step);
     }
 
     return result;

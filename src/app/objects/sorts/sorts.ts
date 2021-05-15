@@ -32,7 +32,7 @@ class RewardSort extends SortType {
   }
 
   calcAllScore(run: Run): number {
-    return run.getMetric().reward_score;
+    return run.reward;
   }
 }
 

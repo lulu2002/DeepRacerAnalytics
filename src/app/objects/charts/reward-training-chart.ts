@@ -15,7 +15,7 @@ export class RewardTrainingChart extends Chart {
   getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
     const runs = racerData.allRuns;
     this.mergeLength = this.getLengthByRuns(racerData.allRuns);
-    const data = this.getData(runs.map(value => value.getMetric().reward_score), 'rgb(10,226,2)');
+    const data = this.getData(runs.map(value => value.reward), 'rgb(10,226,2)');
 
     return {
       type: this.chartType,
