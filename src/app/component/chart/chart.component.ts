@@ -12,7 +12,7 @@ import {analyseStateObserver, chartDisplayObserver} from '../../objects/observer
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-chart',
@@ -74,10 +74,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private onStateUpdate(): void {
-
-  }
-
   private initSort(): void {
     this.dataSource.sort = this.sort;
   }
@@ -85,7 +81,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   public getData(): Run {
     return this.displayService.showingRun;
   }
-
 
   public isAnalysisDone(): boolean {
     return this.analysisState === AnalysisState.DONE;
