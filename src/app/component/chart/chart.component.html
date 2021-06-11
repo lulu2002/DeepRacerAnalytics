@@ -52,7 +52,7 @@
                 *matCellDef="let run"
                 (click)="switchRun(run)"
                 [ngStyle]="{'font-weight': displayService.showingRun === run ? 'bolder' : ''}">
-                {{run.reward}}
+                {{run.reward.toFixed(1)}}
               </td>
             </ng-container>
 
@@ -63,7 +63,7 @@
                 *matCellDef="let run"
                 (click)="switchRun(run)"
                 [ngStyle]="{'font-weight': displayService.showingRun === run ? 'bolder' : ''}">
-                {{run.timeCost}}
+                {{run.timeCost.toFixed(3)}}
               </td>
             </ng-container>
 

@@ -4,10 +4,18 @@ import {Metric} from './metric';
 export class Run {
   private readonly _steps: Step[];
   private metric: Metric;
+  private _reward: number;
 
   constructor(steps: Step[], metric: Metric) {
     this._steps = steps;
     this.metric = metric;
+    this._reward = this.calcReward(steps);
+  }
+
+  private calcReward(steps: Step[]): number {
+    let sum = 0;
+    steps.forEach(value => sum += value.reward);
+    return sum;
   }
 
   public getMetric(): Metric {
@@ -39,6 +47,6 @@ export class Run {
   }
 
   get reward(): number {
-    return this.metric.reward_score;
+    return this._reward;
   }
 }
