@@ -1,4 +1,4 @@
-import * as browserUntar from 'browser-untar/dist/browser-untar.js';
+import * as browserUntar from 'browser-untar';
 import * as pako from 'pako/index.js';
 import {UnZippedFile} from './un-zipped-file';
 

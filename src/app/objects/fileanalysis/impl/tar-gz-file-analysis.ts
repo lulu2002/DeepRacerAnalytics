@@ -18,7 +18,6 @@ export class TarGzFileAnalysis implements FileAnalysis {
 
     return GzExtract.extract(file).then(files => {
       const allCsvFiles = this.getAllCsvFiles(files);
-      // todo 應該用更好的方式修正
       const steps: Step[] = this.mergeCsvFiles(allCsvFiles).filter(value => value.episode > 0);
 
       const trainingLogFiles = this.getTrainingFiles(files);
