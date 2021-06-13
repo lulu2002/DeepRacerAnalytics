@@ -8,7 +8,7 @@ import {DataService} from '../../service/data.service';
 import {Filters} from '../../objects/filters/filters';
 import {RacerData} from '../../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
-import {analyseStateObserver, chartDisplayObserver, runCacheUpdateObserver} from '../../objects/observer/observers';
+import {analyseStateObserver, chartDisplayObserver, fileUploadedObserver, runCacheUpdateObserver} from '../../objects/observer/observers';
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -30,6 +30,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   showingData: AnalyticData;
   analysisState = AnalysisState.WAITING;
   dataSource: MatTableDataSource<Run> = new MatTableDataSource<Run>();
+  fileName = '';
 
   @ViewChildren(MatPaginator) paginators: QueryList<MatPaginator>;
   paginator: MatPaginator;
@@ -52,6 +53,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
     analyseStateObserver.subscribe(value => {
       this.analysisState = value;
+    });
+
+    fileUploadedObserver.subscribe(value => {
+      this.fileName = value.name;
     });
   }
 

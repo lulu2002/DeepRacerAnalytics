@@ -8,13 +8,14 @@ import {UnZippedFile} from '../../../utils/un-zipped-file';
 import {Converters} from '../../../utils/converters';
 import {Metric} from '../../metric';
 import {EnvironmentInfo} from '../../environment-info';
-import {analyseStateObserver} from '../../observer/observers';
+import {analyseStateObserver, fileUploadedObserver} from '../../observer/observers';
 import {AnalysisState} from '../analysis-state';
 
 export class TarGzFileAnalysis implements FileAnalysis {
 
   analysis(file: File): Promise<RacerData> {
     analyseStateObserver.next(AnalysisState.EXTRACTING_FILE);
+    fileUploadedObserver.next(file);
 
     return GzExtract.extract(file).then(files => {
       const allCsvFiles = this.getAllCsvFiles(files);
