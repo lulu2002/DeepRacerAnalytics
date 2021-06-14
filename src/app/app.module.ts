@@ -17,27 +17,27 @@ import {LoadingStateComponent} from './component/loading-state/loading-state.com
 import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ChartComponent,
-    LogsComponent,
-    HyperparamsComponent,
-    ColorButtonComponent,
-    SortButtonComponent,
-    LoadingStateComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    ChartsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ChartComponent,
+        LogsComponent,
+        HyperparamsComponent,
+        ColorButtonComponent,
+        SortButtonComponent,
+        LoadingStateComponent
+    ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        ChartsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

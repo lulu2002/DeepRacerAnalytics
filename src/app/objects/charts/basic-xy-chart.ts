@@ -5,97 +5,97 @@ import {TrackFactory} from '../tracks/track-factory';
 import {fileAnalyseObserver} from '../observer/observers';
 import {RacerData} from '../fileanalysis/racer-data';
 import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
-import {ChartColor, ChartConfiguration} from 'chart.js';
+import {ChartColor} from 'chart.js';
 
 export class BasicXyChart extends ScatterChart {
-  private racerData: RacerData = new EmptyRacerData();
-  private aspectRatio = 0;
+    private racerData: RacerData = new EmptyRacerData();
+    private aspectRatio = 0;
 
-  constructor(label: string) {
-    super(label);
+    constructor(label: string) {
+        super(label);
 
-    fileAnalyseObserver.subscribe(racerData => {
-      this.racerData = racerData;
-      this.aspectRatio = this.getAspectRatioByStepXy();
-    });
-  }
+        fileAnalyseObserver.subscribe(racerData => {
+            this.racerData = racerData;
+            this.aspectRatio = this.getAspectRatioByStepXy();
+        });
+    }
 
-  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
-    return {
-      type: this.chartType,
-      data: {
-        datasets: this.getSets()
-      },
-      options: {
-        aspectRatio: this.aspectRatio,
-        scales: {
-          xAxes: [
-            {
-              display: true,
-              ticks: {
-                beginAtZero: true,
-                stepSize: 0.5
-              }
+    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
+        return {
+            type: this.chartType,
+            data: {
+                datasets: this.getSets()
+            },
+            options: {
+                aspectRatio: this.aspectRatio,
+                scales: {
+                    xAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 0.5
+                            }
+                        }
+                    ],
+                    yAxes: [
+                        {
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 0.5
+                            }
+                        }
+                    ]
+                }
             }
-          ],
-          yAxes: [
-            {
-              display: true,
-              ticks: {
-                beginAtZero: true,
-                stepSize: 0.5
-              }
+        };
+    }
+
+    private getAspectRatioByStepXy(): number {
+        const steps = this.racerData.steps;
+        let maxX = 0;
+        let maxY = 0;
+
+        steps.forEach(s => {
+            if (+s.X > +maxX) {
+                maxX = s.X;
             }
-          ]
-        }
-      }
-    };
-  }
 
-  private getAspectRatioByStepXy(): number {
-    const steps = this.racerData.steps;
-    let maxX = 0;
-    let maxY = 0;
+            if (+s.Y > +maxY) {
+                maxY = s.Y;
+            }
+        });
 
-    steps.forEach(s => {
-      if (+s.X > +maxX) {
-        maxX = s.X;
-      }
+        return maxX / maxY;
+    }
 
-      if (+s.Y > +maxY) {
-        maxY = s.Y;
-      }
-    });
+    protected getSets(): Chart.ChartDataSets[] {
+        const sets: Chart.ChartDataSets[] = [];
 
-    return maxX / maxY;
-  }
+        const track = TrackFactory.findTrack(this.racerData.track);
 
-  protected getSets(): Chart.ChartDataSets[] {
-    const sets: Chart.ChartDataSets[] = [];
+        sets.push(this.getStyleSets(track.insideBorder));
+        sets.push(this.getStyleSets(track.outsideBorder));
+        sets.push(this.getStyleSets(track.humanBestRoute, '幾何參考路徑 (點我切換顯示)', 'rgba(13,154,102,0.25)'));
 
-    const track = TrackFactory.findTrack(this.racerData.track);
+        return sets;
+    }
 
-    sets.push(this.getStyleSets(track.insideBorder));
-    sets.push(this.getStyleSets(track.outsideBorder));
-    sets.push(this.getStyleSets(track.humanBestRoute, '幾何參考路徑 (點我切換顯示)', 'rgba(13,154,102,0.25)'));
+    protected getStyleSets(coords: Coords[],
+                           label: string = 'Border',
+                           color: ChartColor = 'rgb(142,144,144,0.25)'
+    ): Chart.ChartDataSets {
+        const sets = super.getDataSets(coords);
 
-    return sets;
-  }
+        sets.label = label;
+        sets.pointRadius = 0;
+        sets.showLine = true;
+        sets.borderWidth = 2;
+        sets.borderColor = color;
+        sets.pointBackgroundColor = 'rgb(142,144,144,0.25)';
 
-  protected getStyleSets(coords: Coords[],
-                         label: string = 'Border',
-                         color: ChartColor = 'rgb(142,144,144,0.25)'
-  ): Chart.ChartDataSets {
-    const sets = super.getDataSets(coords);
-
-    sets.label = label;
-    sets.pointRadius = 0;
-    sets.showLine = true;
-    sets.borderWidth = 2;
-    sets.borderColor = color;
-    sets.pointBackgroundColor = 'rgb(142,144,144,0.25)';
-
-    return sets;
-  }
+        return sets;
+    }
 
 }

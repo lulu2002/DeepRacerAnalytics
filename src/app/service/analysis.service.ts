@@ -7,25 +7,25 @@ import {AnalysisState} from '../objects/fileanalysis/analysis-state';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AnalysisService {
 
-  private fileAnalysisFactory = new SimpleFileAnalysisFactory();
+    private fileAnalysisFactory = new SimpleFileAnalysisFactory();
 
-  constructor(private logService: LogService) {
-  }
-
-  analysisFile(file: File): Promise<RacerData> {
-    try {
-      const fileAnalysis = this.fileAnalysisFactory.getFileAnalysis(file);
-      const promise = fileAnalysis.analysis(file);
-      return promise.then(value => {
-        return value;
-      });
-    } catch (e) {
-      analyseStateObserver.next(AnalysisState.ERROR);
-      this.logService.logError(e);
+    constructor(private logService: LogService) {
     }
-  }
+
+    analysisFile(file: File): Promise<RacerData> {
+        try {
+            const fileAnalysis = this.fileAnalysisFactory.getFileAnalysis(file);
+            const promise = fileAnalysis.analysis(file);
+            return promise.then(value => {
+                return value;
+            });
+        } catch (e) {
+            analyseStateObserver.next(AnalysisState.ERROR);
+            this.logService.logError(e);
+        }
+    }
 }

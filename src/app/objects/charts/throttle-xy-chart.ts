@@ -4,25 +4,25 @@ import {NumberFormats} from '../../utils/number-formats';
 
 export class ThrottleXyChart extends DataBasedXyChart {
 
-  constructor() {
-    super('XY', null, 0.0);
-  }
-
-  protected getStepValue(step: Step): number {
-    const value = NumberFormats.toDigs(step.throttle, 1);
-
-    if (value > this.maxKeyValue) {
-      this.maxKeyValue = value;
+    constructor() {
+        super('XY', null, 0.0);
     }
 
-    if (this.minKeyValue == null || value < this.minKeyValue) {
-      this.minKeyValue = value;
+    protected getStepValue(step: Step): number {
+        const value = NumberFormats.toDigs(step.throttle, 1);
+
+        if (value > this.maxKeyValue) {
+            this.maxKeyValue = value;
+        }
+
+        if (this.minKeyValue == null || value < this.minKeyValue) {
+            this.minKeyValue = value;
+        }
+
+        return value;
     }
 
-    return value;
-  }
-
-  protected getColor(key: number): Chart.ChartColor {
-    return super.getColor(key);
-  }
+    protected getColor(key: number): Chart.ChartColor {
+        return super.getColor(key);
+    }
 }

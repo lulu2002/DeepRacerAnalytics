@@ -1,7 +1,7 @@
 export interface UnZippedFile {
-  buffer: ArrayBuffer;
-  name: string;
-  size: number;
+    buffer: ArrayBuffer;
+    name: string;
+    size: number;
 
-  readAsString(): string;
+    readAsString(): string;
 }
