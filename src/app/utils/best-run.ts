@@ -16,14 +16,18 @@ export class BestRun {
     let temp: Step[] = [];
 
     steps.forEach((step, index) => {
-      if (step) {
-        if (step.steps <= 1.1 && index !== 0) {
-          runs.push(new Run(temp, metrics[step.episode]));
-          temp = [];
-        }
 
+      if (index + 1 === steps.length) {
+        runs.push(new Run(temp, metrics[step.episode]));
         temp.push(step);
+        return;
       }
+
+      if (step.steps <= 1.0 && index !== 0) {
+        runs.push(new Run(temp, metrics[step.episode]));
+        temp = [];
+      }
+      temp.push(step);
     });
 
     return runs;

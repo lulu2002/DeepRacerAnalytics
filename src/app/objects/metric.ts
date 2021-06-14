@@ -1,4 +1,4 @@
-export interface Metric {
+export class Metric {
   reward_score: number;
   metric_time: number;
   start_time: number;
