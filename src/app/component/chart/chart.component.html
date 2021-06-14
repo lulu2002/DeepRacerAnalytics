@@ -31,7 +31,12 @@
 
 
       <div class="mt-2">
-        <p>圈數 <span class="text-primary" (click)="selectAll()">點我全選表格中 {{displayService.runsCache.length}} 個數據</span>
+        <p>
+          圈數
+          <span class="text-secondary">(按著 Ctrl | Shift 可多重選取)</span>
+          <span class="text-primary" (click)="selectAll()">
+            點我全選表格中 {{displayService.runsCache.length}} 個數據
+          </span>
         </p>
         <div>
           <table mat-table [dataSource]="dataSource" matSort class="w-100">
@@ -40,7 +45,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode</th>
               <td mat-cell
                   *matCellDef="let run"
-                  (click)="switchRun(run)"
+                  (click)="onRunClick(run,$event)"
                   [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.episode}}
               </td>
@@ -50,7 +55,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Reward</th>
               <td mat-cell
                   *matCellDef="let run"
-                  (click)="switchRun(run)"
+                  (click)="onRunClick(run,$event)"
                   [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.reward.toFixed(1)}}
               </td>
@@ -61,7 +66,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
               <td mat-cell
                   *matCellDef="let run"
-                  (click)="switchRun(run)"
+                  (click)="onRunClick(run, $event)"
                   [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.timeCost.toFixed(3)}}
               </td>

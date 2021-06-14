@@ -88,6 +88,10 @@ export class ChartDisplayService {
         this._showingRuns.push(...run);
     }
 
+    public removeRun(toRemove: Run[]): void {
+        this._showingRuns = this._showingRuns.filter(value => !toRemove.includes(value));
+    }
+
     public clearShowingRuns(): void {
         this._showingRuns = [];
     }

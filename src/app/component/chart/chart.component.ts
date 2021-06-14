@@ -99,10 +99,30 @@ export class ChartComponent implements OnInit, AfterViewInit {
         this.reRenderChart();
     }
 
-    public switchRun(run: Run): void {
-        this.displayService.changeRun(run);
+    public onRunClick(run: Run, e: MouseEvent): void {
+        if (e.shiftKey || e.ctrlKey) {
+            this.toggleRun(run);
+        } else {
+            this.switchRun(run);
+        }
         this.reRenderChart();
     }
+
+    private toggleRun(run: Run): void {
+        const showingRuns = this.displayService.showingRuns;
+        const index = showingRuns.indexOf(run);
+
+        if (index >= 0) {
+            this.displayService.removeRun([run]);
+        } else {
+            this.displayService.addRuns([run]);
+        }
+    }
+
+    private switchRun(run: Run): void {
+        this.displayService.changeRun(run);
+    }
+
 
     public selectAll(): void {
         const runs = this.displayService.runsCache;
