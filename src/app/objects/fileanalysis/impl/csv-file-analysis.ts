@@ -8,7 +8,7 @@ export class CsvFileAnalysis implements FileAnalysis {
     return file.text().then(value => {
       const steps = Converters.convertCsvToSteps(value);
 
-      return new RacerData(steps);
+      return new RacerData(steps, emptyHyper, [], [], emptyEnvironment, trainingType);
     });
   }
 
