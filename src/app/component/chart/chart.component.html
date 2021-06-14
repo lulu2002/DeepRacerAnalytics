@@ -31,8 +31,8 @@
 
 
       <div class="mt-2">
-        <p>圈數</p>
-
+        <p>圈數 <span class="text-primary" (click)="selectAll()">點我全選表格中 {{displayService.runsCache.length}} 個數據</span>
+        </p>
         <div>
           <table mat-table [dataSource]="dataSource" matSort class="w-100">
 
@@ -41,7 +41,7 @@
               <td mat-cell
                   *matCellDef="let run"
                   (click)="switchRun(run)"
-                  [ngStyle]="{'font-weight': displayService.showingRun === run ? 'bolder' : ''}">
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.episode}}
               </td>
             </ng-container>
@@ -51,7 +51,7 @@
               <td mat-cell
                   *matCellDef="let run"
                   (click)="switchRun(run)"
-                  [ngStyle]="{'font-weight': displayService.showingRun === run ? 'bolder' : ''}">
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.reward.toFixed(1)}}
               </td>
             </ng-container>
@@ -62,7 +62,7 @@
               <td mat-cell
                   *matCellDef="let run"
                   (click)="switchRun(run)"
-                  [ngStyle]="{'font-weight': displayService.showingRun === run ? 'bolder' : ''}">
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.timeCost.toFixed(3)}}
               </td>
             </ng-container>
@@ -89,7 +89,7 @@
     <div class="col-7">
       <canvas id="chart" style="background-color: white" class="my-auto"></canvas>
       <p class="text-center gray-div text-secondary">{{fileName}}</p>
-      <p [ngClass]="getData() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a target="_blank"
+      <p [ngClass]="getShowingDataList() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a target="_blank"
           href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new">點擊這裡</a> 讓我知道！</p>
     </div>
   </div>

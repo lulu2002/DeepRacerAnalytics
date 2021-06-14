@@ -1,5 +1,6 @@
 import {Chart} from '../charts/chart';
 import {Step} from '../step';
+import {Run} from '../run';
 
 export class AnalyticData {
     public label: string;
@@ -12,7 +13,9 @@ export class AnalyticData {
         this.chart = chart;
     }
 
-    public handleData(steps: Step[]): Step[] {
+    public handleData(runs: Run[]): Step[] {
+        const steps: Step[] = [];
+        runs.forEach(value => steps.push(...value.steps));
         return steps;
     }
 

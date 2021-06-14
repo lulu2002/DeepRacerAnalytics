@@ -10,10 +10,6 @@ export class RacetimeData extends AnalyticData {
     constructor(label: string, displayName: string) {
         super(label, displayName, new RacetimeChart('rancetime'));
     }
-
-    handleData(steps: Step[]): Step[] {
-        return steps;
-    }
 }
 
 class RacetimeChart extends Chart {

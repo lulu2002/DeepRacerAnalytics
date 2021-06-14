@@ -15,7 +15,7 @@ export class ChartDisplayService {
     private racerData = new EmptyRacerData();
     private _runsCache: Run[] = [];
     private _runsCacheFilterBackup: Run[] = [];
-    private _showingRun: Run = emptyRun;
+    private _showingRuns: Run[] = [emptyRun];
     private _filterOptions: FilterOption[] = [];
     private _sortType: SortType = SortTypes.GENERAL_SORT;
 
@@ -37,7 +37,7 @@ export class ChartDisplayService {
         this.updateCacheFilter();
 
         if (this.runsCache.length > 0) {
-            this._showingRun = this.runsCache[0];
+            this.changeRun(this.runsCache[0]);
         }
     }
 
@@ -79,12 +79,25 @@ export class ChartDisplayService {
         this.updateCacheFilter();
     }
 
+    public changeRun(run: Run): void {
+        this.clearShowingRuns();
+        this._showingRuns.push(run);
+    }
+
+    public addRuns(run: Run[]): void {
+        this._showingRuns.push(...run);
+    }
+
+    public clearShowingRuns(): void {
+        this._showingRuns = [];
+    }
+
     get runsCache(): Run[] {
         return this._runsCache;
     }
 
-    get showingRun(): Run {
-        return this._showingRun;
+    get showingRuns(): Run[] {
+        return this._showingRuns;
     }
 
     get sortType(): SortType {
@@ -96,14 +109,8 @@ export class ChartDisplayService {
         runCacheUpdateObserver.next(this.runsCache);
     }
 
-
-    set showingRun(value: Run) {
-        this._showingRun = value;
-    }
-
     get filterOptions(): FilterOption[] {
         return this._filterOptions;
-
     }
 }
 

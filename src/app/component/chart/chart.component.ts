@@ -86,8 +86,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
         this.dataSource.sort = this.sort;
     }
 
-    public getData(): Run {
-        return this.displayService.showingRun;
+    public getShowingDataList(): Run[] {
+        return this.displayService.showingRuns;
     }
 
     public isAnalysisDone(): boolean {
@@ -100,7 +100,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
 
     public switchRun(run: Run): void {
-        this.displayService.showingRun = run;
+        this.displayService.changeRun(run);
+        this.reRenderChart();
+    }
+
+    public selectAll(): void {
+        const runs = this.displayService.runsCache;
+        this.displayService.clearShowingRuns();
+        this.displayService.addRuns(runs);
         this.reRenderChart();
     }
 
@@ -110,7 +117,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
         this.destroyToPreventJumpingChart();
         const ctx = (document.querySelector('#chart') as HTMLCanvasElement).getContext('2d');
 
-        this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getData().steps), this.racerData));
+        this.showingChart = new ChartJsChart(ctx, chart.getChart(this.showingData.handleData(this.getShowingDataList()), this.racerData));
         this.showingData.chart.afterChartDisplayed(this.showingChart);
     }
 
