@@ -2,7 +2,6 @@ import {FileAnalysis} from '../file-analysis';
 import {RacerData, TrainingType} from '../racer-data';
 import {GzExtract} from '../../../utils/gz-extract';
 import {Step} from '../../step';
-import {HyperParameters} from '../../hyper-parameters';
 import {ActionSpace} from '../../action-space';
 import {UnZippedFile} from '../../../utils/un-zipped-file';
 import {Converters} from '../../../utils/converters';
@@ -48,18 +47,6 @@ export class TarGzFileAnalysis implements FileAnalysis {
         });
 
         return steps;
-    }
-
-    private getHyperParamsFromFile(s: string): HyperParameters {
-        analyseStateObserver.next(AnalysisState.READING_HYPERPARAMS);
-        const search = 'Using the following hyper\\-parameters\\n\\{[\\s\\S]*\\"term_cond_max_episodes\\"\\: .{0,}\\n\\}';
-
-        const matchArray = s.match(search);
-        const hyperParamsString = matchArray[0]
-            .replace('Using the following hyper-parameters', '');
-        const hyperParams: HyperParameters = JSON.parse(hyperParamsString);
-
-        return hyperParams;
     }
 
     private getActionSpacesFromFile(s: string): ActionSpace[] {
