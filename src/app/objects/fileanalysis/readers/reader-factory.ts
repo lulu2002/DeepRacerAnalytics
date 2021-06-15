@@ -8,9 +8,9 @@ export class ReaderFactory {
         const fileNames = files.map(value => value.name);
 
         if (this.containsCsvFiles(fileNames)) {
-            return new TrainingAnalyticReader();
+            return new TrainingAnalyticReader(files);
         } else {
-            return new LeaderboardAnalyticReader();
+            return new LeaderboardAnalyticReader(files);
         }
     }
 

@@ -12,7 +12,7 @@ import {NumberFormats} from '../../utils/number-formats';
 })
 export class HyperparamsComponent implements OnInit {
 
-    private racerData: RacerData = new EmptyRacerData();
+    racerData: RacerData = new EmptyRacerData();
     private speeds: number[] = [];
     private steerAngles: number[] = [];
     private averageCompletePercent = 0;

@@ -37,9 +37,14 @@ export class LogStepReader extends LogReader<Step[]> {
 
     read(files: UnZippedFile[]): Step[] {
         const logs = this.getAllLogsAsString(files);
-        const matches = this.match(logs, 'SIM_TRACE_LOG\\:.{0,}')
-            .map(value => value.replace('SIM_TRACE_LOG\\:', ''))
-            .reduce((a, b) => a = a.concat(`\n${b}`));
+        let matches = this.match(logs, /SIM_TRACE_LOG\:.*/g)
+            .map(value => value.replace('SIM_TRACE_LOG\:', ''))
+            .reduce((a, b) => a.concat(`\n${b}`));
+
+        matches = 'episode,steps,X,Y,yaw,steer,throttle,action,reward,done,all_wheels_on_track,progress,closest_waypoint,track_len,tstamp,episode_status,pause_duration\n'
+            + matches;
+
+        console.log(Converters.convertCsvToSteps(matches));
 
         return Converters.convertCsvToSteps(matches);
     }

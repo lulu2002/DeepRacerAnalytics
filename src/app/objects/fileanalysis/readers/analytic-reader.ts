@@ -10,13 +10,14 @@ export abstract class AnalyticReader {
 
     private files: UnZippedFile[];
 
-    private actionReader: Reader<ActionSpace>;
+    private actionReader: Reader<ActionSpace[]>;
     private stepReader: Reader<Step[]>;
     private hyperParamReader: Reader<HyperParameters>;
     private metricsReader: Reader<Metric[]>;
     private environmentReader: Reader<EnvironmentInfo>;
 
-    constructor(actionReader: Reader<ActionSpace>, stepReader: Reader<Step[]>, hyperParamReader: Reader<HyperParameters>, metricsReader: Reader<Metric[]>, environmentReader: Reader<EnvironmentInfo>) {
+    constructor(files: UnZippedFile[], actionReader: Reader<ActionSpace[]>, stepReader: Reader<Step[]>, hyperParamReader: Reader<HyperParameters>, metricsReader: Reader<Metric[]>, environmentReader: Reader<EnvironmentInfo>) {
+        this.files = files;
         this.actionReader = actionReader;
         this.stepReader = stepReader;
         this.hyperParamReader = hyperParamReader;
@@ -24,9 +25,6 @@ export abstract class AnalyticReader {
         this.environmentReader = environmentReader;
     }
 
-    public loadFiles(files: UnZippedFile[]): void {
-        this.files = files;
-    }
 
     public readSteps(): Step[] {
         return this.stepReader.read(this.files);
@@ -36,7 +34,7 @@ export abstract class AnalyticReader {
         return this.hyperParamReader.read(this.files);
     }
 
-    public readActionSpaces(): ActionSpace {
+    public readActionSpaces(): ActionSpace[] {
         return this.actionReader.read(this.files);
     }
 

@@ -21,11 +21,11 @@ export abstract class LogReader<E> extends Reader<E> {
         return s;
     }
 
-    protected matchString(fileStr: string, regex: string): string {
+    protected matchString(fileStr: string, regex: string | RegExp): string {
         return this.match(fileStr, regex)[0];
     }
 
-    protected match(fileStr: string, regex: string): string[] {
+    protected match(fileStr: string, regex: string | RegExp): string[] {
         const matchArray = fileStr.match(regex);
 
         if (matchArray != null) {

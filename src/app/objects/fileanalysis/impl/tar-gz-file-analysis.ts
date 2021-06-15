@@ -13,13 +13,14 @@ export class TarGzFileAnalysis implements FileAnalysis {
         fileUploadedObserver.next(file);
 
         return GzExtract.extract(file).then(files => {
-
             const reader = ReaderFactory.getAnalyticReader(files);
+
             return new RacerData(
                 reader.readSteps(),
                 reader.readHyperParams(),
                 reader.readActionSpaces(),
                 reader.readMetrics(),
+                reader.readEnvironment(),
             );
         });
     }
