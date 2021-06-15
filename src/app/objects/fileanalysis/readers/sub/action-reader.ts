@@ -1,6 +1,6 @@
 import {LogReader} from './reader';
-import {ActionSpace} from '../../action-space';
-import {UnZippedFile} from '../../../utils/un-zipped-file';
+import {ActionSpace} from '../../../action-space';
+import {UnZippedFile} from '../../../../utils/un-zipped-file';
 
 export class LogActionReader extends LogReader<ActionSpace> {
 

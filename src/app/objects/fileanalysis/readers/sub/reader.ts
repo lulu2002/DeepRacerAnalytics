@@ -1,4 +1,4 @@
-import {UnZippedFile} from '../../../utils/un-zipped-file';
+import {UnZippedFile} from '../../../../utils/un-zipped-file';
 
 export abstract class Reader<E> {
     public abstract read(files: UnZippedFile[]): E;
@@ -22,14 +22,16 @@ export abstract class LogReader<E> extends Reader<E> {
     }
 
     protected matchString(fileStr: string, regex: string): string {
-        let name = '';
+        return this.match(fileStr, regex)[0];
+    }
 
+    protected match(fileStr: string, regex: string): string[] {
         const matchArray = fileStr.match(regex);
 
         if (matchArray != null) {
-            name = matchArray[0];
+            return matchArray;
         }
 
-        return name;
+        return [''];
     }
 }

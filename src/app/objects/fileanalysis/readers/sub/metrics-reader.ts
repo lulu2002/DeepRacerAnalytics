@@ -1,6 +1,6 @@
 import {Reader} from './reader';
-import {Metric} from '../../metric';
-import {UnZippedFile} from '../../../utils/un-zipped-file';
+import {Metric} from '../../../metric';
+import {UnZippedFile} from '../../../../utils/un-zipped-file';
 
 export class JsonMetricsReader extends Reader<Metric[]> {
 
@@ -9,5 +9,12 @@ export class JsonMetricsReader extends Reader<Metric[]> {
         return JSON.parse(file.readAsString()).metrics;
     }
 
+}
+
+export class EmptyMetricsReader extends Reader<Metric[]> {
+
+    read(files: UnZippedFile[]): Metric[] {
+        return [];
+    }
 
 }

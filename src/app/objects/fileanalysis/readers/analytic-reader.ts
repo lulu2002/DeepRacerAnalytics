@@ -3,10 +3,10 @@ import {HyperParameters} from '../../hyper-parameters';
 import {ActionSpace} from '../../action-space';
 import {EnvironmentInfo} from '../../environment-info';
 import {Metric} from '../../metric';
-import {Reader} from './reader';
+import {Reader} from './sub/reader';
 import {UnZippedFile} from '../../../utils/un-zipped-file';
 
-abstract class AnalyticFactory {
+export abstract class AnalyticReader {
 
     private files: UnZippedFile[];
 
@@ -16,7 +16,15 @@ abstract class AnalyticFactory {
     private metricsReader: Reader<Metric[]>;
     private environmentReader: Reader<EnvironmentInfo>;
 
-    constructor(files: UnZippedFile[]) {
+    constructor(actionReader: Reader<ActionSpace>, stepReader: Reader<Step[]>, hyperParamReader: Reader<HyperParameters>, metricsReader: Reader<Metric[]>, environmentReader: Reader<EnvironmentInfo>) {
+        this.actionReader = actionReader;
+        this.stepReader = stepReader;
+        this.hyperParamReader = hyperParamReader;
+        this.metricsReader = metricsReader;
+        this.environmentReader = environmentReader;
+    }
+
+    public loadFiles(files: UnZippedFile[]): void {
         this.files = files;
     }
 

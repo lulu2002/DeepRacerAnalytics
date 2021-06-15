@@ -15,17 +15,16 @@ export class RacerData {
                 hyperParams: HyperParameters,
                 actionSpaces: ActionSpace[] = [],
                 mertics: Metric[] = [],
-                environmentInfo: EnvironmentInfo,
-                trainingType: TrainingType) {
+                environmentInfo: EnvironmentInfo) {
         this._steps = steps;
         this._hyperParams = hyperParams;
         this._actionSpaces = actionSpaces;
         this._environmentInfo = environmentInfo;
-
         this._metrics = groupBy(mertics);
-        this._allRuns = BestRun.splitRuns(steps, mertics);
-        this._trainingType = trainingType;
 
+
+        // todo 這應該是 reader 的職責
+        this._allRuns = BestRun.splitRuns(steps, mertics);
         this.allRuns.forEach(value => {
             if (isNaN(value.timeCost)) {
                 console.log(value);
@@ -67,15 +66,15 @@ export class RacerData {
     }
 
     get track(): string {
-        return this._environmentInfo.track;
+        return this._environmentInfo.WORLD_NAME;
     }
 
     get modelName(): string {
-        return this._environmentInfo.modelName;
+        return this._environmentInfo.MODEL_NAME;
     }
 
     get carName(): string {
-        return this._environmentInfo.carName;
+        return this._environmentInfo.CAR_NAME;
     }
 
     get trainingType(): TrainingType {
