@@ -25,7 +25,7 @@ export class BestRun {
                 return;
             }
 
-            if (step.episode > currentEpisode) {
+            if (step.episode !== currentEpisode) {
                 runs.push(new Run(temp, metrics[step.episode]));
                 temp = [];
                 currentEpisode = step.episode;
