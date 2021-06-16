@@ -1,9 +1,9 @@
-import {FileAnalysis} from '../file-analysis';
-import {RacerData} from '../racer-data';
-import {GzExtract} from '../../../utils/gz-extract';
-import {analyseStateObserver, fileUploadedObserver} from '../../observer/observers';
-import {AnalysisState} from '../analysis-state';
-import {ReaderFactory} from '../readers/reader-factory';
+import {FileAnalysis} from './file-analysis';
+import {RacerData} from './racer-data';
+import {GzExtract} from '../../utils/gz-extract';
+import {analyseStateObserver, fileUploadedObserver} from '../observer/observers';
+import {AnalysisState} from './analysis-state';
+import {ReaderFactory} from './readers/reader-factory';
 
 export class TarGzFileAnalysis implements FileAnalysis {
 

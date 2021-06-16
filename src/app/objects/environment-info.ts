@@ -1,10 +1,12 @@
+import {TrainingType} from './fileanalysis/racer-data';
+
 export interface EnvironmentInfo {
     readonly METRICS_S3_BUCKET: string[];
     readonly METRICS_S3_OBJECT_KEY: string[];
     readonly RACER_NAME: string;
     readonly LEADERBOARD_TYPE: string;
-    readonly JOB_TYPE: string;
-    readonly VIDEO_JOB_TYPE: string;
+    readonly JOB_TYPE: TrainingType;
+    readonly VIDEO_JOB_TYPE: TrainingType;
     readonly LEADERBOARD_NAME: string;
     readonly RACE_TYPE: string;
     readonly WORLD_NAME: string;

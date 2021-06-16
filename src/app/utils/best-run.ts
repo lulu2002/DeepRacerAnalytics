@@ -15,6 +15,8 @@ export class BestRun {
         const runs: Run[] = [];
         let temp: Step[] = [];
 
+        let currentEpisode = 0;
+
         steps.forEach((step, index) => {
 
             if (index + 1 === steps.length) {
@@ -23,10 +25,12 @@ export class BestRun {
                 return;
             }
 
-            if (step.steps <= 1.0 && index !== 0) {
+            if (step.episode > currentEpisode) {
                 runs.push(new Run(temp, metrics[step.episode]));
                 temp = [];
+                currentEpisode = step.episode;
             }
+
             temp.push(step);
         });
 

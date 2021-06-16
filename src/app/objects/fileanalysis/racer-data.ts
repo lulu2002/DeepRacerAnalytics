@@ -38,8 +38,6 @@ export class RacerData {
     private readonly _hyperParams: HyperParameters;
     private readonly _actionSpaces: ActionSpace[];
     private readonly _environmentInfo: EnvironmentInfo;
-    private readonly _trainingType: TrainingType;
-
 
     get allRuns(): Run[] {
         return [...this._allRuns];
@@ -78,7 +76,7 @@ export class RacerData {
     }
 
     get trainingType(): TrainingType {
-        return this._trainingType;
+        return this._environmentInfo.JOB_TYPE;
     }
 
 

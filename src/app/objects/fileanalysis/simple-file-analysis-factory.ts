@@ -1,5 +1,5 @@
 import {FileAnalysis} from './file-analysis';
-import {TarGzFileAnalysis} from './impl/tar-gz-file-analysis';
+import {TarGzFileAnalysis} from './tar-gz-file-analysis';
 
 export class SimpleFileAnalysisFactory {
 

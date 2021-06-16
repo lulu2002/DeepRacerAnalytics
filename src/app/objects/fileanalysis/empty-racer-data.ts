@@ -1,4 +1,4 @@
-import {RacerData} from './racer-data';
+import {RacerData, TrainingType} from './racer-data';
 import {HyperParameters} from '../hyper-parameters';
 
 export class EmptyRacerData extends RacerData {
@@ -12,8 +12,8 @@ const emptyEnvironment = {
     METRICS_S3_OBJECT_KEY: [],
     RACER_NAME: 'UNKNOWN_RACER_NAME',
     LEADERBOARD_TYPE: 'UNKNOWN_LEADERBOARD_TYPE',
-    JOB_TYPE: 'UNKNOWN_JOB_TYPE',
-    VIDEO_JOB_TYPE: 'UNKNOWN_VIDEO_JOB_TYPE',
+    JOB_TYPE: 'TRAINING' as TrainingType,
+    VIDEO_JOB_TYPE: 'TRAINING' as TrainingType,
     LEADERBOARD_NAME: 'UNKNOWN_LEADERBOARD_NAME',
     RACE_TYPE: 'UNKNOWN_RACE_TYPE',
     WORLD_NAME: 'UNKNOWN_WORLD_NAME',
