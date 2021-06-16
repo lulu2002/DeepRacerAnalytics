@@ -22,9 +22,6 @@ export class RacerData {
         this._environmentInfo = environmentInfo;
         this._metrics = groupBy(mertics);
 
-        console.log(steps);
-
-
         // todo 這應該是 reader 的職責
         this._allRuns = BestRun.splitRuns(steps, mertics);
         this.allRuns.forEach(value => {
