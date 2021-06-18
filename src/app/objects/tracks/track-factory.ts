@@ -1,6 +1,7 @@
 import {Track} from './track';
 import {ReInvent2018} from './re-invent2018';
 import {ReInvent2019} from './re-invent2019';
+import {JyllandsringenPro} from './JyllandsringenPro';
 
 export class TrackFactory {
 
@@ -10,6 +11,8 @@ export class TrackFactory {
                 return new ReInvent2018();
             case 'reinvent2019_track':
                 return new ReInvent2019();
+            case 'jyllandsringen_pro':
+                return new JyllandsringenPro();
             default:
                 return new ReInvent2018();
         }

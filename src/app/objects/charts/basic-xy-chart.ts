@@ -57,17 +57,19 @@ export class BasicXyChart extends ScatterChart {
         let maxX = 0;
         let maxY = 0;
 
+
         steps.forEach(s => {
-            if (+s.X > +maxX) {
+
+            if (Math.abs(s.X) > Math.abs(maxX)) {
                 maxX = s.X;
             }
 
-            if (+s.Y > +maxY) {
+            if (Math.abs(s.Y) > Math.abs(maxY)) {
                 maxY = s.Y;
             }
         });
 
-        return maxX / maxY;
+        return Math.abs(maxX / maxY);
     }
 
     protected getSets(): Chart.ChartDataSets[] {
