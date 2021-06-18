@@ -2,6 +2,7 @@ import {Track} from './track';
 import {ReInvent2018} from './re-invent2018';
 import {ReInvent2019} from './re-invent2019';
 import {JyllandsringenPro} from './JyllandsringenPro';
+import {EmptyTrack} from './empty-track';
 
 export class TrackFactory {
 
@@ -14,8 +15,12 @@ export class TrackFactory {
             case 'jyllandsringen_pro':
                 return new JyllandsringenPro();
             default:
-                return new ReInvent2018();
+                return new EmptyTrack();
         }
+    }
+
+    public static isTrackExist(name: string): boolean {
+        return this.findTrack(name).name !== 'empty';
     }
 
 }

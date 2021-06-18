@@ -8,11 +8,17 @@ import {DataService} from '../../service/data.service';
 import {Filters} from '../../objects/filters/filters';
 import {RacerData} from '../../objects/fileanalysis/racer-data';
 import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
-import {analyseStateObserver, firstChartDisplayObserver, fileUploadedObserver, runCacheUpdateObserver} from '../../objects/observer/observers';
+import {
+    analyseStateObserver,
+    fileUploadedObserver,
+    firstChartDisplayObserver,
+    runCacheUpdateObserver
+} from '../../objects/observer/observers';
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import {TrackFactory} from '../../objects/tracks/track-factory';
 
 @Component({
     selector: 'app-chart',
@@ -24,7 +30,7 @@ import {MatSort} from '@angular/material/sort';
 })
 export class ChartComponent implements OnInit, AfterViewInit {
 
-    private racerData: RacerData = new EmptyRacerData();
+    racerData: RacerData = new EmptyRacerData();
     private showingChart: ChartJsChart;
     public sortTypes = SortTypes;
     showingData: AnalyticData;
@@ -37,6 +43,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort)
     sort: MatSort;
 
+    trackSupported = true;
+
     columnsToDisplay = ['episode', 'reward', 'timeCost'];
 
     constructor(public displayService: ChartDisplayService,
@@ -44,6 +52,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
         firstChartDisplayObserver.subscribe(value => {
             this.racerData = value;
+            this.trackSupported = TrackFactory.isTrackExist(value.track);
             this.updateChart(dataService.getData('xy'));
         });
 
