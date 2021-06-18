@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
-import {chartDisplayObserver, fileAnalyseObserver, runCacheUpdateObserver} from '../objects/observer/observers';
+import {fileAnalyseObserver, firstChartDisplayObserver, runCacheUpdateObserver} from '../objects/observer/observers';
 import {Run} from '../objects/run';
 import {FilterOption} from '../objects/filters/filter-option';
 import {SortType} from '../objects/sorts/sort-type';
@@ -24,7 +24,8 @@ export class ChartDisplayService {
         fileAnalyseObserver.subscribe(value => {
             this.racerData = value;
             this.onAnalysed();
-            chartDisplayObserver.next(this.racerData);
+            this.clearShowingRuns();
+            firstChartDisplayObserver.next(this.racerData);
         });
     }
 
