@@ -4,88 +4,88 @@ import {BasicXyChart} from './basic-xy-chart';
 import {Step} from '../step';
 import * as d3 from 'd3';
 import {NumberFormats} from '../../utils/number-formats';
-import {fileAnalyseObserver} from '../observer/observers';
+import {fileAnalyseObserver, firstChartDisplayObserver} from '../observer/observers';
 import {RacerData} from '../fileanalysis/racer-data';
 
 
 export abstract class DataBasedXyChart extends BasicXyChart {
 
-    private static readonly maxColorValue = 0.9;
-    private static readonly minColorValue = 0.3;
+  private static readonly maxColorValue = 0.9;
+  private static readonly minColorValue = 0.3;
 
-    private map: Map<number, Coords[]>;
-    protected minKeyValue: number;
-    protected maxKeyValue: number;
+  private map: Map<number, Coords[]>;
+  protected minKeyValue: number;
+  protected maxKeyValue: number;
 
 
-    constructor(label: string, minKeyValue: number, maxKeyValue: number) {
-        super(label);
-        this.minKeyValue = minKeyValue;
-        this.maxKeyValue = maxKeyValue;
+  constructor(label: string, minKeyValue: number, maxKeyValue: number) {
+    super(label);
+    this.minKeyValue = minKeyValue;
+    this.maxKeyValue = maxKeyValue;
 
-        fileAnalyseObserver.subscribe(() => {
-            this.minKeyValue = minKeyValue;
-            this.maxKeyValue = maxKeyValue;
-        });
+    fileAnalyseObserver.subscribe(() => {
+      this.minKeyValue = minKeyValue;
+      this.maxKeyValue = maxKeyValue;
+    });
+  }
+
+  getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
+    this.map = new Map();
+
+    steps.forEach(step => {
+      const coords = new Coords(step.X, step.Y);
+      this.getCoordsArray(this.getStepValue(step)).push(coords);
+    });
+
+    const chart = super.getChart(steps, racerData);
+
+    return chart;
+  }
+
+  protected abstract getStepValue(step: Step): number;
+
+  private getCoordsArray(key: number): Coords[] {
+    let arr = this.map.get(key);
+    if (!arr) {
+      arr = [];
+      this.map.set(key, arr);
     }
+    return arr;
+  }
 
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
-        this.map = new Map();
+  protected getSets(): Chart.ChartDataSets[] {
+    const sets = super.getSets();
 
-        steps.forEach(step => {
-            const coords = new Coords(step.X, step.Y);
-            this.getCoordsArray(this.getStepValue(step)).push(coords);
-        });
+    this.map.forEach((value, key) => {
+      sets.push(this.getCoordsDataSet(key));
+    });
 
-        const chart = super.getChart(steps, racerData);
+    return sets;
+  }
 
-        return chart;
-    }
+  protected getCoordsDataSet(key: number): Chart.ChartDataSets {
+    const data = this.map.get(key);
+    const sets = super.getDataSets(data);
+    const color: ChartColor = this.getColor(key);
 
-    protected abstract getStepValue(step: Step): number;
+    sets.pointRadius = 2;
+    sets.pointStyle = 'circle';
+    sets.pointBackgroundColor = color;
+    sets.borderColor = color;
+    sets.label = NumberFormats.toDigs(key, 1) + ' [' + data.length + ']';
 
-    private getCoordsArray(key: number): Coords[] {
-        let arr = this.map.get(key);
-        if (!arr) {
-            arr = [];
-            this.map.set(key, arr);
-        }
-        return arr;
-    }
+    return sets;
+  }
 
-    protected getSets(): Chart.ChartDataSets[] {
-        const sets = super.getSets();
+  protected getColor(key: number): ChartColor {
+    const t = this.toColorNum(key);
+    return d3.interpolateTurbo(t);
+  }
 
-        this.map.forEach((value, key) => {
-            sets.push(this.getCoordsDataSet(key));
-        });
+  private toColorNum(key: number): number {
+    const maxRange = DataBasedXyChart.maxColorValue - DataBasedXyChart.minColorValue;
+    const colorRange = this.maxKeyValue - this.minKeyValue;
 
-        return sets;
-    }
-
-    protected getCoordsDataSet(key: number): Chart.ChartDataSets {
-        const data = this.map.get(key);
-        const sets = super.getDataSets(data);
-        const color: ChartColor = this.getColor(key);
-
-        sets.pointRadius = 2;
-        sets.pointStyle = 'circle';
-        sets.pointBackgroundColor = color;
-        sets.borderColor = color;
-        sets.label = NumberFormats.toDigs(key, 1) + ' [' + data.length + ']';
-
-        return sets;
-    }
-
-    protected getColor(key: number): ChartColor {
-        const t = this.toColorNum(key);
-        return d3.interpolateTurbo(t);
-    }
-
-    private toColorNum(key: number): number {
-        const maxRange = DataBasedXyChart.maxColorValue - DataBasedXyChart.minColorValue;
-        const colorRange = this.maxKeyValue - this.minKeyValue;
-
-        return DataBasedXyChart.minColorValue + ((maxRange * (key - this.minKeyValue)) / colorRange);
-    }
+    return DataBasedXyChart.minColorValue + ((maxRange * (key - this.minKeyValue)) / colorRange);
+  }
 }

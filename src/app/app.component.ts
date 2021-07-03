@@ -9,7 +9,7 @@ import {Converters} from './utils/converters';
 import {analyseStateObserver, fileAnalyseObserver} from './objects/observer/observers';
 import {version} from '../../package.json';
 import {AnalysisState} from './objects/fileanalysis/analysis-state';
-import {TrackService} from './service/track.service';
+import {TrackService} from './objects/tracks/track-service';
 
 @Component({
   selector: 'app-root',
@@ -28,15 +28,12 @@ export class AppComponent implements OnInit {
   constructor(private fileService: AnalysisService,
               private dataService: DataService,
               private logService: LogService,
-              public exampleFilesService: ExampleFilesService,
-              private trackService: TrackService) {
+              public exampleFilesService: ExampleFilesService) {
   }
 
   ngOnInit(): void {
     this.logService.log(
-      '日誌紀錄區',
-      '這裡會將你的一些動作記錄下來 (例如上傳文件、載入...等)',
-      '方便你查詢相關資料！',
+      '2.5.0 - 賽道支援更新，目前已支援所有賽道',
       ' '
     );
   }
@@ -66,11 +63,15 @@ export class AppComponent implements OnInit {
     const promise = this.fileService.analysisFile(file);
 
     promise.then((racerData) => {
-      this.logService.log('更新面板中...');
-      analyseStateObserver.next(AnalysisState.UPDATING_PANEL);
-      fileAnalyseObserver.next(racerData);
-      analyseStateObserver.next(AnalysisState.DONE);
-      this.logService.log('文件載入完成！', '');
+      this.logService.log('載入賽道圖片中...');
+      TrackService.loadTrackByName(racerData.trackName).then(track => {
+        racerData.track = track;
+        this.logService.log('更新面板中...');
+        analyseStateObserver.next(AnalysisState.UPDATING_PANEL);
+        fileAnalyseObserver.next(racerData);
+        analyseStateObserver.next(AnalysisState.DONE);
+        this.logService.log('文件載入完成！', '');
+      });
     });
   }
 

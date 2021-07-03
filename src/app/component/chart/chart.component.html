@@ -5,9 +5,9 @@
       <div>
         <p>顯示數據</p>
         <app-color-button
-            *ngFor="let data of getAllData()"
-            [current]="data == showingData"
-            (click)="updateChart(data)">
+          *ngFor="let data of getAllData()"
+          [current]="data == showingData"
+          (click)="updateChart(data)">
           {{data.displayName}}
         </app-color-button>
       </div>
@@ -17,13 +17,13 @@
         <p>檢視工具</p>
         <div>
           <app-color-button
-              (click)="toggleFromStartFilter()"
-              [current]="containsFromStartFilter()">
+            (click)="toggleFromStartFilter()"
+            [current]="containsFromStartFilter()">
             只顯示從頭開始跑的圈數
           </app-color-button>
           <app-color-button
-              (click)="toggleOnlyCompleteFilter()"
-              [current]="containsOnlyCompleteFilter()">
+            (click)="toggleOnlyCompleteFilter()"
+            [current]="containsOnlyCompleteFilter()">
             只顯示已完成的圈數
           </app-color-button>
         </div>
@@ -44,9 +44,9 @@
             <ng-container matColumnDef="episode">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode</th>
               <td mat-cell
-                  *matCellDef="let run"
-                  (click)="onRunClick(run,$event)"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+                *matCellDef="let run"
+                (click)="onRunClick(run,$event)"
+                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.episode}}
               </td>
             </ng-container>
@@ -54,9 +54,9 @@
             <ng-container matColumnDef="reward">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Reward</th>
               <td mat-cell
-                  *matCellDef="let run"
-                  (click)="onRunClick(run,$event)"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+                *matCellDef="let run"
+                (click)="onRunClick(run,$event)"
+                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.reward.toFixed(1)}}
               </td>
             </ng-container>
@@ -65,9 +65,9 @@
             <ng-container matColumnDef="timeCost">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
               <td mat-cell
-                  *matCellDef="let run"
-                  (click)="onRunClick(run, $event)"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+                *matCellDef="let run"
+                (click)="onRunClick(run, $event)"
+                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
                 {{run.timeCost.toFixed(3)}}
               </td>
             </ng-container>
@@ -94,11 +94,11 @@
     <div class="col-7">
       <canvas id="chart" style="background-color: white" class="my-auto"></canvas>
       <div *ngIf="!trackSupported">
-        <p class="text-center text-danger">此賽道({{racerData.track}})暫時沒有邊界資料</p>
+        <p class="text-center text-danger">此賽道({{racerData.trackName}})暫時沒有邊界資料</p>
       </div>
       <p class="text-center gray-div text-secondary">{{fileName}}</p>
       <p [ngClass]="getShowingDataList() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a target="_blank"
-          href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new">點擊這裡</a> 讓我知道！</p>
+        href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new">點擊這裡</a> 讓我知道！</p>
     </div>
   </div>
 </div>
