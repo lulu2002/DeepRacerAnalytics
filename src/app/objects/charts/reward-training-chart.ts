@@ -29,16 +29,25 @@ export class RewardTrainingChart extends Chart {
         };
     }
 
-    private getLengthByRuns(allRuns: Run[]): number {
-        return Math.min(Math.max(allRuns.length / 7, 1), 200);
-    }
-
-
     protected getData(setsData: number[], color: ChartColor): Chart.ChartDataSets {
         const dataSets = super.getDataSets(this.mergeData(setsData));
         dataSets.borderColor = color;
 
         return dataSets;
+    }
+
+    protected getChartOptions(): Chart.ChartOptions {
+        const chartOptions = super.getChartOptions();
+
+        chartOptions.elements.point = {
+            radius: 3.0
+        };
+
+        return chartOptions;
+    }
+
+    private getLengthByRuns(allRuns: Run[]): number {
+        return Math.min(Math.max(allRuns.length / 7, 1), 200);
     }
 
     private mergeData(setsData: number[]): number[] {
@@ -61,16 +70,6 @@ export class RewardTrainingChart extends Chart {
         }
 
         return mergedData;
-    }
-
-    protected getChartOptions(): Chart.ChartOptions {
-        const chartOptions = super.getChartOptions();
-
-        chartOptions.elements.point = {
-            radius: 3.0
-        };
-
-        return chartOptions;
     }
 
 }

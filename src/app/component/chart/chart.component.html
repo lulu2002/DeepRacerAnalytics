@@ -5,9 +5,9 @@
       <div>
         <p>顯示數據</p>
         <app-color-button
-          *ngFor="let data of getAllData()"
-          [current]="data == showingData"
-          (click)="updateChart(data)">
+            (click)="updateChart(data)"
+            *ngFor="let data of getAllData()"
+            [current]="data == showingData">
           {{data.displayName}}
         </app-color-button>
       </div>
@@ -17,13 +17,13 @@
         <p>檢視工具</p>
         <div>
           <app-color-button
-            (click)="toggleFromStartFilter()"
-            [current]="containsFromStartFilter()">
+              (click)="toggleFromStartFilter()"
+              [current]="containsFromStartFilter()">
             只顯示從頭開始跑的圈數
           </app-color-button>
           <app-color-button
-            (click)="toggleOnlyCompleteFilter()"
-            [current]="containsOnlyCompleteFilter()">
+              (click)="toggleOnlyCompleteFilter()"
+              [current]="containsOnlyCompleteFilter()">
             只顯示已完成的圈數
           </app-color-button>
         </div>
@@ -34,46 +34,46 @@
         <p>
           圈數
           <span class="text-secondary">(按著 Ctrl | Shift 可多重選取)</span>
-          <span class="text-primary" (click)="selectAll()">
+          <span (click)="selectAll()" class="text-primary">
             點我全選表格中 {{displayService.runsCache.length}} 個數據
           </span>
         </p>
         <div>
-          <table mat-table [dataSource]="dataSource" matSort class="w-100">
+          <table [dataSource]="dataSource" class="w-100" mat-table matSort>
 
             <ng-container matColumnDef="episode">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode</th>
-              <td mat-cell
-                *matCellDef="let run"
-                (click)="onRunClick(run,$event)"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header> Episode</th>
+              <td (click)="onRunClick(run,$event)"
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.episode}}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="reward">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Reward</th>
-              <td mat-cell
-                *matCellDef="let run"
-                (click)="onRunClick(run,$event)"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header> Reward</th>
+              <td (click)="onRunClick(run,$event)"
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.reward.toFixed(1)}}
               </td>
             </ng-container>
 
 
             <ng-container matColumnDef="timeCost">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
-              <td mat-cell
-                *matCellDef="let run"
-                (click)="onRunClick(run, $event)"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header> Time</th>
+              <td (click)="onRunClick(run, $event)"
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.timeCost.toFixed(3)}}
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let rowData; columns: columnsToDisplay"></tr>
+            <tr *matHeaderRowDef="columnsToDisplay" mat-header-row></tr>
+            <tr *matRowDef="let rowData; columns: columnsToDisplay" mat-row></tr>
 
           </table>
 
@@ -92,13 +92,13 @@
     </div>
 
     <div class="col-7">
-      <canvas id="chart" style="background-color: white" class="my-auto"></canvas>
+      <canvas class="my-auto" id="chart" style="background-color: white"></canvas>
       <div *ngIf="!trackSupported">
         <p class="text-center text-danger">此賽道({{racerData.trackName}})暫時沒有邊界資料</p>
       </div>
       <p class="text-center gray-div text-secondary">{{fileName}}</p>
-      <p [ngClass]="getShowingDataList() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a target="_blank"
-        href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new">點擊這裡</a> 讓我知道！</p>
+      <p [ngClass]="getShowingDataList() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new"
+          target="_blank">點擊這裡</a> 讓我知道！</p>
     </div>
   </div>
 </div>

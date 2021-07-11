@@ -4,7 +4,6 @@ import {Metric} from './metric';
 export class Run {
     private readonly _steps: Step[];
     private metric: Metric;
-    private _reward: number;
 
     constructor(steps: Step[], metric: Metric) {
         this._steps = steps;
@@ -12,22 +11,10 @@ export class Run {
         this._reward = this.calcReward(steps);
     }
 
-    private calcReward(steps: Step[]): number {
-        let sum = 0;
-        steps.forEach(value => sum += value.reward);
-        return sum;
-    }
+    private _reward: number;
 
-    public getMetric(): Metric {
-        return this.metric;
-    }
-
-    public getLastStep(): Step {
-        return this._steps[this._steps.length - 1];
-    }
-
-    public getFirstStep(): Step {
-        return this._steps[0];
+    get reward(): number {
+        return this._reward;
     }
 
     get isDone(): boolean {
@@ -46,7 +33,21 @@ export class Run {
         return this.getFirstStep().episode;
     }
 
-    get reward(): number {
-        return this._reward;
+    public getMetric(): Metric {
+        return this.metric;
+    }
+
+    public getLastStep(): Step {
+        return this._steps[this._steps.length - 1];
+    }
+
+    public getFirstStep(): Step {
+        return this._steps[0];
+    }
+
+    private calcReward(steps: Step[]): number {
+        let sum = 0;
+        steps.forEach(value => sum += value.reward);
+        return sum;
     }
 }

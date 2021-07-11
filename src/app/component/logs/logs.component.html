@@ -1,5 +1,5 @@
-<div id="logs" class="p-3 overflow-auto gray-div">
-  <p class="log" *ngFor="let log of logService.logs">
+<div class="p-3 overflow-auto gray-div" id="logs">
+  <p *ngFor="let log of logService.logs" class="log">
     {{log}}<br>
   </p>
 </div>

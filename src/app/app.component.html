@@ -9,11 +9,11 @@
     </div>
 
     <div class="col-6">
-      <input id="file-upload" type="file" (change)="onFileChange($event)">
+      <input (change)="onFileChange($event)" id="file-upload" type="file">
     </div>
   </div>
   <div class="row justify-content-center mt-3">
-    <button class="mx-2" (click)="uploadExampleFile('Example-TarGz.tar.gz')">點我上傳測試TarGz檔案</button>
+    <button (click)="uploadExampleFile('Example-TarGz.tar.gz')" class="mx-2">點我上傳測試TarGz檔案</button>
     <app-loading-state></app-loading-state>
   </div>
   <app-chart #chartComponent></app-chart>
