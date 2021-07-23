@@ -12,6 +12,7 @@ export abstract class LogReader<E> extends Reader<E> {
 
     protected getAllLogsAsString(files: UnZippedFile[]): string {
         const logFiles = this.getLogFiles(files);
+
         let s = '';
 
         logFiles.forEach(value => {

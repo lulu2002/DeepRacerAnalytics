@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.logService.log(
+            '2.5.1 - 修正部份賽道寬長比的問題',
             '2.5.0 - 賽道支援更新，目前已支援所有賽道',
             ' '
         );

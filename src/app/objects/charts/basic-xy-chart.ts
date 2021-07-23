@@ -82,21 +82,31 @@ export class BasicXyChart extends ScatterChart {
     private getAspectRatioByStepXy(): number {
         const steps = this.racerData.steps;
         let maxX = 0;
+        let minX = 0;
         let maxY = 0;
+        let minY = 0;
 
 
         steps.forEach(s => {
 
-            if (Math.abs(s.X) > Math.abs(maxX)) {
+            if (s.X > maxX) {
                 maxX = s.X;
             }
 
-            if (Math.abs(s.Y) > Math.abs(maxY)) {
+            if (s.Y > maxY) {
                 maxY = s.Y;
+            }
+
+            if (s.X < minX) {
+                minX = s.X;
+            }
+
+            if (s.Y < minY) {
+                minY = s.Y;
             }
         });
 
-        return Math.abs(maxX / maxY);
+        return Math.abs(maxX - minX) / Math.abs(maxY - minY);
     }
 
 }
