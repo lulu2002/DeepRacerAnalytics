@@ -7,21 +7,25 @@ import {ReaderFactory} from './readers/reader-factory';
 
 export class TarGzFileAnalysis implements FileAnalysis {
 
+  analysis(file: File): Promise<RacerData> {
+    analyseStateObserver.next(AnalysisState.EXTRACTING_FILE);
 
-    analysis(file: File): Promise<RacerData> {
-        analyseStateObserver.next(AnalysisState.EXTRACTING_FILE);
-        fileUploadedObserver.next(file);
+    try {
+      fileUploadedObserver.next(file);
 
-        return GzExtract.extract(file).then(files => {
-            const reader = ReaderFactory.getAnalyticReader(files);
+      return GzExtract.extract(file).then(files => {
+        const reader = ReaderFactory.getAnalyticReader(files);
 
-            return new RacerData(
-                reader.readSteps(),
-                reader.readHyperParams(),
-                reader.readActionSpaces(),
-                reader.readMetrics(),
-                reader.readEnvironment(),
-            );
-        });
+        return new RacerData(
+          reader.readSteps(),
+          reader.readHyperParams(),
+          reader.readActionSpaces(),
+          reader.readMetrics(),
+          reader.readEnvironment(),
+        );
+      });
+    } catch (e) {
+      console.log('ERROR!!!');
     }
+  }
 }
