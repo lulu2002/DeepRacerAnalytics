@@ -1,6 +1,6 @@
 {
   "name": "deep-racer-analytics",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
