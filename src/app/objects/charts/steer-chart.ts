@@ -8,7 +8,7 @@ export class SteerChart extends DataBasedXyChart {
     }
 
     protected getStepValue(step: Step): number {
-        const value = parseFloat(parseFloat((step.steer + '')).toFixed(1));
+        const value = parseFloat(parseFloat((step.steer + '')).toFixed(0));
 
         if (value > this.maxKeyValue) {
             this.maxKeyValue = value;
