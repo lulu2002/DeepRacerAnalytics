@@ -3,6 +3,7 @@ import {Step} from '../../../step';
 import {UnZippedFile} from '../../../../utils/un-zipped-file';
 import {Converters} from '../../../../utils/converters';
 
+
 export class CsvStepReader extends Reader<Step[]> {
 
     read(files: UnZippedFile[]): Step[] {
@@ -25,7 +26,10 @@ export class CsvStepReader extends Reader<Step[]> {
         const steps: Step[] = [];
 
         allCsvFiles.forEach(value => {
-            const csv = value.readAsString();
+            let csv = value.readAsString();
+
+            csv = csv.replace(/\[[\.\-0-9]*, [\.\-0-9]*\]/gi, '0');
+
             Converters.convertCsvToSteps(csv).forEach(step => steps.push(step));
         });
 
@@ -43,8 +47,6 @@ export class LogStepReader extends LogReader<Step[]> {
 
         matches = 'episode,steps,X,Y,yaw,steer,throttle,action,reward,done,all_wheels_on_track,progress,closest_waypoint,track_len,tstamp,episode_status,pause_duration\n'
             + matches;
-
-        console.log(Converters.convertCsvToSteps(matches));
 
         return Converters.convertCsvToSteps(matches);
     }

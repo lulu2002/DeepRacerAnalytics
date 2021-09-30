@@ -26,6 +26,9 @@ export class BasicXyChart extends ScatterChart {
                 datasets: this.getSets()
             },
             options: {
+                legend: {
+                    display: true
+                },
                 aspectRatio: this.aspectRatio,
                 scales: {
                     xAxes: [

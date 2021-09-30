@@ -9,7 +9,7 @@ export class ThrottleXyChart extends DataBasedXyChart {
     }
 
     protected getStepValue(step: Step): number {
-        const value = NumberFormats.toDigs(step.throttle, 1);
+        const value = NumberFormats.toDigs(step.throttle, 0);
 
         if (value > this.maxKeyValue) {
             this.maxKeyValue = value;
