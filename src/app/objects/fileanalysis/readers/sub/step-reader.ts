@@ -28,7 +28,7 @@ export class CsvStepReader extends Reader<Step[]> {
         allCsvFiles.forEach(value => {
             let csv = value.readAsString();
 
-            csv = csv.replace(/\[[\.\-0-9]*, [\.\-0-9]*\]/gi, '0');
+            csv = replaceActionArray(csv);
 
             Converters.convertCsvToSteps(csv).forEach(step => steps.push(step));
         });
@@ -45,10 +45,17 @@ export class LogStepReader extends LogReader<Step[]> {
             .map(value => value.replace('SIM_TRACE_LOG\:', ''))
             .reduce((a, b) => a.concat(`\n${b}`));
 
+        matches = replaceActionArray(matches);
+
         matches = 'episode,steps,X,Y,yaw,steer,throttle,action,reward,done,all_wheels_on_track,progress,closest_waypoint,track_len,tstamp,episode_status,pause_duration\n'
             + matches;
 
         return Converters.convertCsvToSteps(matches);
     }
 
+}
+
+
+function replaceActionArray(str: string): string {
+    return str.replace(/\[[\.\-0-9]*, [\.\-0-9]*\]/gi, '0');
 }
