@@ -1,0 +1,20 @@
+<div class="row bg-dark text-white w-100 p-2 px-1 align-items-center">
+
+  <div id="logo" class="col-2 d-flex align-items-center">
+    <img src="assets/icon/flag_icon.svg" style="transform: rotate(30deg)" class="my-auto ml-2"/>
+  </div>
+
+  <div id="navigation" class="col-8 d-flex align-items-center justify-content-center">
+    <button class="mx-4 bg-transparent p-0 text-secondary">模型資訊</button>
+    <button class="mx-4 bg-transparent p-0 text-light">圖表分析</button>
+    <button class="mx-4 bg-transparent p-0 text-light">關於分析器</button>
+  </div>
+
+  <div id="upload-button" class="col-2 d-flex justify-content-end">
+    <button class="bg-warning rounded text-dark" (click)="fileUploader.click()">
+      上傳模型
+    </button>
+
+    <input hidden type="file" #fileUploader (change)="onFileChange($event)">
+  </div>
+</div>
