@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Converters} from '../../../utils/converters';
-import {analyseStateObserver, fileAnalyseObserver} from '../../../objects/observer/observers';
-import {AnalysisState} from '../../../objects/fileanalysis/analysis-state';
-import {TrackService} from '../../../objects/tracks/track-service';
-import {FileUtils} from '../../../utils/file-utils';
-import {AnalysisService} from '../../../service/analysis.service';
-import {DataService} from '../../../service/data.service';
-import {LogService} from '../../../service/log.service';
-import {ExampleFilesService} from '../../../service/example-files.service';
-import {ChartComponent} from '../../../component/chart/chart.component';
+import {Converters} from '../../utils/converters';
+import {analyseStateObserver, fileAnalyseObserver} from '../../objects/observer/observers';
+import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
+import {TrackService} from '../../objects/tracks/track-service';
+import {FileUtils} from '../../utils/file-utils';
+import {AnalysisService} from '../../service/analysis.service';
+import {DataService} from '../../service/data.service';
+import {LogService} from '../../service/log.service';
+import {ExampleFilesService} from '../../service/example-files.service';
 
 @Component({
     selector: 'app-topbar',

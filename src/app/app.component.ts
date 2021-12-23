@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ChartComponent} from './component/chart/chart.component';
+import {ChartScreenComponent} from './component/chart/chart-screen.component';
 import {LogService} from './service/log.service';
+import {Screen, ScreenService} from './service/screen.service';
 
 @Component({
     selector: 'app-root',
@@ -13,9 +14,10 @@ import {LogService} from './service/log.service';
 export class AppComponent implements OnInit {
 
 
-    @ViewChild('chartComponent') private cC: ChartComponent;
+    @ViewChild('chartComponent') private cC: ChartScreenComponent;
 
-    constructor(private logService: LogService) {
+    constructor(private logService: LogService,
+                private screenService: ScreenService) {
     }
 
     ngOnInit(): void {
@@ -24,6 +26,10 @@ export class AppComponent implements OnInit {
             '2.5.0 - 賽道支援更新，目前已支援所有賽道',
             ' '
         );
+    }
+
+    currentScreen(): Screen {
+        return this.screenService.currentScreen;
     }
 
 }

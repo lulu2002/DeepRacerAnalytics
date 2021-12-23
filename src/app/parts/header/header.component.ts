@@ -8,7 +8,7 @@ import {AnalysisService} from '../../service/analysis.service';
 import {DataService} from '../../service/data.service';
 import {LogService} from '../../service/log.service';
 import {ExampleFilesService} from '../../service/example-files.service';
-import {ChartComponent} from '../../component/chart/chart.component';
+import {ChartScreenComponent} from '../../component/chart/chart-screen.component';
 
 @Component({
     selector: 'app-header',

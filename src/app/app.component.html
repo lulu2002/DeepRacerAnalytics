@@ -1,6 +1,4 @@
 <app-topbar></app-topbar>
 
-<div class="container-fluid">
-  <app-header></app-header>
-  <app-chart #chartComponent></app-chart>
-</div>
+<div></div>
+<app-chart-screen #chartComponent *ngIf="currentScreen() == 'ANALYTICS'"></app-chart-screen>

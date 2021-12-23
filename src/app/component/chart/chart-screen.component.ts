@@ -21,14 +21,14 @@ import {MatSort} from '@angular/material/sort';
 import {TrackService} from '../../objects/tracks/track-service';
 
 @Component({
-    selector: 'app-chart',
-    templateUrl: './chart.component.html',
-    styleUrls: ['./chart.component.scss']
+    selector: 'app-chart-screen',
+    templateUrl: './chart-screen.component.html',
+    styleUrls: ['./chart-screen.component.scss']
 })
 @Injectable({
     providedIn: 'root'
 })
-export class ChartComponent implements OnInit, AfterViewInit {
+export class ChartScreenComponent implements OnInit, AfterViewInit {
 
     racerData: RacerData = new EmptyRacerData();
     public sortTypes = SortTypes;
