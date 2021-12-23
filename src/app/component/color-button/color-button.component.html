@@ -2,8 +2,10 @@
     (click)="onClick($event)"
     [ngStyle]="{
               'color': getColor(),
-              'background-color': (current ? '#040e24' : '#255db0')
+              'background-color': (current ? '#8d8d8d' : 'rgba(255,255,255,0)')
               }"
-    class="mr-3">
+    class="mr-3"
+    style="border-color: #8d8d8d; border-width: 3px; border-style: solid; border-radius: 10px"
+>
   <ng-content></ng-content>
 </button>

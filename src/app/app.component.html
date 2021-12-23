@@ -1,20 +1,4 @@
 <div class="container-fluid pt-2">
-  <div class="d-flex flex-row justify-content-center text-center">
-    <h1 class="mb-1 mr-2">AWS DeepRacer 線上分析器</h1>
-    <p class="align-self-end mb-2">v{{version}}</p>
-  </div>
-  <div class="row justify-content-start">
-    <div class="col-6 my-auto text-right">
-      <p>請在此上傳車子的 tar.gz 檔案:</p>
-    </div>
-
-    <div class="col-6">
-      <input (change)="onFileChange($event)" id="file-upload" type="file">
-    </div>
-  </div>
-  <div class="row justify-content-center mt-3">
-    <button (click)="uploadExampleFile('Example-TarGz.tar.gz')" class="mx-2">點我上傳測試TarGz檔案</button>
-    <app-loading-state></app-loading-state>
-  </div>
+  <app-header></app-header>
   <app-chart #chartComponent></app-chart>
 </div>

@@ -4,33 +4,36 @@
 
       <div>
         <p>顯示數據</p>
-        <app-color-button
-          (click)="updateChart(data)"
-          *ngFor="let data of getAllData()"
-          [current]="data == showingData">
-          {{data.displayName}}
-        </app-color-button>
+        <div class="pt-1">
+          <app-color-button
+              (click)="updateChart(data)"
+              *ngFor="let data of getAllData()"
+              [current]="data == showingData"
+              [shouldChangeColor]="true">
+            {{data.displayName}}
+          </app-color-button>
+        </div>
       </div>
 
 
-      <div class="mt-1">
+      <div class="mt-4">
         <p>檢視工具</p>
         <div>
           <app-color-button
-            (click)="toggleFromStartFilter()"
-            [current]="containsFromStartFilter()">
+              (click)="toggleFromStartFilter()"
+              [current]="containsFromStartFilter()">
             只顯示從頭開始跑的圈數
           </app-color-button>
           <app-color-button
-            (click)="toggleOnlyCompleteFilter()"
-            [current]="containsOnlyCompleteFilter()">
+              (click)="toggleOnlyCompleteFilter()"
+              [current]="containsOnlyCompleteFilter()">
             只顯示已完成的圈數
           </app-color-button>
         </div>
       </div>
 
 
-      <div class="mt-2">
+      <div class="mt-4">
         <p>
           圈數
           <span class="text-secondary">(按著 Ctrl | Shift 可多重選取)</span>
@@ -44,9 +47,9 @@
             <ng-container matColumnDef="episode">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Episode</th>
               <td (click)="onRunClick(run,$event)"
-                *matCellDef="let run"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
-                mat-cell>
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.episode}}
               </td>
             </ng-container>
@@ -54,9 +57,9 @@
             <ng-container matColumnDef="reward">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Reward</th>
               <td (click)="onRunClick(run,$event)"
-                *matCellDef="let run"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
-                mat-cell>
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.reward.toFixed(1)}}
               </td>
             </ng-container>
@@ -65,9 +68,9 @@
             <ng-container matColumnDef="timeCost">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Time</th>
               <td (click)="onRunClick(run, $event)"
-                *matCellDef="let run"
-                [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
-                mat-cell>
+                  *matCellDef="let run"
+                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  mat-cell>
                 {{run.timeCost.toFixed(3)}}
               </td>
             </ng-container>
@@ -92,14 +95,14 @@
     </div>
 
     <div class="col-7">
-      <canvas  id="chart" style="background-color: white"></canvas>
+      <canvas id="chart" style="background-color: white"></canvas>
       <div *ngIf="!trackSupported">
         <p class="text-center text-danger">此賽道({{racerData.trackName}})暫時沒有邊界資料</p>
       </div>
       <p class="text-center gray-div text-secondary">{{fileName}}</p>
       <p [ngClass]="getShowingDataList() ? 'text-right' : 'text-left'">若有任何 Bug、問題或建議，歡迎 <a
-        href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new"
-        target="_blank">點擊這裡</a> 讓我知道！</p>
+          href="https://github.com/lulu2002/DeepRacerAnalytics/issues/new"
+          target="_blank">點擊這裡</a> 讓我知道！</p>
     </div>
   </div>
 </div>

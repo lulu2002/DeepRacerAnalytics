@@ -9,7 +9,6 @@ export class ColorButtonComponent implements OnInit {
 
     @Input() current: boolean;
     @Input() shouldChangeColor = false;
-    @Input() whenLight: boolean;
 
     constructor() {
     }
@@ -20,10 +19,10 @@ export class ColorButtonComponent implements OnInit {
     getColor(): string {
         if (this.shouldChangeColor) {
 
-            if (this.whenLight) {
+            if (this.current) {
                 return '';
             } else {
-                return 'darkgray';
+                return '#8d8d8d';
             }
 
         } else {

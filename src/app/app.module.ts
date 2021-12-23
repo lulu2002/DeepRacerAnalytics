@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {LoadingStateComponent} from './component/loading-state/loading-state.component';
 import {MatSortModule} from '@angular/material/sort';
+import { HeaderComponent } from './parts/header/header.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {MatSortModule} from '@angular/material/sort';
         HyperparamsComponent,
         ColorButtonComponent,
         SortButtonComponent,
-        LoadingStateComponent
+        LoadingStateComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,
