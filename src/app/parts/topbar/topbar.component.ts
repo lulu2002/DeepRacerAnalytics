@@ -8,6 +8,7 @@ import {AnalysisService} from '../../service/analysis.service';
 import {DataService} from '../../service/data.service';
 import {LogService} from '../../service/log.service';
 import {ExampleFilesService} from '../../service/example-files.service';
+import {version} from '../../../../package.json';
 
 @Component({
     selector: 'app-topbar',
@@ -17,6 +18,7 @@ import {ExampleFilesService} from '../../service/example-files.service';
 export class TopbarComponent implements OnInit {
 
     @ViewChild('fileUploader') private fileUploader: ElementRef;
+    version = '';
 
     constructor(private fileService: AnalysisService,
                 private dataService: DataService,
@@ -29,6 +31,7 @@ export class TopbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.version = version;
     }
 
     public onFileChange(e: Event): void {

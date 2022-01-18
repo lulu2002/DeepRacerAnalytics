@@ -1,8 +1,13 @@
 <div class="row bg-dark text-white w-100 p-2 px-1 align-items-center">
 
   <div id="logo" class="col-2 d-flex align-items-center">
-    <img src="../../../assets/icon/flag_icon.svg" style="transform: rotate(30deg)" class="my-auto ml-2"/>
+    <img src="assets/icon/flag_icon.svg" style="transform: rotate(30deg)" class="my-auto ml-2"/>
+
+    <div class="ml-2" style="color: #8d8d8d">
+      {{version}}
+    </div>
   </div>
+
 
   <div id="navigation" class="col-8 d-flex align-items-center justify-content-center">
     <app-screen-button screen="MODEL_INFO">模型資訊</app-screen-button>
@@ -11,6 +16,7 @@
   </div>
 
   <div id="upload-button" class="col-2 d-flex justify-content-end">
+
     <button class="bg-warning rounded text-dark" (click)="fileUploader.click()">
       上傳模型
     </button>
