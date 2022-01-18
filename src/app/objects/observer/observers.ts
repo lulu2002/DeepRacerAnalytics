@@ -8,3 +8,4 @@ export const firstChartDisplayObserver: Subject<RacerData> = new Subject();
 export const analyseStateObserver: Subject<AnalysisState> = new Subject();
 export const runCacheUpdateObserver: Subject<Run[]> = new Subject<Run[]>();
 export const fileUploadedObserver: Subject<File> = new Subject<File>();
+export const triggerFileUploadObserver: Subject<void> = new Subject<void>();

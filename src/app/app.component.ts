@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ChartScreenComponent} from './component/chart/chart-screen.component';
 import {LogService} from './service/log.service';
 import {Screen, ScreenService} from './service/screen.service';
+import {AnalysisState, defaultAnalysisState} from './objects/fileanalysis/analysis-state';
+import {analyseStateObserver} from './objects/observer/observers';
 
 @Component({
     selector: 'app-root',
@@ -14,10 +16,16 @@ import {Screen, ScreenService} from './service/screen.service';
 export class AppComponent implements OnInit {
 
 
-    @ViewChild('chartComponent') private cC: ChartScreenComponent;
+    @ViewChild('chartComponent')
+    private cC: ChartScreenComponent;
+    private state = defaultAnalysisState;
 
     constructor(private logService: LogService,
                 private screenService: ScreenService) {
+
+        analyseStateObserver.subscribe(value => {
+            this.state = value;
+        });
     }
 
     ngOnInit(): void {
@@ -32,4 +40,7 @@ export class AppComponent implements OnInit {
         return this.screenService.currentScreen;
     }
 
+    analyseFinished(): boolean {
+        return this.state === AnalysisState.DONE;
+    }
 }

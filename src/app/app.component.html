@@ -1,4 +1,10 @@
 <app-topbar></app-topbar>
 
-<div></div>
-<app-chart-screen #chartComponent *ngIf="currentScreen() == 'ANALYTICS'"></app-chart-screen>
+<div *ngIf="!analyseFinished()">
+  <app-huge-upload></app-huge-upload>
+</div>
+
+<div *ngIf="analyseFinished()">
+  <app-chart-screen #chartComponent *ngIf="currentScreen() == 'ANALYTICS'"></app-chart-screen>
+</div>
+

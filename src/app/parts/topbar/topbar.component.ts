@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import {Converters} from '../../utils/converters';
-import {analyseStateObserver, fileAnalyseObserver} from '../../objects/observer/observers';
+import {analyseStateObserver, fileAnalyseObserver, triggerFileUploadObserver} from '../../objects/observer/observers';
 import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {TrackService} from '../../objects/tracks/track-service';
 import {FileUtils} from '../../utils/file-utils';
@@ -16,12 +16,16 @@ import {ExampleFilesService} from '../../service/example-files.service';
 })
 export class TopbarComponent implements OnInit {
 
-    @ViewChild('fileUploader') private fileUploader: HTMLInputElement;
+    @ViewChild('fileUploader') private fileUploader: ElementRef;
 
     constructor(private fileService: AnalysisService,
                 private dataService: DataService,
                 private logService: LogService,
                 public exampleFilesService: ExampleFilesService) {
+
+        triggerFileUploadObserver.subscribe(() => {
+            this.fileUploader.nativeElement.click();
+        });
     }
 
     ngOnInit(): void {

@@ -15,9 +15,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {LoadingStateComponent} from './component/loading-state/loading-state.component';
 import {MatSortModule} from '@angular/material/sort';
-import { HeaderComponent } from './parts/header/header.component';
-import { TopbarComponent } from './parts/topbar/topbar.component';
-import { ScreenButtonComponent } from './parts/topbar/screen-button/screen-button.component';
+import {TopbarComponent} from './parts/topbar/topbar.component';
+import {ScreenButtonComponent} from './parts/topbar/screen-button/screen-button.component';
+import { HugeUploadComponent } from './parts/huge-upload/huge-upload.component';
 
 @NgModule({
     declarations: [
@@ -28,9 +28,9 @@ import { ScreenButtonComponent } from './parts/topbar/screen-button/screen-butto
         ColorButtonComponent,
         SortButtonComponent,
         LoadingStateComponent,
-        HeaderComponent,
         TopbarComponent,
-        ScreenButtonComponent
+        ScreenButtonComponent,
+        HugeUploadComponent
     ],
     imports: [
         BrowserModule,
