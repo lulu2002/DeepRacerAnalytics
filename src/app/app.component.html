@@ -1,10 +1,12 @@
-<app-topbar></app-topbar>
+<div class="w-100 h-100">
+  <app-topbar></app-topbar>
 
-<div *ngIf="!analyseFinished()">
-  <app-huge-upload></app-huge-upload>
-</div>
+<!--  <div *ngIf="!analyseFinished()" class="w-100 h-100 d-flex justify-content-center align-items-center">-->
+<!--    <app-huge-upload></app-huge-upload>-->
+<!--  </div>-->
 
-<div *ngIf="analyseFinished()">
+  <div *ngIf="analyseFinished()">
+  </div>
+
   <app-chart-screen #chartComponent *ngIf="currentScreen() == 'ANALYTICS'"></app-chart-screen>
 </div>
-

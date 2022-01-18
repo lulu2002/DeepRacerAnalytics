@@ -20,11 +20,13 @@
         <p>檢視工具</p>
         <div>
           <app-color-button
+              [shouldChangeColor]="true"
               (click)="toggleFromStartFilter()"
               [current]="containsFromStartFilter()">
             只顯示從頭開始跑的圈數
           </app-color-button>
           <app-color-button
+              [shouldChangeColor]="true"
               (click)="toggleOnlyCompleteFilter()"
               [current]="containsOnlyCompleteFilter()">
             只顯示已完成的圈數
