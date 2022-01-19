@@ -21,6 +21,8 @@ class App {
         await this.uploadToDatabase(result);
         await this.handleTrack(result);
 
+        console.log(this.currentResult);
+
         this.state = 'DONE';
     }
 
