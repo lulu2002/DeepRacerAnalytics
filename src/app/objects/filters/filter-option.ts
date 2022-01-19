@@ -1,6 +1,6 @@
-import {Run} from '../run';
-import {RacerData} from '../fileanalysis/racer-data';
+import {Episode} from '../run';
+import {AnalysisResult} from '../fileanalysis/racer-data';
 
 export abstract class FilterOption {
-    abstract filter(runs: Run[], racerData: RacerData): Run[];
+    abstract filter(runs: Episode[], racerData: AnalysisResult): Episode[];
 }

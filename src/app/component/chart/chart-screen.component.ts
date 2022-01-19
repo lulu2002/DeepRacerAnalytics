@@ -1,24 +1,19 @@
 import {AfterViewInit, Component, Injectable, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import * as ChartJsChart from 'chart.js';
 import {AnalyticData} from '../../objects/data/analytic-data';
-import {Run} from '../../objects/run';
 import {SortTypes} from '../../objects/sorts/sorts';
 import {ChartDisplayService} from '../../service/chart-display.service';
 import {DataService} from '../../service/data.service';
 import {Filters} from '../../objects/filters/filters';
-import {RacerData} from '../../objects/fileanalysis/racer-data';
-import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
 import {
-  analyseStateObserver,
-  fileUploadedObserver,
-  firstChartDisplayObserver,
-  runCacheUpdateObserver
+    analyseStateObserver,
+    fileUploadedObserver,
+    firstChartDisplayObserver,
+    runCacheUpdateObserver
 } from '../../objects/observer/observers';
-import {AnalysisState} from '../../objects/fileanalysis/analysis-state';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
-import {TrackService} from '../../objects/tracks/track-service';
 
 @Component({
     selector: 'app-chart-screen',
@@ -30,11 +25,11 @@ import {TrackService} from '../../objects/tracks/track-service';
 })
 export class ChartScreenComponent implements OnInit, AfterViewInit {
 
-    racerData: RacerData = new EmptyRacerData();
+    racerData: AnalysisResult = new EmptyAnalysisResult();
     public sortTypes = SortTypes;
     showingData: AnalyticData;
     analysisState = AnalysisState.WAITING;
-    dataSource: MatTableDataSource<Run> = new MatTableDataSource<Run>();
+    dataSource: MatTableDataSource<Episode> = new MatTableDataSource<Episode>();
     fileName = '';
     @ViewChildren(MatPaginator) paginators: QueryList<MatPaginator>;
     paginator: MatPaginator;
@@ -75,8 +70,8 @@ export class ChartScreenComponent implements OnInit, AfterViewInit {
         this.initSort();
     }
 
-    public getShowingDataList(): Run[] {
-        return this.displayService.showingRuns;
+    public getShowingDataList(): Episode[] {
+        return this.displayService.showingEpisodes;
     }
 
     public isAnalysisDone(): boolean {
@@ -88,19 +83,19 @@ export class ChartScreenComponent implements OnInit, AfterViewInit {
         this.reRenderChart();
     }
 
-    public onRunClick(run: Run, e: MouseEvent): void {
+    public onEpisodeClick(run: Episode, e: MouseEvent): void {
         if (e.shiftKey || e.ctrlKey) {
-            this.toggleRun(run);
+            this.toggleEpisode(run);
         } else {
-            this.switchRun(run);
+            this.switchEpisode(run);
         }
         this.reRenderChart();
     }
 
     public selectAll(): void {
         const runs = this.displayService.runsCache;
-        this.displayService.clearShowingRuns();
-        this.displayService.addRuns(runs);
+        this.displayService.clearShowingEpisodes();
+        this.displayService.addEpisodes(runs);
         this.reRenderChart();
     }
 
@@ -136,7 +131,7 @@ export class ChartScreenComponent implements OnInit, AfterViewInit {
         return this.dataService.getAllData();
     }
 
-    isNoRunCanDisplay(): boolean {
+    isNoEpisodeCanDisplay(): boolean {
         return this.displayService.runsCache.length === 0;
     }
 
@@ -157,19 +152,19 @@ export class ChartScreenComponent implements OnInit, AfterViewInit {
         this.dataSource.sort = this.sort;
     }
 
-    private toggleRun(run: Run): void {
-        const showingRuns = this.displayService.showingRuns;
-        const index = showingRuns.indexOf(run);
+    private toggleEpisode(run: Episode): void {
+        const showingEpisodes = this.displayService.showingEpisodes;
+        const index = showingEpisodes.indexOf(run);
 
         if (index >= 0) {
-            this.displayService.removeRun([run]);
+            this.displayService.removeEpisode([run]);
         } else {
-            this.displayService.addRuns([run]);
+            this.displayService.addEpisodes([run]);
         }
     }
 
-    private switchRun(run: Run): void {
-        this.displayService.changeRun(run);
+    private switchEpisode(run: Episode): void {
+        this.displayService.changeEpisode(run);
     }
 
     private reRenderChart(): void {

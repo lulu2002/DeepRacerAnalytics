@@ -48,9 +48,9 @@
 
             <ng-container matColumnDef="episode">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Episode</th>
-              <td (click)="onRunClick(run,$event)"
+              <td (click)="onEpisodeClick(run,$event)"
                   *matCellDef="let run"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  [ngStyle]="{'font-weight': displayService.showingEpisodes.includes(run) ? 'bolder' : ''}"
                   mat-cell>
                 {{run.episode}}
               </td>
@@ -58,9 +58,9 @@
 
             <ng-container matColumnDef="reward">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Reward</th>
-              <td (click)="onRunClick(run,$event)"
+              <td (click)="onEpisodeClick(run,$event)"
                   *matCellDef="let run"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  [ngStyle]="{'font-weight': displayService.showingEpisodes.includes(run) ? 'bolder' : ''}"
                   mat-cell>
                 {{run.reward.toFixed(1)}}
               </td>
@@ -69,9 +69,9 @@
 
             <ng-container matColumnDef="timeCost">
               <th *matHeaderCellDef mat-header-cell mat-sort-header> Time</th>
-              <td (click)="onRunClick(run, $event)"
+              <td (click)="onEpisodeClick(run, $event)"
                   *matCellDef="let run"
-                  [ngStyle]="{'font-weight': displayService.showingRuns.includes(run) ? 'bolder' : ''}"
+                  [ngStyle]="{'font-weight': displayService.showingEpisodes.includes(run) ? 'bolder' : ''}"
                   mat-cell>
                 {{run.timeCost.toFixed(3)}}
               </td>

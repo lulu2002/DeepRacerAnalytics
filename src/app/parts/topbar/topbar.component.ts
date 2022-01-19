@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Converters} from '../../utils/converters';
-import {triggerFileUploadObserver} from '../../objects/observer/observers';
+import {analysedEvent, triggerFileUploadObserver} from '../../objects/observer/observers';
 import {ExampleFilesService} from '../../service/example-files.service';
 import {version} from '../../../../package.json';
 import {AppLogicService} from '../../service/app-logic.service';
@@ -41,7 +41,9 @@ export class TopbarComponent implements OnInit {
     }
 
     public uploadFile(file: File): void {
-        this.appLogicService.upload(file);
+        this.appLogicService.upload(file).then(value =>
+            analysedEvent.next(value)
+        );
     }
 
     private getFile(uploader: HTMLInputElement): File {

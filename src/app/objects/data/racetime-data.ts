@@ -1,10 +1,6 @@
 import {AnalyticData} from './analytic-data';
-import {Step} from '../step';
 import {Chart} from '../charts/chart';
 import {fileAnalyseObserver} from '../observer/observers';
-import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
-import {RacerData} from '../fileanalysis/racer-data';
-import {Metric} from '../metric';
 
 export class RacetimeData extends AnalyticData {
     constructor(label: string, displayName: string) {
@@ -14,7 +10,7 @@ export class RacetimeData extends AnalyticData {
 
 class RacetimeChart extends Chart {
 
-    private racerData: RacerData = new EmptyRacerData();
+    private racerData: AnalysisResult = new EmptyAnalysisResult();
 
     constructor(label: string) {
         super(label, 'line');
@@ -25,11 +21,11 @@ class RacetimeChart extends Chart {
     }
 
     // todo 只分析 metric 就好
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
-        const allRuns = this.racerData.metrics;
+    getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration {
+        const allEpisodes = this.racerData.metrics;
         let allMetrics: Metric[] = [];
 
-        allRuns.forEach(value => {
+        allEpisodes.forEach(value => {
 
             const metric = Object.assign({}, value[0]);
             metric.elapsed_time_in_milliseconds = 0;

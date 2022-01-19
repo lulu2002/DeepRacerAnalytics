@@ -1,6 +1,6 @@
 import {Chart} from '../chart';
 import {Step} from '../../step';
-import {RacerData} from '../../fileanalysis/racer-data';
+import {AnalysisResult} from '../../fileanalysis/racer-data';
 
 export class AbstractChartDecorator extends Chart {
 
@@ -11,7 +11,7 @@ export class AbstractChartDecorator extends Chart {
         this.chart = chart;
     }
 
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
+    getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration {
         return this.chart.getChart(steps, racerData);
     }
 }

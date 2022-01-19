@@ -1,13 +1,13 @@
-import {Run} from '../run';
+import Episode from '../../../logic/data-objects/Episode';
 
-export type RunSort = (a: Run, b: Run) => number;
+export type EpisodeSort = (a: Episode, b: Episode) => number;
 
 export abstract class SortType {
-    protected abstract sortAlgorithm: RunSort;
+    protected abstract sortAlgorithm: EpisodeSort;
 
-    public abstract getButtonLabel(run: Run): string;
+    public abstract getButtonLabel(run: Episode): string;
 
-    public sort(runs: Run[]): Run[] {
+    public sort(runs: Episode[]): Episode[] {
         return runs.sort(this.sortAlgorithm);
     }
 }

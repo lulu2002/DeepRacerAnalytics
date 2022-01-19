@@ -1,44 +1,44 @@
 import {Injectable} from '@angular/core';
-import {EmptyRacerData} from '../objects/fileanalysis/empty-racer-data';
 import {fileAnalyseObserver, firstChartDisplayObserver, runCacheUpdateObserver} from '../objects/observer/observers';
-import {Run} from '../objects/run';
+
 import {FilterOption} from '../objects/filters/filter-option';
 import {SortType} from '../objects/sorts/sort-type';
 import {SortTypes} from '../objects/sorts/sorts';
 import {Filters} from '../objects/filters/filters';
+import Episode from '../../logic/data-objects/Episode';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChartDisplayService {
 
-    private racerData = new EmptyRacerData();
-    private _runsCacheFilterBackup: Run[] = [];
+    private racerData = new EmptyAnalysisResult();
+    private _runsCacheFilterBackup: Episode[] = [];
 
     constructor() {
         fileAnalyseObserver.subscribe(value => {
             this.racerData = value;
             this.onAnalysed();
-            this.clearShowingRuns();
+            this.clearShowingEpisodes();
             firstChartDisplayObserver.next(this.racerData);
         });
     }
 
-    private _runsCache: Run[] = [];
+    private _runsCache: Episode[] = [];
 
-    get runsCache(): Run[] {
+    get runsCache(): Episode[] {
         return this._runsCache;
     }
 
-    set runsCache(value: Run[]) {
+    set runsCache(value: Episode[]) {
         this._runsCache = value;
         runCacheUpdateObserver.next(this.runsCache);
     }
 
-    private _showingRuns: Run[] = [emptyRun];
+    private _showingEpisodes: Episode[] = [emptyEpisode];
 
-    get showingRuns(): Run[] {
-        return this._showingRuns;
+    get showingEpisodes(): Episode[] {
+        return this._showingEpisodes;
     }
 
     private _filterOptions: FilterOption[] = [];
@@ -60,7 +60,7 @@ export class ChartDisplayService {
     }
 
     public updateCacheSort(): void {
-        this.runsCache = this._sortType.sort(this.racerData.allRuns);
+        this.runsCache = this._sortType.sort(this.racerData.allEpisodes);
         this._runsCacheFilterBackup = [...this._runsCache];
     }
 
@@ -86,25 +86,25 @@ export class ChartDisplayService {
         this.updateCacheFilter();
     }
 
-    public changeRun(run: Run): void {
-        this.clearShowingRuns();
-        this._showingRuns.push(run);
+    public changeEpisode(run: Episode): void {
+        this.clearShowingEpisodes();
+        this._showingEpisodes.push(run);
     }
 
-    public addRuns(run: Run[]): void {
-        this._showingRuns.push(...run);
+    public addEpisodes(run: Episode[]): void {
+        this._showingEpisodes.push(...run);
     }
 
-    public removeRun(toRemove: Run[]): void {
-        this._showingRuns = this._showingRuns.filter(value => !toRemove.includes(value));
+    public removeEpisode(toRemove: Episode[]): void {
+        this._showingEpisodes = this._showingEpisodes.filter(value => !toRemove.includes(value));
     }
 
-    public clearShowingRuns(): void {
-        this._showingRuns = [];
+    public clearShowingEpisodes(): void {
+        this._showingEpisodes = [];
     }
 
     private onAnalysed(): void {
-        this.runsCache = this.racerData.allRuns;
+        this.runsCache = this.racerData.allEpisodes;
 
         this.toggleDefaultOptions();
 
@@ -112,7 +112,7 @@ export class ChartDisplayService {
         this.updateCacheFilter();
 
         if (this.runsCache.length > 0) {
-            this.changeRun(this.runsCache[0]);
+            this.changeEpisode(this.runsCache[0]);
         }
     }
 
@@ -122,7 +122,7 @@ export class ChartDisplayService {
     }
 }
 
-const emptyRun = new Run([], {
+const emptyEpisode = new Episode([], {
     elapsed_time_in_milliseconds: 0,
     episode: -1,
     phase: 'training',

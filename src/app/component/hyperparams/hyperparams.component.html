@@ -1,4 +1,4 @@
-<div *ngIf="getParams()" class="row w-100 h-100">
+<div *ngIf="hasResult()" class="row w-100 h-100">
 
   <div class="col-lg-6 h-100">
     <div class="p-2 gray-div">
@@ -12,7 +12,7 @@
 
     <div class="p-2 gray-div">
       <p>模型名稱:</p>
-      <p class="ml-2">{{racerData.modelName}}</p>
+      <p class="ml-2">{{analysisResult.environmentInfo.MODEL_NAME}}</p>
     </div>
 
     <div class="p-2 gray-div">

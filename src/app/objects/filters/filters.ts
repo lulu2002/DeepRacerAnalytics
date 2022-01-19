@@ -1,24 +1,24 @@
 import {FilterOption} from './filter-option';
-import {Run} from '../run';
-import {RacerData} from '../fileanalysis/racer-data';
+import Episode from '../../../logic/data-objects/Episode';
+import AnalysisResult from '../../../logic/data-objects/AnalysisResult';
 
 
 class FromStartFilter extends FilterOption {
 
-    filter(runs: Run[], racerData: RacerData): Run[] {
+    filter(episodes: Episode[], analysisResult: AnalysisResult): Episode[] {
 
-        if (racerData.trainingType === 'EVALUATION') {
-            return runs;
+        if (analysisResult.environmentInfo.JOB_TYPE === 'EVALUATION') {
+            return episodes;
         }
 
-        return runs.filter(value => value.getFirstStep().episode % racerData.hyperParams.num_episodes_between_training === 0);
+        return episodes.filter(value => value.getFirstStep().episode % analysisResult.hyperParams.num_episodes_between_training === 0);
     }
 
 }
 
 class OnlyCompleteFilter extends FilterOption {
-    filter(runs: Run[], racerData: RacerData): Run[] {
-        return runs.filter(value => value.isDone);
+    filter(episodes: Episode[], analysisResult: AnalysisResult): Episode[] {
+        return episodes.filter(value => value.isDone);
     }
 
 }

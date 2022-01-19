@@ -1,7 +1,7 @@
 import * as ChartJsChart from 'chart.js';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Step} from '../step';
-import {RacerData} from '../fileanalysis/racer-data';
+import {AnalysisResult} from '../fileanalysis/racer-data';
 
 export abstract class Chart {
     public label: string;
@@ -12,7 +12,7 @@ export abstract class Chart {
         this.chartType = chartType;
     }
 
-    public abstract getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration;
+    public abstract getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration;
 
 
     public afterChartDisplayed(chart: ChartJsChart): void {

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HyperParameters} from '../../objects/hyper-parameters';
-import {fileAnalyseObserver} from '../../objects/observer/observers';
-import {RacerData} from '../../objects/fileanalysis/racer-data';
-import {EmptyRacerData} from '../../objects/fileanalysis/empty-racer-data';
+import {analysedEvent} from '../../objects/observer/observers';
 import {NumberFormats} from '../../utils/number-formats';
+import AnalysisResult from '../../../logic/data-objects/AnalysisResult';
+import HyperParameters from '../../../logic/data-objects/HyperParameters';
 
 @Component({
     selector: 'app-hyperparams',
@@ -12,15 +11,16 @@ import {NumberFormats} from '../../utils/number-formats';
 })
 export class HyperparamsComponent implements OnInit {
 
-    racerData: RacerData = new EmptyRacerData();
+    private analysisResult: AnalysisResult;
+
     private speeds: number[] = [];
     private steerAngles: number[] = [];
     private averageCompletePercent = 0;
     private medianCompletePercent = 0;
 
     constructor() {
-        fileAnalyseObserver.subscribe(value => {
-            this.racerData = value;
+        analysedEvent.subscribe(value => {
+            this.analysisResult = value;
 
             this.speeds = this.sortSpeeds();
             this.steerAngles = this.sortSteerAngles();
@@ -30,10 +30,15 @@ export class HyperparamsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+    }
+
+    public hasResult(): boolean {
+        return this.analysisResult != null;
     }
 
     public getParams(): HyperParameters {
-        return this.racerData.hyperParams;
+        return this.analysisResult.hyperParams;
     }
 
     public getParamsName(): string[] {
@@ -41,7 +46,7 @@ export class HyperparamsComponent implements OnInit {
     }
 
     private sortSpeeds(): number[] {
-        const speeds = this.racerData.actionSpaces.map(value => {
+        const speeds = this.analysisResult.actionSpaces.map(value => {
             return parseFloat(value.speed.toFixed(2));
         });
 
@@ -49,7 +54,7 @@ export class HyperparamsComponent implements OnInit {
     }
 
     private sortSteerAngles(): number[] {
-        const speeds = this.racerData.actionSpaces.map(value => {
+        const speeds = this.analysisResult.actionSpaces.map(value => {
             return parseFloat(value.steering_angle.toFixed(2));
         });
 
@@ -80,8 +85,6 @@ export class HyperparamsComponent implements OnInit {
     }
 
     private getProgressList(): number[] {
-        return this.racerData.allRuns
-            .map(value => +value.getLastStep().progress)
-            .filter(value => !isNaN(value));
+        return [];
     }
 }

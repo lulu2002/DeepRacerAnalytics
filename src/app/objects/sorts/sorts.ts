@@ -1,15 +1,16 @@
-import {RunSort, SortType} from './sort-type';
-import {Run} from '../run';
+import {SortType} from './sort-type';
+import Episode from '../../../logic/data-objects/Episode';
+
 
 class GeneralSort extends SortType {
-    sortAlgorithm: RunSort = (a, b) => this.calcScore(b) - this.calcScore(a);
+    sortAlgorithm: EpisodeSort = (a, b) => this.calcScore(b) - this.calcScore(a);
 
-    getButtonLabel(run: Run): string {
+    getButtonLabel(run: Episode): string {
         return `${run.timeCost.toFixed(2)}s - ${(run.isDone ? '完成' : '未完成')}`;
     }
 
 
-    private calcScore(run: Run): number {
+    private calcScore(run: Episode): number {
         let sum = 0;
 
         const lastStep = run.getLastStep();
@@ -25,21 +26,21 @@ class GeneralSort extends SortType {
 }
 
 class RewardSort extends SortType {
-    sortAlgorithm: RunSort = (a, b) => this.calcAllScore(b) - this.calcAllScore(a);
+    sortAlgorithm: EpisodeSort = (a, b) => this.calcAllScore(b) - this.calcAllScore(a);
 
-    getButtonLabel(run: Run): string {
+    getButtonLabel(run: Episode): string {
         return `${this.calcAllScore(run).toFixed(0)}分 - ${(run.isDone ? '完成' : '未完成')}`;
     }
 
-    calcAllScore(run: Run): number {
+    calcAllScore(run: Episode): number {
         return run.reward;
     }
 }
 
 class EpisodeSort extends SortType {
-    sortAlgorithm: RunSort = (a, b) => a.getLastStep().episode - b.getLastStep().episode;
+    sortAlgorithm: EpisodeSort = (a, b) => a.getLastStep().episode - b.getLastStep().episode;
 
-    getButtonLabel(run: Run): string {
+    getButtonLabel(run: Episode): string {
         return `第 ${run.getLastStep().episode} 次嘗試`;
     }
 

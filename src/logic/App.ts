@@ -15,15 +15,15 @@ class App {
     private state: AnalysisState = 'WAITING';
 
 
-    async upload(tarGzFile: File): Promise<void> {
+    async upload(tarGzFile: File): Promise<AnalysisResult> {
         const result = await this.analysisChain(tarGzFile);
 
         await this.uploadToDatabase(result);
         await this.handleTrack(result);
 
-        console.log(this.currentResult);
-
         this.state = 'DONE';
+
+        return this.currentResult;
     }
 
     async analysisChain(tarGzFile: File): Promise<AnalysisResult> {

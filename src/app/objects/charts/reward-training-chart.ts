@@ -1,8 +1,8 @@
 import {Chart} from './chart';
 import {Step} from '../step';
-import {RacerData} from '../fileanalysis/racer-data';
+import {AnalysisResult} from '../fileanalysis/racer-data';
 import {ChartColor} from 'chart.js';
-import {Run} from '../run';
+import {Episode} from '../run';
 
 export class RewardTrainingChart extends Chart {
 
@@ -12,9 +12,9 @@ export class RewardTrainingChart extends Chart {
         super('', 'line');
     }
 
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
-        const runs = racerData.allRuns;
-        this.mergeLength = this.getLengthByRuns(racerData.allRuns);
+    getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration {
+        const runs = racerData.allEpisodes;
+        this.mergeLength = this.getLengthByEpisodes(racerData.allEpisodes);
         const data = this.getData(runs.map(value => value.reward), 'rgb(10,226,2)');
 
         return {
@@ -46,8 +46,8 @@ export class RewardTrainingChart extends Chart {
         return chartOptions;
     }
 
-    private getLengthByRuns(allRuns: Run[]): number {
-        return Math.min(Math.max(allRuns.length / 7, 1), 200);
+    private getLengthByEpisodes(allEpisodes: Episode[]): number {
+        return Math.min(Math.max(allEpisodes.length / 7, 1), 200);
     }
 
     private mergeData(setsData: number[]): number[] {

@@ -5,7 +5,7 @@ import {Step} from '../step';
 import * as d3 from 'd3';
 import {NumberFormats} from '../../utils/number-formats';
 import {fileAnalyseObserver} from '../observer/observers';
-import {RacerData} from '../fileanalysis/racer-data';
+import {AnalysisResult} from '../fileanalysis/racer-data';
 
 
 export abstract class DataBasedXyChart extends BasicXyChart {
@@ -27,7 +27,7 @@ export abstract class DataBasedXyChart extends BasicXyChart {
         });
     }
 
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
+    getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration {
         this.map = new Map();
 
         steps.forEach(step => {

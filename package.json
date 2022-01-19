@@ -33,6 +33,8 @@
     "d3": "^6.5.0",
     "d3-scale-chromatic": "^2.0.0",
     "jszip": "^3.5.0",
+    "mobx": "^6.3.12",
+    "mobx-angular": "^4.4.0",
     "ng2-charts": "^2.4.2",
     "npyjs": "^0.2.1",
     "pako": "^2.0.3",

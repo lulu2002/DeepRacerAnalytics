@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import App from '../../logic/App';
+import AnalysisResult from '../../logic/data-objects/AnalysisResult';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AppLogicService {
   constructor() {
   }
 
-  upload(tarGzFile: File): void {
-    this.app.upload(tarGzFile);
+  upload(tarGzFile: File): Promise<AnalysisResult> {
+    return this.app.upload(tarGzFile);
   }
 }

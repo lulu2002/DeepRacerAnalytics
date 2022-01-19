@@ -2,12 +2,12 @@ import {ScatterChart} from './scatter-chart';
 import {Step} from '../step';
 import {Coords} from '../coords';
 import {fileAnalyseObserver} from '../observer/observers';
-import {RacerData} from '../fileanalysis/racer-data';
-import {EmptyRacerData} from '../fileanalysis/empty-racer-data';
+import {AnalysisResult} from '../fileanalysis/racer-data';
+import {EmptyAnalysisResult} from '../fileanalysis/empty-racer-data';
 import {ChartColor} from 'chart.js';
 
 export class BasicXyChart extends ScatterChart {
-    private racerData: RacerData = new EmptyRacerData();
+    private racerData: AnalysisResult = new EmptyAnalysisResult();
     private aspectRatio = 0;
 
     constructor(label: string) {
@@ -19,7 +19,7 @@ export class BasicXyChart extends ScatterChart {
         });
     }
 
-    getChart(steps: Step[], racerData: RacerData): Chart.ChartConfiguration {
+    getChart(steps: Step[], racerData: AnalysisResult): Chart.ChartConfiguration {
         return {
             type: this.chartType,
             data: {

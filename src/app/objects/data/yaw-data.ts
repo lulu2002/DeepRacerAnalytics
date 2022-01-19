@@ -1,6 +1,6 @@
 import {LineData} from './line-data';
 import {Step} from '../step';
-import {Run} from '../run';
+import {Episode} from '../run';
 
 export class YawData extends LineData {
 
@@ -12,7 +12,7 @@ export class YawData extends LineData {
         // this.setChart(new ChartFromOneDecorator(this.getChart()));
     }
 
-    handleData(steps: Run[]): Step[] {
+    handleData(steps: Episode[]): Step[] {
         const data = super.handleData(steps);
 
         for (let i = 0; i < data.length - 1; i++) {
