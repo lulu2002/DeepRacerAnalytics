@@ -10,15 +10,15 @@
 
 
   <div id="navigation" class="col-8 d-flex align-items-center justify-content-center">
-    <app-screen-button screen="MODEL_INFO">模型資訊</app-screen-button>
-    <app-screen-button screen="ANALYTICS">圖表分析</app-screen-button>
-    <app-screen-button screen="ABOUT">關於分析器</app-screen-button>
+    <app-screen-button screen="MODEL_INFO">Model Info</app-screen-button>
+    <app-screen-button screen="ANALYTICS">Analytics</app-screen-button>
+    <app-screen-button screen="ABOUT">About</app-screen-button>
   </div>
 
   <div id="upload-button" class="col-2 d-flex justify-content-end">
 
     <button class="bg-warning rounded text-dark" (click)="fileUploader.click()">
-      上傳 Log 檔案
+      Upload Log
     </button>
 
     <input hidden type="file" #fileUploader (change)="onFileChange($event)">

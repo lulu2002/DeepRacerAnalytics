@@ -15,13 +15,13 @@ export class DataService {
 
     constructor() {
         this.addData(
-            new AnalyticData('xy', '速度分析圖', new ThrottleXyChart()),
+            new AnalyticData('xy', 'speed', new ThrottleXyChart()),
             new YawData('yaw', 'yaw'),
             new AnalyticData('steer', 'steer', new SteerChart()),
-            new AnalyticData('reward', 'reward', new RewardChart()),
-            new RacetimeData('racetime', '單圈完成時間'))
+            new AnalyticData('reward', 'reward', new RewardChart())
+            // new RacetimeData('racetime', '單圈完成時間'))
         // new AnalyticData('train', '完成率圖', new RewardTrainingChart()))
-        ;
+        );
     }
 
     public getAllData(): AnalyticData[] {

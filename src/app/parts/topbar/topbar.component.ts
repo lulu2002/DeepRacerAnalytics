@@ -50,8 +50,8 @@ export class TopbarComponent implements OnInit {
     public onFileUploaded(file: File): void {
         const name = file.name;
 
-        this.logService.log(`文件已上傳！檔名: ${name}`);
-        this.logService.log('文件載入中...');
+        this.logService.log(`File uploaded: ${name}`);
+        this.logService.log('loading...');
 
         this.checkFileSize(file);
 
@@ -59,14 +59,14 @@ export class TopbarComponent implements OnInit {
         const promise = this.fileService.analysisFile(file);
 
         promise.then((racerData) => {
-            this.logService.log('載入賽道圖片中...');
+            this.logService.log('Loading track data...');
             TrackService.loadTrackByName(racerData.trackName).then(track => {
                 racerData.track = track;
-                this.logService.log('更新面板中...');
+                this.logService.log('Updating panel...');
                 analyseStateObserver.next(AnalysisState.UPDATING_PANEL);
                 fileAnalyseObserver.next(racerData);
                 analyseStateObserver.next(AnalysisState.DONE);
-                this.logService.log('文件載入完成！', '');
+                this.logService.log('Finished!', '');
             });
         });
     }
@@ -74,7 +74,7 @@ export class TopbarComponent implements OnInit {
     private checkFileSize(file: File): void {
         const mBs = FileUtils.getMBs(file);
         if (mBs >= 10) {
-            this.logService.log(`文件大小為: ${mBs}MB，可能會需要花費較長的時間進行分析...`);
+            this.logService.log(`File size: ${mBs}MB, Might took longer to analyze...`);
         }
     }
 

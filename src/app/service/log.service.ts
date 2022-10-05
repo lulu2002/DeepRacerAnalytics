@@ -15,7 +15,7 @@ export class LogService {
     }
 
     public logError(error: Error): void {
-        this.log(`發生錯誤！ (${error.name})`);
-        this.log(`錯誤訊息: ${error.message}`);
+        this.log(`Error! (${error.name})`);
+        this.log(`Error Message: ${error.message}`);
     }
 }

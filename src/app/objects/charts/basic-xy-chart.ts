@@ -61,7 +61,7 @@ export class BasicXyChart extends ScatterChart {
 
         sets.push(this.getStyleSets(track.insideBorder));
         sets.push(this.getStyleSets(track.outsideBorder));
-        sets.push(this.getStyleSets(track.humanBestRoute, '幾何參考路徑 (點我切換顯示)', 'rgba(13,154,102,0.25)'));
+        sets.push(this.getStyleSets(track.humanBestRoute, 'Reference Path (Click To Toggle)', 'rgba(13,154,102,0.25)'));
 
         return sets;
     }

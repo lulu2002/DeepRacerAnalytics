@@ -10,7 +10,7 @@ export class SimpleFileAnalysisFactory {
             return new TarGzFileAnalysis();
         }
 
-        throw new Error('無效的檔案類型');
+        throw new Error('Invalid file type');
     }
 
 }
